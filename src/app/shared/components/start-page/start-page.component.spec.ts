@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CodeFieldComponent } from './code-field.component';
+import { StartPageComponent } from './start-page.component';
 
-describe('CodeFieldComponent', () => {
-  let component: CodeFieldComponent;
-  let fixture: ComponentFixture<CodeFieldComponent>;
+describe('StartPageComponent', () => {
+  let component: StartPageComponent;
+  let fixture: ComponentFixture<StartPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CodeFieldComponent ]
+      declarations: [ StartPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CodeFieldComponent);
+    fixture = TestBed.createComponent(StartPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

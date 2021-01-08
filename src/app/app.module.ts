@@ -3,16 +3,18 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CodeFieldComponent } from './shared/code-field/code-field/code-field.component';
+import { StartPageComponent } from './shared/components/start-page/start-page.component';
+import { LevelsModule } from './shared/components/levels/levels.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CodeFieldComponent
+    StartPageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    LevelsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
