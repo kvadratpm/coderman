@@ -2,6 +2,8 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { ActivatedRoute } from '@angular/router';
 import * as ex from 'excalibur';
 import * as ace from 'ace-builds';
+import { AceEditorModule } from 'ngx-ace-editor-wrapper';
+import { resolve } from 'dns';
 
 @Component({
   selector: 'app-game',
@@ -17,6 +19,9 @@ export class GameComponent implements OnInit, AfterViewInit {
   currentDirection!: number;
 
   @ViewChild('editor') private editor!: ElementRef<HTMLElement>;
+
+  aceEditor!: any;
+
 
   constructor() { }
 
@@ -49,37 +54,68 @@ export class GameComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     ace.config.set('fontSize', '14px');
     ace.config.set('basePath', 'https://unpkg.com/ace-builds@1.4.12/src-noconflict');
-    const editor = ace.edit(this.editor.nativeElement);
-    editor.session.setValue('<h1>Ace Editor works great in Angular!</h1>');
-    editor.setTheme('ace/theme/twilight');
-    editor.session.setMode('ace/mode/html');
+    this.aceEditor = ace.edit(this.editor.nativeElement);
+    this.aceEditor.setReadOnly(false);
+    this.aceEditor.setTheme('ace/theme/twilight');
   }
 
-  movePlayer(direction: number): void {
-    console.log(direction);
-    switch (direction) {
-      case 0:
-        this.player.vel.setTo(0, -100);
-        break;
-      case 90:
-        this.player.vel.setTo(100, 0);
-        break;
-      case 180:
-        this.player.vel.setTo(0, 100);
-        break;
-      case 270:
-        this.player.vel.setTo(-100, 0);
-        break;
+  updateEditor(event: string): void {
+    this.aceEditor.insert(`${event}\n`, false);
+    this.aceEditor.navigateFileEnd();
+  }
+
+  async movePlayer(direction: number): Promise<void> {
+    return new Promise((res) => {
+      console.log(direction);
+      switch (direction) {
+        case 0:
+          this.player.vel.setTo(0, -100);
+          break;
+        case 90:
+          this.player.vel.setTo(100, 0);
+          break;
+        case 180:
+          this.player.vel.setTo(0, 100);
+          break;
+        case 270:
+          this.player.vel.setTo(-100, 0);
+          break;
+      }
+      setTimeout(() => {
+        this.player.vel.setTo(0, 0);
+        res();
+      }, 1000);
+    });
+  }
+
+  async rotateRight(): Promise<void> {
+    return new Promise((res) => {
+      this.player.rotation += 90 * Math.PI / 180;
+      this.currentDirection = this.currentDirection === 270 ? 0 : this.currentDirection + 90;
+      res();
+    });
+  }
+  async rotateLeft(): Promise<void> {
+    return new Promise((res) => {
+      this.player.rotation += 90 * Math.PI / 180;
+      this.currentDirection = this.currentDirection === 0 ? 270 : this.currentDirection - 90;
+      res();
+    });
+  }
+
+  async start(): Promise<void> {
+    const turn = this.aceEditor.getValue().split('\n');
+    for (const elem of turn) {
+      if (elem === 'movePlayer()') {
+        await this.movePlayer(this.currentDirection);
+      }
+      if (elem === 'rotateRight()') {
+        await this.rotateRight();
+      }
+      if (elem === 'rotateLeft()') {
+        await this.rotateLeft();
+      }
     }
-    setTimeout(() => this.player.vel.setTo(0, 0), 1000);
-  }
-
-  rotateRight(): void {
-    this.player.rotation += 90 * Math.PI / 180;
-    this.currentDirection = this.currentDirection === 270 ? 0 : this.currentDirection + 90;
-  }
-  rotateLeft(): void {
-    this.player.rotation += 90 * Math.PI / 180;
-    this.currentDirection = this.currentDirection === 0 ? 270 : this.currentDirection - 90;
+    console.log('done');
   }
 }

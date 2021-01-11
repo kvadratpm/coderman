@@ -5,6 +5,7 @@ import { Level1Component } from './level1/level1.component';
 import { Level2Component } from './level2/level2.component';
 import { LevelsComponent } from './levels.component';
 import { GameComponent } from './level1/game/game.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {path: 'levels', component: LevelsComponent, children: [
@@ -22,7 +23,8 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FormsModule
   ],
   exports: [RouterModule]
 })

@@ -3,9 +3,10 @@
   <div class="codefield-wrapper">
       <div class="code-editor" #editor></div>
       <div class="buttton-block">
-          <button (click)="movePlayer(currentDirection)" class="game-button">Move player</button>
-          <button (click)="rotateRight()" class="game-button">Rotate Right</button>
-          <button (click)="rotateLeft()" class="game-button">Rotate Left</button>
+          <button (click)="updateEditor('movePlayer()')" class="game-button">Move player</button>
+          <button (click)="updateEditor('rotateRight()')" class="game-button">Rotate Right</button>
+          <button (click)="updateEditor('rotateLeft()')" class="game-button">Rotate Left</button>
+          <button (click)="start()" class="game-button">Start</button>
       </div>
   </div>
 </div>
