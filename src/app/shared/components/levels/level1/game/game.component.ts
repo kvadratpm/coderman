@@ -48,6 +48,14 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.player.body.collider.type = ex.CollisionType.Fixed;
     engine.add(this.player);
     engine.start();
+    const target = new ex.Actor ({
+      width: this.plW,
+      height: this.plH,
+      x: engine.drawWidth / 13 * 5,
+      y: engine.drawHeight / 13 * 4,
+      color: ex.Color.Vermilion
+    });
+    engine.add(target);
   }
 
   ngAfterViewInit(): void {
@@ -65,7 +73,6 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   async movePlayer(direction: number): Promise<void> {
     return new Promise((res) => {
-      console.log(direction);
       switch (direction) {
         case 0:
           this.player.vel.setTo(0, -this.plH);
@@ -115,6 +122,5 @@ export class GameComponent implements OnInit, AfterViewInit {
         await this.rotateLeft();
       }
     }
-    console.log('done');
   }
 }
