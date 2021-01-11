@@ -3,9 +3,12 @@
 }
 
 .codefield-wrapper {
+  width: 50%;
   display: flex;
   flex-direction: column;
-  .codefield {
+  .code-editor {
     border: 2px solid black;
+    width: 100%;
+    height: 200px;
   }
 }

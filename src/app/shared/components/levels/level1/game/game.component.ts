@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as ex from 'excalibur';
-import ace from 'ace-builds/src-noconflict/ace.js';
+import * as ace from 'ace-builds';
 
 @Component({
   selector: 'app-game',
@@ -10,11 +10,13 @@ import ace from 'ace-builds/src-noconflict/ace.js';
 })
 
 
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, AfterViewInit {
 
   player!: ex.Actor;
 
   currentDirection!: number;
+
+  @ViewChild('editor') private editor!: ElementRef<HTMLElement>;
 
   constructor() { }
 
@@ -22,8 +24,8 @@ export class GameComponent implements OnInit {
     this.currentDirection = 0;
     const engine = new ex.Engine({
       canvasElementId: 'game',
-      width: window.screen.height * 0.8,
-      height: window.screen.width * 0.5
+      width: window.screen.width * 0.5,
+      height: window.screen.height * 0.8
     });
     const txPlayer = new ex.Texture('/assets/bomberman.png');
     engine.backgroundColor = ex.Color.Azure.clone();
@@ -42,9 +44,15 @@ export class GameComponent implements OnInit {
     });
     engine.add(this.player);
     engine.start();
-    const editor = ace.edit('code-editor');
-    editor.setTheme('ace/theme/monokai');
-    editor.getSession().setMode('ace/mode/javascript');
+  }
+
+  ngAfterViewInit(): void {
+    ace.config.set('fontSize', '14px');
+    ace.config.set('basePath', 'https://unpkg.com/ace-builds@1.4.12/src-noconflict');
+    const editor = ace.edit(this.editor.nativeElement);
+    editor.session.setValue('<h1>Ace Editor works great in Angular!</h1>');
+    editor.setTheme('ace/theme/twilight');
+    editor.session.setMode('ace/mode/html');
   }
 
   movePlayer(direction: number): void {
