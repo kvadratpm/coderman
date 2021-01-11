@@ -1,0 +1,11 @@
+.game-wrapper {
+  display: flex;
+}
+
+.codefield-wrapper {
+  display: flex;
+  flex-direction: column;
+  .codefield {
+    border: 2px solid black;
+  }
+}

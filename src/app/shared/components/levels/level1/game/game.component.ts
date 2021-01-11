@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as ex from 'excalibur';
+import ace from 'ace-builds/src-noconflict/ace.js';
 
 @Component({
   selector: 'app-game',
@@ -41,6 +42,9 @@ export class GameComponent implements OnInit {
     });
     engine.add(this.player);
     engine.start();
+    const editor = ace.edit('code-editor');
+    editor.setTheme('ace/theme/monokai');
+    editor.getSession().setMode('ace/mode/javascript');
   }
 
   movePlayer(direction: number): void {

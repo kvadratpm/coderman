@@ -1,4 +1,13 @@
-<canvas id="game"></canvas>
-<button (click)="movePlayer(currentDirection)" class="game-button">Move player</button>
-<button (click)="rotateRight()" class="game-button">Rotate Right</button>
-<button (click)="rotateLeft()" class="game-button">Rotate Left</button>
+<div class="game-wrapper">
+  <canvas id="game"></canvas>
+  <div class="codefield-wrapper">
+      <div class="code-editor"></div>
+      <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+      <div class="buttton-block">
+          <button (click)="movePlayer(currentDirection)" class="game-button">Move player</button>
+          <button (click)="rotateRight()" class="game-button">Rotate Right</button>
+          <button (click)="rotateLeft()" class="game-button">Rotate Left</button>
+      </div>
+  </div>
+</div>
+
