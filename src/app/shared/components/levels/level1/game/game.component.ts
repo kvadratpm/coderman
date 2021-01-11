@@ -14,6 +14,10 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   player!: ex.Actor;
 
+  plW!: number;
+
+  plH!: number;
+
   currentDirection!: number;
 
   @ViewChild('editor') private editor!: ElementRef<HTMLElement>;
@@ -32,25 +36,22 @@ export class GameComponent implements OnInit, AfterViewInit {
     });
     const txPlayer = new ex.Texture('/assets/bomberman.png');
     engine.backgroundColor = ex.Color.Azure.clone();
+    this.plW = engine.drawWidth / 13;
+    this.plH = engine.drawHeight / 13;
     this.player = new ex.Actor({
-      width: 50,
-      height: 100,
-      x: engine.drawWidth - 60,
-      y: engine.drawHeight - 60
+      width: this.plW,
+      height: this.plH,
+      x: engine.drawWidth - this.plW / 2 + 1,
+      y: engine.drawHeight - this.plH / 2 + 1
     });
     this.player.color = ex.Color.Magenta;
     this.player.body.collider.type = ex.CollisionType.Fixed;
-    this.player.on('postupdate', () => {
-      if (this.player.pos.x + this.player.width > engine.drawWidth) {
-        this.player.vel.setTo(0, 0);
-      }
-    });
     engine.add(this.player);
     engine.start();
   }
 
   ngAfterViewInit(): void {
-    ace.config.set('fontSize', '14px');
+    ace.config.set('fontSize', '20px');
     ace.config.set('basePath', 'https://unpkg.com/ace-builds@1.4.12/src-noconflict');
     this.aceEditor = ace.edit(this.editor.nativeElement);
     this.aceEditor.setReadOnly(false);
@@ -67,16 +68,16 @@ export class GameComponent implements OnInit, AfterViewInit {
       console.log(direction);
       switch (direction) {
         case 0:
-          this.player.vel.setTo(0, -100);
+          this.player.vel.setTo(0, -this.plH);
           break;
         case 90:
-          this.player.vel.setTo(100, 0);
+          this.player.vel.setTo(this.plW, 0);
           break;
         case 180:
-          this.player.vel.setTo(0, 100);
+          this.player.vel.setTo(0, this.plH);
           break;
         case 270:
-          this.player.vel.setTo(-100, 0);
+          this.player.vel.setTo(-this.plW, 0);
           break;
       }
       setTimeout(() => {
