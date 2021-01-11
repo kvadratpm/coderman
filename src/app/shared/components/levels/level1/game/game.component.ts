@@ -2,8 +2,6 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { ActivatedRoute } from '@angular/router';
 import * as ex from 'excalibur';
 import * as ace from 'ace-builds';
-import { AceEditorModule } from 'ngx-ace-editor-wrapper';
-import { resolve } from 'dns';
 
 @Component({
   selector: 'app-game',
