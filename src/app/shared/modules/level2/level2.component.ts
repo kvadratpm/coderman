@@ -6,13 +6,12 @@ import { GameService } from '../../services/game.service';
 import { AfterViewInit } from '@angular/core';
 
 @Component({
-  selector: 'app-trial-level',
-  templateUrl: './trial-level.component.html',
-  styleUrls: ['./trial-level.component.scss'],
+  selector: 'app-level2',
+  templateUrl: './level2.component.html',
+  styleUrls: ['./level2.component.scss'],
   providers: [GameService]
 })
-
-export class TrialLevelComponent implements AfterViewInit {
+export class Level2Component implements AfterViewInit {
 
   @ViewChild(CodefieldComponent) codeField!: CodefieldComponent;
   @ViewChild(GamefieldComponent) gameField!: GamefieldComponent;
@@ -20,7 +19,7 @@ export class TrialLevelComponent implements AfterViewInit {
   constructor(public gameService: GameService) { }
 
   ngAfterViewInit(): void {
-    this.gameService.startGame(this.gameField.field, 0);
+    this.gameService.startGame(this.gameField.field, 0, 1, 1);
   }
 
 }

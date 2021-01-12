@@ -1,4 +1,12 @@
 <div class="app">
   <a [routerLink]="['/']"><h1>Coderman</h1></a>
+  <ul class="navigation">
+    <a [routerLink]="['/trial-level']">
+      <li>Trial-level</li>
+    </a>
+    <a [routerLink]="['/level-2']">
+      <li>Level-2</li>
+    </a>
+  </ul>
   <router-outlet></router-outlet>
 </div>
