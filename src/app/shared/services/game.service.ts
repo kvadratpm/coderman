@@ -1,16 +1,15 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Injectable } from '@angular/core';
 import * as ex from 'excalibur';
-import * as ace from 'ace-builds';
 
-@Component({
-  selector: 'app-game',
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
-})
+interface GameAtr {
+  engine: ex.Engine;
+  direction: number;
+  playerX: number;
+  playerY: number;
+}
 
-
-export class GameComponent implements OnInit, AfterViewInit {
+@Injectable()
+export class GameService {
 
   player!: ex.Actor;
 
@@ -20,55 +19,23 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   currentDirection!: number;
 
-  @ViewChild('editor') private editor!: ElementRef<HTMLElement>;
-
-  aceEditor!: any;
-
-
   constructor() { }
 
-  ngOnInit(): void {
-    this.currentDirection = 0;
-    const engine = new ex.Engine({
-      canvasElementId: 'game',
-      width: window.screen.width * 0.5,
-      height: window.screen.height * 0.8
-    });
-    const txPlayer = new ex.Texture('/assets/bomberman.png');
-    engine.backgroundColor = ex.Color.Azure.clone();
+  startGame(engine: ex.Engine, direction: number, playerX: number = 0, playerY: number = 0): void {
+    this.currentDirection = direction;
     this.plW = engine.drawWidth / 13;
     this.plH = engine.drawHeight / 13;
     this.player = new ex.Actor({
       width: this.plW,
       height: this.plH,
-      x: engine.drawWidth - this.plW / 2 + 1,
-      y: engine.drawHeight - this.plH / 2 + 1
+      x: engine.drawWidth - this.plW / 2 - this.plW * playerX,
+      y: engine.drawHeight - this.plH / 2 - this.plH * playerY
     });
     this.player.color = ex.Color.Magenta;
     this.player.body.collider.type = ex.CollisionType.Fixed;
     engine.add(this.player);
+    engine.backgroundColor = ex.Color.Azure.clone();
     engine.start();
-    const target = new ex.Actor ({
-      width: this.plW,
-      height: this.plH,
-      x: engine.drawWidth / 13 * 5,
-      y: engine.drawHeight / 13 * 4,
-      color: ex.Color.Vermilion
-    });
-    engine.add(target);
-  }
-
-  ngAfterViewInit(): void {
-    ace.config.set('fontSize', '20px');
-    ace.config.set('basePath', 'https://unpkg.com/ace-builds@1.4.12/src-noconflict');
-    this.aceEditor = ace.edit(this.editor.nativeElement);
-    this.aceEditor.setReadOnly(false);
-    this.aceEditor.setTheme('ace/theme/twilight');
-  }
-
-  updateEditor(event: string): void {
-    this.aceEditor.insert(`${event}\n`, false);
-    this.aceEditor.navigateFileEnd();
   }
 
   async movePlayer(direction: number): Promise<void> {
@@ -109,9 +76,8 @@ export class GameComponent implements OnInit, AfterViewInit {
     });
   }
 
-  async start(): Promise<void> {
-    const turn = this.aceEditor.getValue().split('\n');
-    for (const elem of turn) {
+  async startTurn(cmd: string[]): Promise<void> {
+    for (const elem of cmd) {
       if (elem === 'movePlayer()') {
         await this.movePlayer(this.currentDirection);
       }

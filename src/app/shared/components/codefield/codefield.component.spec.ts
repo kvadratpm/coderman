@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LevelsComponent } from './levels.component';
+import { CodefieldComponent } from './codefield.component';
 
-describe('LevelsComponent', () => {
-  let component: LevelsComponent;
-  let fixture: ComponentFixture<LevelsComponent>;
+describe('CodefieldComponent', () => {
+  let component: CodefieldComponent;
+  let fixture: ComponentFixture<CodefieldComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LevelsComponent ]
+      declarations: [ CodefieldComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LevelsComponent);
+    fixture = TestBed.createComponent(CodefieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

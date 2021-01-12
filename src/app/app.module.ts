@@ -4,21 +4,26 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StartPageComponent } from './shared/components/start-page/start-page.component';
-import { LevelsModule } from './shared/components/levels/levels.module';
 import { AceEditorModule } from 'ngx-ace-editor-wrapper';
 import { FormsModule } from '@angular/forms';
+import { TrialLevelModule } from './shared/modules/trial-level/trial-level.module';
+import { SharedModule } from './shared/modules/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StartPageComponent,
+    StartPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    LevelsModule,
     AceEditorModule,
-    FormsModule
+    FormsModule,
+    TrialLevelModule,
+    SharedModule
+  ],
+  exports: [
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
