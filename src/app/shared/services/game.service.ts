@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import * as ex from 'excalibur';
 
-interface GameAtr {
-  engine: ex.Engine;
-  direction: number;
-  playerX: number;
-  playerY: number;
+export interface TargetAtr {
+  x: number;
+  y: number;
 }
 
 @Injectable()
 export class GameService {
 
   player!: ex.Actor;
+
+  targets!: ex.Actor[];
 
   plW!: number;
 
@@ -21,7 +21,7 @@ export class GameService {
 
   constructor() { }
 
-  startGame(engine: ex.Engine, direction: number, playerX: number = 0, playerY: number = 0): void {
+  startGame(engine: ex.Engine, direction: number, playerX: number = 0, playerY: number = 0, targetsPos: TargetAtr[] = []): void {
     this.currentDirection = direction;
     this.plW = engine.drawWidth / 13;
     this.plH = engine.drawHeight / 13;
@@ -33,8 +33,24 @@ export class GameService {
     });
     this.player.color = ex.Color.Magenta;
     this.player.body.collider.type = ex.CollisionType.Fixed;
+    targetsPos.forEach((elem) => {
+      const target = new ex.Actor({
+        width: this.plW,
+        height: this.plH,
+        x: engine.drawWidth - this.plW / 2 - this.plW * elem.x,
+        y: engine.drawHeight - this.plH / 2 - this.plH * elem.y
+      });
+      target.color = ex.Color.Black;
+      target.body.collider.type = ex.CollisionType.Fixed;
+      engine.add(target);
+    });
     engine.add(this.player);
     engine.backgroundColor = ex.Color.Azure.clone();
+
+    // here
+    const map = new ex.TileMap(0, 0, engine.drawWidth / 13, engine.drawHeight / 13, 13, 13);
+    engine.add(map);
+
     engine.start();
   }
 

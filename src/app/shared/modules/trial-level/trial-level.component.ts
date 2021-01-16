@@ -20,7 +20,7 @@ export class TrialLevelComponent implements AfterViewInit {
   constructor(public gameService: GameService) { }
 
   ngAfterViewInit(): void {
-    this.gameService.startGame(this.gameField.field, 0);
+    this.gameService.startGame(this.gameField.field, 0, 0, 0, [{x: 5, y: 5}]);
   }
 
 }

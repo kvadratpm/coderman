@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { TrialLevelModule } from './shared/modules/trial-level/trial-level.module';
 import { SharedModule } from './shared/modules/shared.module';
 import { Level2Module } from './shared/modules/level2/level2.module';
+import { PhaserLevelModule } from './shared/modules/phaser-level/phaser-level.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { Level2Module } from './shared/modules/level2/level2.module';
     FormsModule,
     TrialLevelModule,
     Level2Module,
+    PhaserLevelModule,
     SharedModule
   ],
   exports: [
