@@ -10,11 +10,13 @@ import { TrialLevelModule } from './shared/modules/trial-level/trial-level.modul
 import { SharedModule } from './shared/modules/shared.module';
 import { Level2Module } from './shared/modules/level2/level2.module';
 import { PhaserLevelModule } from './shared/modules/phaser-level/phaser-level.module';
+import { NavpanelComponent } from './shared/components/navpanel/navpanel.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StartPageComponent
+    StartPageComponent,
+    NavpanelComponent
   ],
   imports: [
     BrowserModule,

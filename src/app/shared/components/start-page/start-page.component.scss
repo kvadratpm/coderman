@@ -17,9 +17,10 @@
     color: white;
     font-size: 60pt;
     text-shadow: 0.5px 1px 1px #000;
+    user-select: none;
   }
   p{
-
+    user-select: none;
     display: flex;
     text-align: center;
     width: 50%;
