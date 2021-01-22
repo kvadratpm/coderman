@@ -24,6 +24,7 @@
     "excalibur": "^0.24.5",
     "ng2-ace-editor": "^0.3.9",
     "ngx-ace-editor-wrapper": "^9.1.12",
+    "phaser": "^3.52.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

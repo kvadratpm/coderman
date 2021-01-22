@@ -7,10 +7,11 @@ import { LevelsComponent } from './levels.component';
 import { GameComponent } from './level1/game/game.component';
 import { FormsModule } from '@angular/forms';
 
+
 const routes: Routes = [
   {path: 'levels', component: LevelsComponent, children: [
     {path: 'level1', component: Level1Component},
-    {path: 'level2', component: Level2Component}
+    {path: 'level2', component: Level2Component},
   ]}
 ];
 
@@ -19,7 +20,7 @@ const routes: Routes = [
     LevelsComponent,
     Level1Component,
     Level2Component,
-    GameComponent
+    GameComponent,
   ],
   imports: [
     CommonModule,
