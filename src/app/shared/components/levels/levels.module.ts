@@ -1,26 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { Level1Component } from './level1/level1.component';
-import { Level2Component } from './level2/level2.component';
 import { LevelsComponent } from './levels.component';
-import { GameComponent } from './level1/game/game.component';
 import { FormsModule } from '@angular/forms';
+import {TrialLevelComponent} from '../../modules/trial-level/trial-level.component';
+import {PhaserLevelComponent} from '../../modules/phaser-level/phaser-level.component';
 
 
 const routes: Routes = [
   {path: 'levels', component: LevelsComponent, children: [
-    {path: 'level1', component: Level1Component},
-    {path: 'level2', component: Level2Component},
+    {path: 'level1', component: TrialLevelComponent},
+    {path: 'level2', component: PhaserLevelComponent},
   ]}
 ];
 
 @NgModule({
   declarations: [
     LevelsComponent,
-    Level1Component,
-    Level2Component,
-    GameComponent,
   ],
   imports: [
     CommonModule,
