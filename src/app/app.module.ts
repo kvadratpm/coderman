@@ -13,12 +13,14 @@ import { PhaserLevelModule } from './shared/modules/phaser-level/phaser-level.mo
 import { NavpanelComponent } from './shared/components/navpanel/navpanel.component';
 import { Phaser1Module } from './shared/modules/phaser1/phaser1.module';
 import {LevelsModule} from './shared/components/levels/levels.module';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StartPageComponent,
     NavpanelComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
