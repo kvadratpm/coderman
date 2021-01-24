@@ -1,12 +1,5 @@
 <div class="wrapper">
-  <app-gamefield></app-gamefield>
   <div class="codefield-wrapper">
     <app-codefield></app-codefield>
-    <div class="button-wrapper">
-      <button class="game-button" (click)="codeField.updateEditor('movePlayer()')">movePlayer</button>
-      <button class="game-button" (click)="codeField.updateEditor('rotateLeft()')">rotateLeft</button>
-      <button class="game-button" (click)="codeField.updateEditor('rotateRight()')">rotateRight</button>
-      <button class="game-button" (click)="gameService.startTurn(codeField.code)">Start</button>
-    </div>
   </div>
 </div>

@@ -12,7 +12,6 @@ import { Level2Module } from './shared/modules/level2/level2.module';
 import { PhaserLevelModule } from './shared/modules/phaser-level/phaser-level.module';
 import { NavpanelComponent } from './shared/components/navpanel/navpanel.component';
 import { Phaser1Module } from './shared/modules/phaser1/phaser1.module';
-import {LevelsModule} from './shared/components/levels/levels.module';
 import { FooterComponent } from './shared/components/footer/footer.component';
 
 @NgModule({
@@ -31,8 +30,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     Level2Module,
     PhaserLevelModule,
     SharedModule,
-    Phaser1Module,
-    LevelsModule
+    Phaser1Module
   ],
   exports: [
     SharedModule
