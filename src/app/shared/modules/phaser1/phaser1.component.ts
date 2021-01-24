@@ -40,12 +40,13 @@ export class Phaser1Component implements OnInit {
 }
 class MainScene extends Phaser.Scene {
 
+  public star: any;
   score = 0;
   scoreText!: any;
-  coins!: any;;
-  platforms!: any;;
-  cursors!: any;;
-  player!: any;
+  coins!: any;
+  platforms!: any;
+  public cursors: any;
+  public player: any;
 
   constructor() {
     super({ key: 'main' });
@@ -107,7 +108,7 @@ class MainScene extends Phaser.Scene {
     camera.startFollow(this.player);
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
-    const cursors = this.input.keyboard.createCursorKeys();
+    this.cursors = this.input.keyboard.createCursorKeys();
 
 
     this.anims.create({ key: 'diamond', frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }), repeat: -1 });
@@ -128,24 +129,24 @@ class MainScene extends Phaser.Scene {
   }
 
   update() {
-/*
+
     const speed = 200;
     const prevVelocity = this.player.body.velocity.clone();
 
     // Stop any previous movement from the last frame
     this.player.body.setVelocity(0);
-console.log(this.player.body)
+
     // Horizontal movement
-    if (this.cursors.left.isDown) {
+    if (this.cursors && this.cursors.left.isDown) {
       this.player.body.setVelocityX(-speed);
-    } else if (this.player.right.isDown) {
+    } else if (this.cursors && this.cursors.right.isDown) {
       this.player.body.setVelocityX(speed);
     }
 
     // Vertical movement
-    if (this.cursors.up.isDown) {
+    if (this.cursors && this.cursors.up.isDown) {
       this.player.body.setVelocityY(-speed);
-    } else if (this.cursors.down.isDown) {
+    } else if (this.cursors && this.cursors.down.isDown) {
       this.player.body.setVelocityY(speed);
     }
 
@@ -153,13 +154,13 @@ console.log(this.player.body)
     this.player.body.velocity.normalize().scale(speed);
 
     // Update the animation last and give left/right animations precedence over up/down animations
-    if (this.cursors.left.isDown) {
+    if (this.cursors && this.cursors.left.isDown) {
       this.player.anims.play("left", true);
-    } else if (this.cursors.right.isDown) {
+    } else if (this.cursors && this.cursors.right.isDown) {
       this.player.anims.play("right", true);
-    } else if (this.cursors.up.isDown) {
+    } else if (this.cursors && this.cursors.up.isDown) {
       this.player.anims.play("back", true);
-    } else if (this.cursors.down.isDown) {
+    } else if (this.cursors && this.cursors.down.isDown) {
       this.player.anims.play("front", true);
     } else {
       this.player.anims.stop();
@@ -169,7 +170,7 @@ console.log(this.player.body)
       else if (prevVelocity.x > 0) this.player.setTexture("hero1", "right");
       else if (prevVelocity.y < 0) this.player.setTexture("hero1", "back");
       else if (prevVelocity.y > 0) this.player.setTexture("hero1", "front");
-    }*/
+    }
   }
 }
 
