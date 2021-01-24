@@ -4,9 +4,9 @@
       <button class="material-icons icon icon_disable button">emoji_events</button>
     </div>
     <nav class="level-nav">
-      <ul class="nav-list" (click)="changeLevel($event)">
+      <ul class="nav-list">
         <li class="nav-elem"  *ngFor="let item of levels">
-          <a (click)="changeRoute()" class="nav-link">
+          <a (click)="changeRoute(item)" class="nav-link">
             <div class="nav-elem__outer-circle">
               <div class="nav-elem__inner-circle">{{item}}</div>
             </div>
@@ -34,9 +34,10 @@
       <div (click)="updateEditor('Player.rotateLeft()')" class="button button__controller button__action button__level3">Rotate Left</div>
     </div>
     <div class="actions-wrapper">
-    <div *ngIf="isCommand" class="button button__controller button__action button__level2">Move</div>
-    <div *ngIf="isCommand" class="button button__controller button__action button__level2">Rotate</div>
-  </div>
+      <div *ngIf="isCommand" class="button button__controller button__action button__level2">Move</div>
+      <div *ngIf="isCommand" class="button button__controller button__action button__level2">Rotate</div>
+    </div>
     <div class="button button__controller button__level1">Player</div>
   </div>
+
 </div>

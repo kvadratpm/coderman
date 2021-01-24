@@ -14,13 +14,14 @@ import { AfterViewInit } from '@angular/core';
 
 export class TrialLevelComponent implements AfterViewInit {
 
+  scene: GameService = new GameService();
   @ViewChild(CodefieldComponent) codeField!: CodefieldComponent;
   @ViewChild(GamefieldComponent) gameField!: GamefieldComponent;
 
-  constructor(public gameService: GameService) { }
+  constructor() { }
 
   ngAfterViewInit(): void {
-    this.gameService.startGame(this.gameField.field, 0, 0, 0, [{x: 5, y: 5}]);
+    this.gameField.field.scene.add('trial-level', this.scene, true);
   }
 
 }

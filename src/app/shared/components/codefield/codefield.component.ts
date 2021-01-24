@@ -13,16 +13,16 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
 
   @ViewChild('editor') private editor!: ElementRef<HTMLElement>;
 
-  currentLevel = 1; //TODO: Создать интерфейс, принимаемые значения - keyof Helps
-  currentHelp = 0; //TODO: Создать интерфейс, принимаемые значения - keyof Helps.CurrentLevel
+  currentLevel = 1; // TODO: Создать интерфейс, принимаемые значения - keyof Helps
+  currentHelp = 0; // TODO: Создать интерфейс, принимаемые значения - keyof Helps.CurrentLevel
   isCommand = false;
   isRotate = false;
   aceEditor!: any;
-  helps: { [index: string]: {[index: string]: string} } = helps; //TODO: Создать интерфейс Helps
+  helps: { [index: string]: {[index: string]: string} } = helps; // TODO: Создать интерфейс Helps
   navElements: NodeListOf<Element> | undefined;
   isMoveControl = false;
   moveLimit: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  levels: string[] = ['1', '2', '3'];
+  levels: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   constructor(private router: Router) {
   }
@@ -104,7 +104,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     }
   }
 
-  changeRoute(): void {
-    this.router.navigate(['/trial-level']);
+  changeRoute(item: number): void {
+    this.router.navigate([`level-${item}`])
   }
 }
