@@ -62,7 +62,7 @@ class MainScene extends Phaser.Scene {
     });
 
     const hero = this.add.sprite(100, 590, 'hero', 'run-down-1.png');
-    hero.setScale(4)
+    hero.setScale(4);
 
     this.anims.create({
       key: 'hero-stay-down',
@@ -86,7 +86,7 @@ class MainScene extends Phaser.Scene {
       repeat: -1,
       frameRate: 10
     });
-    hero.setScale(-4, 4)
+    hero.setScale(-4, 4);
     hero.anims.play('hero-go-right');
   }
   preload(): void {

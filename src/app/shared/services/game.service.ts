@@ -1,5 +1,17 @@
-import { Injectable } from '@angular/core';
 import * as Phaser from 'phaser';
+
+export interface SceneConfig {
+  tileMap: { // параметры тайлмэпа
+    key: string, // ключ для привязки
+    path: string, // путь до файла
+    layers: string[]
+  };
+  hero: {
+    key: string, // ключ героя
+    pngPath: string, // путь до пнгшки героя
+    jsonPath: string
+  };
+}
 
 export class GameService extends Phaser.Scene {
 
@@ -10,9 +22,11 @@ export class GameService extends Phaser.Scene {
   platforms!: any;
   cursors!: any;
   player!: any;
+  sceneConfig: SceneConfig;
 
-  constructor() {
+  constructor(config: SceneConfig) {
     super({ key: 'main' });
+    this.sceneConfig = config;
   }
 
 
@@ -20,14 +34,14 @@ export class GameService extends Phaser.Scene {
 
     this.load.animation('gemData', 'assets/phaser1/gems.json');
     this.load.atlas('gems', 'assets/phaser1/gems.png', 'assets/phaser1/gems.json');
-    this.load.image('tiles', 'assets/phaser1/back9.png');
-    this.load.tilemapTiledJSON('map', 'assets/phaser1/level1.json');
-    this.load.atlas('hero1', 'assets/phaser1/hero1.png', 'assets/phaser1/hero1.json');
+    this.load.image('tiles', 'assets/phaser1/back9.png'); // изображение с тайлами - оно одно везде?
+    this.load.tilemapTiledJSON(this.sceneConfig.tileMap.key, this.sceneConfig.tileMap.path); // тайлмэп текущего уровня
+    this.load.atlas(this.sceneConfig.hero.key, this.sceneConfig.hero.pngPath, this.sceneConfig.hero.jsonPath); // json hero animation
   }
 
   create(): void {
 
-    this.player = this.physics.add.sprite(400, 350, 'hero1', 'front');
+    this.player = this.physics.add.sprite(400, 350, this.sceneConfig.hero.key, 'front');
     console.log(typeof this.player);
     console.log(this.player);
     const map = this.make.tilemap({ key: 'map', tileWidth: 50, tileHeight: 50 });
@@ -39,8 +53,6 @@ export class GameService extends Phaser.Scene {
         .sprite(spawnPoint.x!, spawnPoint.y!, 'hero1', 'front')
         .setSize(30, 40)
         .setOffset(0, 24);
-    console.log(typeof this.player);
-    console.log(this.player);
     this.physics.add.collider(this.player, layer);
     const anims = this.anims;
     anims.create({
