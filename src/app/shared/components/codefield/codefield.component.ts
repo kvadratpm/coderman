@@ -104,7 +104,11 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     }
   }
 
-  changeRoute(item: number): void {
-    this.router.navigate([`level-${item}`])
+  changeRoute(item: number | string): void {
+    if (item === 'exit') {
+      this.router.navigate(['']);
+      return;
+    }
+    this.router.navigate([`level${item}`]);
   }
 }
