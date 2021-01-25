@@ -108,19 +108,19 @@ export class GameService extends Phaser.Scene {
     return new Promise((res) => {
       switch (direction) {
         case 0:
-          this.player.setVelocityY(-60);
+          this.player.setVelocityY(-50);
           this.player.play('back', true);
           break;
         case 90:
-          this.player.setVelocityX(60);
+          this.player.setVelocityX(50);
           this.player.play('right', true);
           break;
         case 180:
-          this.player.setVelocityY(60);
+          this.player.setVelocityY(50);
           this.player.play('front', true);
           break;
         case 270:
-          this.player.setVelocityX(-60);
+          this.player.setVelocityX(-50);
           this.player.play('left', true);
           break;
       }
@@ -149,8 +149,10 @@ export class GameService extends Phaser.Scene {
     console.log(cmd);
     for (const elem of cmd) {
       if (elem.includes('move')) {
-        let steps = elem.match(/\d+/);
-        await this.movePlayer(this.currentDirection);
+        const steps = Number(elem.match(/\d+/));
+        for (let i = 0; i < steps; i++) {
+          await this.movePlayer(this.currentDirection);
+        }
       }
       if (elem.includes('rotateRight')) {
         await this.rotateRight();
