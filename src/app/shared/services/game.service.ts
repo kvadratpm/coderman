@@ -4,13 +4,13 @@ export interface SceneConfig {
   tileMap: { // параметры тайлмэпа
     key: string, // ключ для привязки
     path: string, // путь до файла
-    layers: string[]
+    layers: string[] // удаляю
   };
   hero: {
     key: string, // ключ героя
     pngPath: string, // путь до пнгшки героя
-    jsonPath: string
-  };
+    jsonPath: string // путь до json героя
+  }; // врагов
 }
 
 export class GameService extends Phaser.Scene {
@@ -83,9 +83,6 @@ export class GameService extends Phaser.Scene {
     camera.startFollow(this.player);
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
-    const cursors = this.input.keyboard.createCursorKeys();
-
-
     this.anims.create({ key: 'diamond', frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'prism', frames: this.anims.generateFrameNames('gems', { prefix: 'prism_', end: 6, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'ruby', frames: this.anims.generateFrameNames('gems', { prefix: 'ruby_', end: 6, zeroPad: 4 }), repeat: -1 });
@@ -112,19 +109,24 @@ export class GameService extends Phaser.Scene {
       switch (direction) {
         case 0:
           this.player.setVelocityY(-60);
+          this.player.play('back', true);
           break;
         case 90:
           this.player.setVelocityX(60);
+          this.player.play('right', true);
           break;
         case 180:
           this.player.setVelocityY(60);
+          this.player.play('front', true);
           break;
         case 270:
           this.player.setVelocityX(-60);
+          this.player.play('left', true);
           break;
       }
       setTimeout(() => {
         this.player.setVelocity(0, 0);
+        this.player.stop(true, null);
         res();
       }, 1000);
     });
@@ -147,6 +149,7 @@ export class GameService extends Phaser.Scene {
     console.log(cmd);
     for (const elem of cmd) {
       if (elem.includes('move')) {
+        let steps = elem.match(/\d+/);
         await this.movePlayer(this.currentDirection);
       }
       if (elem.includes('rotateRight')) {

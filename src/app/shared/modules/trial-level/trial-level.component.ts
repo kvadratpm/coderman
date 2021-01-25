@@ -25,7 +25,9 @@ export class TrialLevelComponent implements AfterViewInit {
       jsonPath: 'assets/phaser1/hero1.json'
     }
   };
+
   scene: GameService = new GameService(this.sceneConfig);
+
   @ViewChild(CodefieldComponent) codeField!: CodefieldComponent;
   @ViewChild(GamefieldComponent) gameField!: GamefieldComponent;
 
