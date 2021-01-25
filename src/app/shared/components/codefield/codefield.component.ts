@@ -23,6 +23,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   isMoveControl = false;
   moveLimit: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   levels: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  isPopupActive = true;
 
   constructor(private router: Router) {
   }
@@ -59,6 +60,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
       this.currentLevel = levelNumber;
     }
     this.changeProgressLevel();
+    this.isPopupActive = true;
   }
 
   changeHelp(): void {
@@ -116,5 +118,8 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     }
     this.changeLevel(item);
     this.router.navigate([`level${item}`]);
+  }
+  closePopup(): void {
+    this.isPopupActive = false;
   }
 }
