@@ -51,17 +51,13 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     return this.aceEditor.getValue().split('\n');
   }
 
-  changeLevel(e: any): void {
-    if (e.target.closest('.nav-elem')) {
-      const href = window.location.href;
-      this.currentLevel = parseInt(href[href.length - 1], 10);
+  changeLevel(levelNumber: number): void {
+      this.currentLevel = levelNumber;
       this.changeProgressLevel();
-    }
   }
 
   changeHelp(): void {
     const amountHelps = Object.keys(this.helps[this.currentLevel]).length;
-    console.log(amountHelps);
     this.currentHelp = (this.currentHelp + 1) % amountHelps;
   }
 
@@ -105,6 +101,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   }
 
   changeRoute(item: number): void {
-    this.router.navigate([`level-${item}`])
+    this.changeLevel(item);
+    this.router.navigate([`level-${item}`]);
   }
 }
