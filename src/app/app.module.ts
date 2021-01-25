@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgwWowModule } from 'ngx-wow';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,7 +31,9 @@ import { Level1Module } from './shared/modules/level1/level1.module';
     PhaserLevelModule,
     SharedModule,
     Phaser1Module,
+    NgwWowModule,
     Level1Module
+
   ],
   exports: [
     SharedModule
