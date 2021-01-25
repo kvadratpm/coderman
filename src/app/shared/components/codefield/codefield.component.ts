@@ -13,7 +13,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
 
   @ViewChild('editor') private editor!: ElementRef<HTMLElement>;
 
-  currentLevel = 1; // TODO: Создать интерфейс, принимаемые значения - keyof Helps
+  currentLevel: number | string = 1; // TODO: Создать интерфейс, принимаемые значения - keyof Helps
   currentHelp = 0; // TODO: Создать интерфейс, принимаемые значения - keyof Helps.CurrentLevel
   isCommand = false;
   isRotate = false;
@@ -51,17 +51,13 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     return this.aceEditor.getValue().split('\n');
   }
 
-  changeLevel(e: any): void {
-    if (e.target.closest('.nav-elem')) {
-      const href = window.location.href;
-      this.currentLevel = parseInt(href[href.length - 1], 10);
+  changeLevel(levelNumber: number | string): void {
+      this.currentLevel = levelNumber;
       this.changeProgressLevel();
-    }
   }
 
   changeHelp(): void {
     const amountHelps = Object.keys(this.helps[this.currentLevel]).length;
-    console.log(amountHelps);
     this.currentHelp = (this.currentHelp + 1) % amountHelps;
   }
 
@@ -104,7 +100,13 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     }
   }
 
-  changeRoute(item: number): void {
-    this.router.navigate([`level-${item}`])
+
+  changeRoute(item: number | string): void {
+    if (item === 'exit') {
+      this.router.navigate(['']);
+      return;
+    }
+    this.changeLevel(item);
+    this.router.navigate([`level${item}`]);
   }
 }

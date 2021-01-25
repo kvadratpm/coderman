@@ -159,6 +159,11 @@ margin:0 10px;
   }
 
 }
+
+.nav-elem:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
 .level-wrapper {
   display: flex;
   flex-direction: column;
