@@ -1,4 +1,4 @@
-import { OnInit } from '@angular/core';
+import {OnInit, ViewChildren} from '@angular/core';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as ace from 'ace-builds';
@@ -19,7 +19,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   isRotate = false;
   aceEditor!: any;
   helps: { [index: string]: {[index: string]: string} } = helps; // TODO: Создать интерфейс Helps
-  navElements: NodeListOf<Element> | undefined;
+  @ViewChildren('interactiveLighting') navElements: any;
   isMoveControl = false;
   moveLimit: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   levels: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -28,7 +28,6 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log(this.helps);
   }
 
   ngAfterViewInit(): void {
@@ -40,6 +39,8 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
       fontFamily: 'tahoma',
       fontSize: '20pt'
     });
+    this.changeProgressLevel();
+    this.navElements = this.navElements.toArray();
   }
 
   updateEditor(event: string): void {
@@ -52,8 +53,12 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   }
 
   changeLevel(levelNumber: number | string): void {
+    if (typeof levelNumber === 'string') {
+      this.currentLevel = parseInt(levelNumber, 10);
+    } else {
       this.currentLevel = levelNumber;
-      this.changeProgressLevel();
+    }
+    this.changeProgressLevel();
   }
 
   changeHelp(): void {
@@ -62,9 +67,12 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   }
 
   changeProgressLevel(): void {
-      if (this.navElements) {
-        this.navElements.forEach((el: any) => {
+
+    if (this.navElements) {
+        this.navElements.forEach((e: any) => {
+          const el = e.nativeElement;
           const numberElem = parseInt(el.innerText, 10);
+          console.log(numberElem === this.currentLevel);
           el.classList.toggle('nav-elem__previous', numberElem < this.currentLevel);
           el.classList.toggle('nav-elem__active', numberElem === this.currentLevel);
         });
