@@ -4,12 +4,12 @@ import { GamefieldComponent } from '../../components/gamefield/gamefield.compone
 import { GameService, SceneConfig } from '../../services/game.service';
 
 @Component({
-  selector: 'app-trial-level',
-  templateUrl: './trial-level.component.html',
-  styleUrls: ['./trial-level.component.scss'],
+  selector: 'app-level1',
+  templateUrl: './level1.component.html',
+  styleUrls: ['./level1.component.scss']
 })
 
-export class TrialLevelComponent implements AfterViewInit {
+export class Level1Component implements AfterViewInit {
 
   sceneConfig: SceneConfig = {
     tileMap: {
@@ -19,8 +19,8 @@ export class TrialLevelComponent implements AfterViewInit {
     },
     hero: {
       key: 'hero1',
-      pngPath: 'assets/phaser1/hero1.png',
-      jsonPath: 'assets/phaser1/hero1.json'
+      pngPath: 'assets/level1/hero1.png',
+      jsonPath: 'assets/level1/hero1.json'
     }
   };
 
@@ -32,12 +32,7 @@ export class TrialLevelComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit(): void {
-    this.gameField.field.scene.add('trial-level', this.scene, true);
+    this.gameField.field.scene.add('level1', this.scene, true);
   }
 
 }
-
-/*
-    this.load.image('tiles', 'assets/phaser1/back9.png'); // изображение с тайлами
-    this.load.tilemapTiledJSON('map', 'assets/phaser1/level1.json'); // тайлмэп текущего уровня
-    this.load.atlas('hero1', 'assets/phaser1/hero1.png', 'assets/phaser1/hero1.json'); // json hero animation */

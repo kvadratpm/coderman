@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TrialLevelComponent } from './trial-level.component';
+import { Level1Component } from './level1.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared.module';
 
 const routes: Routes = [
-  {path: 'trial-level', component: TrialLevelComponent}
+  {path: 'level1', component: Level1Component}
 ];
 
 @NgModule({
   declarations: [
-    TrialLevelComponent
+    Level1Component
   ],
   imports: [
     CommonModule,
@@ -18,4 +18,4 @@ const routes: Routes = [
     SharedModule
   ]
 })
-export class TrialLevelModule { }
+export class Level1Module { }
