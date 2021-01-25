@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgwWowModule } from 'ngx-wow';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,7 +29,8 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     TrialLevelModule,
     PhaserLevelModule,
     SharedModule,
-    Phaser1Module
+    Phaser1Module,
+    NgwWowModule
   ],
   exports: [
     SharedModule

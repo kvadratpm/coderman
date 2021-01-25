@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgwWowService } from 'ngx-wow'
 
 @Component({
   selector: 'app-start-page',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private wowService: NgwWowService) {
+    this.wowService.init();
+   }
 
   ngOnInit(): void {
+    
+
   }
+
+
 
 }

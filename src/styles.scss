@@ -4,19 +4,4 @@ body {
   margin: 0;
 }
 
-.game-button {
-  font-family: 'Inconsolata', monospace;
-  color: white;
-  font-size: 20px;
-  width: 200px;
-  height: 55px;
-  border: 2px solid rgb(255, 255, 255);
-  background-color: rgba(245, 222, 179, 0);
-  border-radius: 25px;
-  transition: 0.5s;
-}
 
-.game-button:hover {
-  cursor: pointer;
-  background: rgb(74, 58, 137);
-}
