@@ -23,7 +23,7 @@ export class GameService extends Phaser.Scene {
 
 
   scaleCoef = window.screen.width * 0.5 / 650;
-  cell = window.screen.width * 0.5/13;
+  cell = window.screen.width * 0.5 / 13;
   SpawnY!: any;
   SpawnX!: any;
   PointX!: any;
@@ -62,37 +62,37 @@ export class GameService extends Phaser.Scene {
     console.log(this.SpawnX, this.SpawnY, this.cell)
     this.target = this.physics.add.image(this.SpawnX, this.SpawnY, 'point')
     this.player = this.physics.add
-        .sprite(spawnPoint.x! * this.scaleCoef, spawnPoint.y! * this.scaleCoef, this.sceneConfig.hero.key, 'front')
-        .setSize(30, 40)
-        .setOffset(0, 24)
-        .setScale(window.screen.width * 0.5 / 650);
+      .sprite(spawnPoint.x! * this.scaleCoef, spawnPoint.y! * this.scaleCoef, this.sceneConfig.hero.key, 'front')
+      .setSize(30, 40)
+      .setOffset(0, 24)
+      .setScale(window.screen.width * 0.5 / 650);
     this.physics.add.collider(this.player, layer);
     const anims = this.anims;
     anims.create({
-        key: 'left',
-        frames: anims.generateFrameNames(this.sceneConfig.hero.key, { prefix: 'left.', start: 0, end: 3, zeroPad: 3 }),
-        frameRate: 10,
-        repeat: -1
-      });
+      key: 'left',
+      frames: anims.generateFrameNames(this.sceneConfig.hero.key, { prefix: 'left.', start: 0, end: 3, zeroPad: 3 }),
+      frameRate: 10,
+      repeat: -1
+    });
     anims.create({
-        key: 'right',
-        frames: anims.generateFrameNames(this.sceneConfig.hero.key, { prefix: 'right.', start: 0, end: 3, zeroPad: 3 }),
-        frameRate: 10,
-        repeat: -1
-      });
+      key: 'right',
+      frames: anims.generateFrameNames(this.sceneConfig.hero.key, { prefix: 'right.', start: 0, end: 3, zeroPad: 3 }),
+      frameRate: 10,
+      repeat: -1
+    });
     anims.create({
-        key: 'front',
-        frames: anims.generateFrameNames(this.sceneConfig.hero.key, { prefix: 'front.', start: 0, end: 3, zeroPad: 3 }),
-        frameRate: 10,
-        repeat: -1
+      key: 'front',
+      frames: anims.generateFrameNames(this.sceneConfig.hero.key, { prefix: 'front.', start: 0, end: 3, zeroPad: 3 }),
+      frameRate: 10,
+      repeat: -1
 
-      });
+    });
     anims.create({
-        key: 'back',
-        frames: anims.generateFrameNames(this.sceneConfig.hero.key, { prefix: 'back.', start: 0, end: 3, zeroPad: 3 }),
-        frameRate: 10,
-        repeat: -1
-      });
+      key: 'back',
+      frames: anims.generateFrameNames(this.sceneConfig.hero.key, { prefix: 'back.', start: 0, end: 3, zeroPad: 3 }),
+      frameRate: 10,
+      repeat: -1
+    });
 
     const camera = this.cameras.main;
     camera.startFollow(this.player);
@@ -103,43 +103,38 @@ export class GameService extends Phaser.Scene {
     this.anims.create({ key: 'ruby', frames: this.anims.generateFrameNames('gems', { prefix: 'ruby_', end: 6, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'square', frames: this.anims.generateFrameNames('gems', { prefix: 'square_', end: 14, zeroPad: 4 }), repeat: -1 });
 
-      /// звезды
+    /// звезды
     const coins = [
-        this.physics.add.sprite(0, 0, 'gems').play('prism'),
-        this.physics.add.sprite(150, 450, 'gems').play('square'),
-        this.physics.add.sprite(450, 450, 'gems').play('ruby'),
-        this.physics.add.sprite(450, 150, 'gems').play('diamond')
-      ];
+      this.physics.add.sprite(0, 0, 'gems').play('prism'),
+      this.physics.add.sprite(150, 450, 'gems').play('square'),
+      this.physics.add.sprite(450, 450, 'gems').play('ruby'),
+      this.physics.add.sprite(450, 150, 'gems').play('diamond')
+    ];
     coins.forEach((coin, i) => {
       coin.setX(gemPoints[i].x! * this.scaleCoef);
       coin.setY(gemPoints[i].y! * this.scaleCoef);
     });
 
-    coins.forEach((coin,i) =>{
+    coins.forEach((coin, i) => {
       coin.setX(gemPoints[i].x! * this.scaleCoef);
       coin.setY(gemPoints[i].y! * this.scaleCoef);
       this.physics.add.overlap(this.player, coin, () => {
-          coin.disableBody(true, true)
+        coin.disableBody(true, true)
 
         this.score += 1;
         this.scoreText.setText('Score: ' + this.score);
-        if(this.score === 2){
+        if (this.score === 2) {
           this.isSuccess = true
           this.checkIfSuccess()
         }
-    }, () => { return }, this)
+      }, () => { return }, this)
     })
-
-
-  this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px'})
-
-
-
+    this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px' })
   }
 
   update(): void {
     var distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.SpawnX, this.SpawnY);
-    if (this.player.body.speed > 0 && distance < 4) {
+    if (this.player.body.speed > 0 && distance < 7) {
       this.player.body.reset(this.SpawnX, this.SpawnY);
       this.player.stop(true, null)
     }
@@ -150,27 +145,27 @@ export class GameService extends Phaser.Scene {
     return new Promise((res) => {
       switch (direction) {
         case 0:
-         this.SpawnY -= this.cell
+          this.SpawnY -= this.cell
           this.target.setPosition(this.SpawnX, this.SpawnY)
-          this.physics.moveToObject(this.player, this.target)
+          this.physics.moveToObject(this.player, this.target, 80)
           this.player.play('back', true);
           break;
         case 90:
           this.SpawnX += this.cell
           this.target.setPosition(this.SpawnX, this.SpawnY)
-          this.physics.moveToObject(this.player, this.target)
+          this.physics.moveToObject(this.player, this.target, 80)
           this.player.play('right', true);
           break;
         case 180:
           this.SpawnY += this.cell
           this.target.setPosition(this.SpawnX, this.SpawnY)
-         this.player.play('front', true);
-          this.physics.moveToObject(this.player, this.target)
+          this.player.play('front', true);
+          this.physics.moveToObject(this.player, this.target, 80)
           break;
         case 270:
           this.SpawnX -= this.cell
           this.target.setPosition(this.SpawnX, this.SpawnY)
-          this.physics.moveToObject(this.player, this.target)
+          this.physics.moveToObject(this.player, this.target, 80)
 
           this.player.play('left', true);
           break;
@@ -220,9 +215,9 @@ export class GameService extends Phaser.Scene {
       }
     }
   }
-// **************формула успешного окончания или нет  по умолчанию ФЕЙЛ*********************
+  // **************формула успешного окончания или нет  по умолчанию ФЕЙЛ*********************
 
-  checkIfSuccess(){
+  checkIfSuccess() {
     this.isSuccess ? console.log('winnn') : console.log("fail")
   }
 }
