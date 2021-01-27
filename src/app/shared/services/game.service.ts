@@ -1,6 +1,5 @@
 import * as Phaser from 'phaser';
 
-
 export interface SceneConfig {
   tileMap: { // параметры тайлмэпа
     key: string, // ключ для привязки
@@ -50,7 +49,6 @@ export class GameService extends Phaser.Scene {
   }
 
   create(): void {
-    this.player = this.physics.add.sprite(400, 350, this.sceneConfig.hero.key, 'front');
     const map = this.make.tilemap({ key: 'map', tileWidth: this.cell, tileHeight: this.cell });
     const tileset = map.addTilesetImage('tiles', 'tiles');
     const layer = map.createLayer(0, tileset, 0, 0);
@@ -59,7 +57,6 @@ export class GameService extends Phaser.Scene {
     const gemPoints = map.filterObjects('Items', elem => elem.name === 'Gem Point');
     console.log(gemPoints);
     layer.setCollisionByProperty({ collides: true });
-
     this.SpawnX = spawnPoint.x! * this.scaleCoef;
     this.SpawnY = spawnPoint.y! * this.scaleCoef;
     console.log(this.SpawnX, this.SpawnY, this.cell)
@@ -88,6 +85,7 @@ export class GameService extends Phaser.Scene {
         frames: anims.generateFrameNames(this.sceneConfig.hero.key, { prefix: 'front.', start: 0, end: 3, zeroPad: 3 }),
         frameRate: 10,
         repeat: -1
+
       });
     anims.create({
         key: 'back',
@@ -95,6 +93,7 @@ export class GameService extends Phaser.Scene {
         frameRate: 10,
         repeat: -1
       });
+
     const camera = this.cameras.main;
     camera.startFollow(this.player);
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -103,7 +102,6 @@ export class GameService extends Phaser.Scene {
     this.anims.create({ key: 'prism', frames: this.anims.generateFrameNames('gems', { prefix: 'prism_', end: 6, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'ruby', frames: this.anims.generateFrameNames('gems', { prefix: 'ruby_', end: 6, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'square', frames: this.anims.generateFrameNames('gems', { prefix: 'square_', end: 14, zeroPad: 4 }), repeat: -1 });
-
 
       /// звезды
     const coins = [
@@ -116,7 +114,6 @@ export class GameService extends Phaser.Scene {
       coin.setX(gemPoints[i].x! * this.scaleCoef);
       coin.setY(gemPoints[i].y! * this.scaleCoef);
     });
-
 
     coins.forEach((coin,i) =>{
       coin.setX(gemPoints[i].x! * this.scaleCoef);
@@ -146,6 +143,7 @@ export class GameService extends Phaser.Scene {
       this.player.body.reset(this.SpawnX, this.SpawnY);
       this.player.stop(true, null)
     }
+
   }
 
   async movePlayer(direction: number): Promise<void> {
@@ -173,10 +171,12 @@ export class GameService extends Phaser.Scene {
           this.SpawnX -= this.cell
           this.target.setPosition(this.SpawnX, this.SpawnY)
           this.physics.moveToObject(this.player, this.target)
+
           this.player.play('left', true);
           break;
       }
       setTimeout(() => {
+
         res();
       }, 800);
     });
@@ -194,7 +194,6 @@ export class GameService extends Phaser.Scene {
   }
   async rotateLeft(): Promise<void> {
     return new Promise((res) => {
-
       this.currentDirection = this.currentDirection === 0 ? 270 : this.currentDirection - 90;
       setTimeout(() => {
         res();
@@ -208,7 +207,9 @@ export class GameService extends Phaser.Scene {
       if (elem.includes('move')) {
         const steps = Number(elem.match(/\d+/));
         for (let i = 0; i < steps; i++) {
+
           await this.movePlayer(this.currentDirection)
+
         }
       }
       if (elem.includes('rotateRight')) {
