@@ -21,6 +21,8 @@ export class GameService extends Phaser.Scene {
   platforms!: any;
   player!: any;
   sceneConfig: SceneConfig;
+
+
   scaleCoef = window.screen.width * 0.5 / 650;
   cell = window.screen.width * 0.5/13;
   SpawnY!: any;
