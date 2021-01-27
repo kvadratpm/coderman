@@ -4,11 +4,11 @@
       <button class="material-icons icon icon_disable button">emoji_events</button>
     </div>
     <nav class="level-nav">
-      <ul class="nav-list" (click)="changeLevel($event)">
-        <li class="nav-elem"  *ngFor="let item of levels">
-          <a (click)="changeRoute()" class="nav-link">
+      <ul class="nav-list">
+        <li class="nav-elem" *ngFor="let item of levels">
+          <a (click)="changeRoute(item)" class="nav-link">
             <div class="nav-elem__outer-circle">
-              <div class="nav-elem__inner-circle">{{item}}</div>
+              <div #interactiveLighting class="nav-elem__inner-circle">{{item}}</div>
             </div>
           </a>
         </li>
@@ -17,11 +17,11 @@
 
     <div class="exit-wrapper">
         <label for="exit" class="exit-label">Выход</label>
-        <button  id="exit" class="material-icons icon icon_active button">exit_to_app</button>
+        <button  id="exit" class="material-icons icon icon_active button" (click)="changeRoute('exit')">exit_to_app</button>
     </div>
   </div>
   <div class="help-wrapper">
-    <div class="help__avatar" (click)="changeHelp()"></div>
+    <div class="avatar help__avatar" (click)="changeHelp()"></div>
     <div class="help__dialog">{{this.helps[currentLevel][currentHelp]}}</div>
   </div>
   <div class="code-editor" #editor></div>
@@ -34,9 +34,18 @@
       <div (click)="updateEditor('Player.rotateLeft()')" class="button button__controller button__action button__level3">Rotate Left</div>
     </div>
     <div class="actions-wrapper">
-    <div *ngIf="isCommand" class="button button__controller button__action button__level2">Move</div>
-    <div *ngIf="isCommand" class="button button__controller button__action button__level2">Rotate</div>
-  </div>
+      <div *ngIf="isCommand" class="button button__controller button__action button__level2">Move</div>
+      <div *ngIf="isCommand" class="button button__controller button__action button__level2">Rotate</div>
+    </div>
     <div class="button button__controller button__level1">Player</div>
+  </div>
+  <div *ngIf="isPopupActive" class="overlay"></div>
+  <div *ngIf="isPopupActive" class="popup">
+    <div class="popup__topic">Задание №{{currentLevel}}</div>
+    <div class="popup__content">
+      <div class="popup__avatar avatar"></div>
+      <div class="popup__text">{{helps[currentLevel][0]}}</div>
+    </div>
+    <button (click)="closePopup()" class="button popup__button button__controller">Начать выполнение</button>
   </div>
 </div>

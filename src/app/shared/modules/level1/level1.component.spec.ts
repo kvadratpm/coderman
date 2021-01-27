@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Level2Component } from './level2.component';
+import { Level1Component } from './level1.component';
 
-describe('Level2Component', () => {
-  let component: Level2Component;
-  let fixture: ComponentFixture<Level2Component>;
+describe('Level1Component', () => {
+  let component: Level1Component;
+  let fixture: ComponentFixture<Level1Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Level2Component ]
+      declarations: [ Level1Component ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Level2Component);
+    fixture = TestBed.createComponent(Level1Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

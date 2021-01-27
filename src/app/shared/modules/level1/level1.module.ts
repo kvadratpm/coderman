@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Level2Component } from './level2.component';
+import { Level1Component } from './level1.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared.module';
 
 const routes: Routes = [
-  {path: 'level-2', component: Level2Component}
+  {path: 'level1', component: Level1Component}
 ];
 
 @NgModule({
   declarations: [
-    Level2Component
+    Level1Component
   ],
   imports: [
     CommonModule,
@@ -18,4 +18,4 @@ const routes: Routes = [
     SharedModule
   ]
 })
-export class Level2Module { }
+export class Level1Module { }

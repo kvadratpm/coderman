@@ -1,0 +1,10 @@
+<div class="wrapper">
+  <app-gamefield></app-gamefield>
+  <div class="start-wrapper" (click)="this.scene.startTurn(codeField.code)">
+    <button class="material-icons">play_arrow</button>
+    <div class="start__text">Запустить</div>
+  </div>
+  <div class="codefield-wrapper">
+    <app-codefield></app-codefield>
+  </div>
+</div>

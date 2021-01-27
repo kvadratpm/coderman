@@ -14,6 +14,7 @@ $main-font-size: 25px;
   outline: none;
   padding: 0 10px;
 }
+
 .exit-label {
   font-family: Roboto, serif;
   color: $active-icon-font;
@@ -21,12 +22,15 @@ $main-font-size: 25px;
   margin-right: 5px;
   cursor: pointer;
 }
+
 #exit {
   cursor: pointer;
 }
+
 .button {
   outline: none;
   padding: 6px;
+
   &__controller {
     padding: 10px 50px;
     border-radius: 25px;
@@ -35,34 +39,42 @@ $main-font-size: 25px;
     cursor: pointer;
     margin: 5px auto 15px 0;
   }
+
   &__action {
     margin: 5px;
   }
+
   &__level1 {
     background-color: rgb(21, 216, 226);
     box-shadow: 0 5px 0 0 rgb(7, 141, 147);
+
     &:hover {
       background-color: rgb(77, 233, 241);
       box-shadow: 0 5px 0 0 rgb(54, 164, 170);
     }
   }
+
   &__level2 {
     background-color: rgb(124, 200, 0);
     box-shadow: 0 5px 0 0 rgb(89, 143, 0);
+
     &:hover {
       background-color: rgb(140, 220, 8);
       box-shadow: 0 5px 0 0 rgb(107, 169, 6);
     }
   }
+
   &__level3 {
     background-color: rgb(255, 10, 123);
     box-shadow: 0 5px 0 0 rgb(175, 9, 85);
+
     &:hover {
       background-color: rgb(255, 51, 145);
       box-shadow: 0 5px 0 0 rgb(214, 13, 105);
     }
   }
 }
+
 .controllers-wrapper {
   position: absolute;
   display: flex;
@@ -70,30 +82,38 @@ $main-font-size: 25px;
   bottom: 0;
   z-index: 9999;
 }
+
 .actions-wrapper {
   display: flex;
 }
+
 .icon {
   border: none;
   font-size: $main-icon-size;
   border-radius: 100%;
   background-color: #2D2C30;
+
   &_active {
     color: $active-icon-font;
+
     &:hover {
       background-color: #706E79;
     }
   }
+
   &_disable {
     color: #656467;
   }
 }
+
 .nav-list {
   display: flex;
   align-items: center;
   list-style-type: none;
 }
+
 .help-wrapper {
+  font-family: Roboto, serif;
   display: flex;
   width: 100%;
   min-width: 300px;
@@ -101,15 +121,21 @@ $main-font-size: 25px;
   height: 100px;
   margin: 40px 0;
 }
-.help__avatar {
+
+.avatar {
   background-image: url("/assets/images/help_avatar.jpg");
-  height: 100%;
-  width: 100px;
   background-size: cover;
   border-radius: 100%;
+}
+
+.help__avatar {
+  height: 100%;
+  width: 100px;
+
   margin-right: 10px;
   cursor: pointer;
 }
+
 .help__dialog {
   flex: 1;
   background-color: white;
@@ -123,12 +149,13 @@ $main-font-size: 25px;
   justify-content: space-between;
   align-items: center;
 }
+
 .level-nav {
   background-color: black;
 }
 
 .nav-elem {
-margin:0 10px;
+  margin: 0 10px;
   width: 36px;
   height: 36px;
 
@@ -141,6 +168,7 @@ margin:0 10px;
     justify-content: center;
     border-radius: 100%;
   }
+
   &__inner-circle {
     border-radius: 100%;
     display: flex;
@@ -150,15 +178,23 @@ margin:0 10px;
     height: 70%;
     background-color: #3F317C;
   }
+
   &__active {
     background-color: #FF8000;
     color: #fff;
   }
+
   &__previous {
     box-shadow: 0 0 0 2px #A39CC2;
   }
 
 }
+
+.nav-elem:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
 .level-wrapper {
   display: flex;
   flex-direction: column;
@@ -166,6 +202,7 @@ margin:0 10px;
   height: 100vh;
   position: relative;
 }
+
 .nav-link {
   color: #A39CC2;
   text-decoration: none;
@@ -183,8 +220,60 @@ margin:0 10px;
   display: flex;
   flex-wrap: wrap;
 }
+
 .rotate-wrapper {
   display: flex;
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+}
+.popup {
+  font-family: Roboto, serif;
+  border-radius: 25px;
+  position: fixed;
+  z-index: 10001;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 400px;
+  justify-content: space-evenly;
+  align-items: center;
+  &__content {
+    display: flex;
+    align-self: start;
 
+  }
+  &__avatar {
+    margin: 0 20px;
+    height: 200px;
+    width: 200px;
+  }
+  &__button {
+    margin: 0;
+    background-color: rgb(124, 200, 0);
+    box-shadow: 0 5px 0 0 rgb(89, 143, 0);
+    border: none;
+    &:hover {
+      background-color: rgb(140, 220, 8);
+      box-shadow: 0 5px 0 0 rgb(107, 169, 6);
+    }
+  }
+  &__text {
+    font-size: 20px;
+    padding: 30px 0;
+  }
+  &__topic {
+    font-size: 40px;
+  }
+}

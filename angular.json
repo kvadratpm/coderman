@@ -34,7 +34,8 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/phaser/dist/phaser.min.js"
+              "node_modules/phaser/dist/phaser.min.js",
+              "node_modules/wowjs/dist/wow.js"
             ]
           },
           "configurations": {

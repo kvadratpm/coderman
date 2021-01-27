@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as ex from 'excalibur';
+import * as Phaser from 'phaser';
 
 @Component({
   selector: 'app-gamefield',
@@ -8,20 +8,35 @@ import * as ex from 'excalibur';
 })
 export class GamefieldComponent implements OnInit {
 
-  engine!: ex.Engine;
+  game!: Phaser.Game;
+  config: Phaser.Types.Core.GameConfig;
 
-  constructor() { }
-
-  ngOnInit(): void {
-    this.engine = new ex.Engine({
-      canvasElementId: 'game',
-      width: window.screen.width * 0.5,
-      height: window.screen.height * 0.8
-    });
+  constructor() {
+    this.config = {
+      type: Phaser.AUTO,
+      scale: {
+        parent: 'phaser',
+        mode: Phaser.Scale.FIT,
+        // width: window.screen.width*1,
+        width: window.screen.width * 0.5,
+        // height: window.screen.height*1,
+        height: window.screen.width * 0.5,
+      },
+      physics: {
+        default: 'arcade',
+        arcade: {
+          gravity: { y: 0 }
+        }
+      }
+    };
   }
 
-  get field(): ex.Engine {
-    return this.engine;
+  ngOnInit(): void {
+    this.game = new Phaser.Game(this.config);
+  }
+
+  get field(): Phaser.Game {
+    return this.game;
   }
 
 }

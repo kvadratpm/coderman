@@ -1,4 +1,4 @@
-import { OnInit } from '@angular/core';
+import {OnInit, ViewChildren} from '@angular/core';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as ace from 'ace-builds';
@@ -13,22 +13,22 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
 
   @ViewChild('editor') private editor!: ElementRef<HTMLElement>;
 
-  currentLevel = 1; //TODO: Создать интерфейс, принимаемые значения - keyof Helps
-  currentHelp = 0; //TODO: Создать интерфейс, принимаемые значения - keyof Helps.CurrentLevel
+  currentLevel: number | string = 1; // TODO: Создать интерфейс, принимаемые значения - keyof Helps
+  currentHelp = 0; // TODO: Создать интерфейс, принимаемые значения - keyof Helps.CurrentLevel
   isCommand = false;
   isRotate = false;
   aceEditor!: any;
-  helps: { [index: string]: {[index: string]: string} } = helps; //TODO: Создать интерфейс Helps
-  navElements: NodeListOf<Element> | undefined;
+  helps: { [index: string]: {[index: string]: string} } = helps; // TODO: Создать интерфейс Helps
+  @ViewChildren('interactiveLighting') navElements: any;
   isMoveControl = false;
   moveLimit: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  levels: string[] = ['1', '2', '3'];
+  levels: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  isPopupActive = true;
 
   constructor(private router: Router) {
   }
 
   ngOnInit(): void {
-    console.log(this.helps);
   }
 
   ngAfterViewInit(): void {
@@ -40,6 +40,8 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
       fontFamily: 'tahoma',
       fontSize: '20pt'
     });
+    this.changeProgressLevel();
+    this.navElements = this.navElements.toArray();
   }
 
   updateEditor(event: string): void {
@@ -51,24 +53,28 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     return this.aceEditor.getValue().split('\n');
   }
 
-  changeLevel(e: any): void {
-    if (e.target.closest('.nav-elem')) {
-      const href = window.location.href;
-      this.currentLevel = parseInt(href[href.length - 1], 10);
-      this.changeProgressLevel();
+  changeLevel(levelNumber: number | string): void {
+    if (typeof levelNumber === 'string') {
+      this.currentLevel = parseInt(levelNumber, 10);
+    } else {
+      this.currentLevel = levelNumber;
     }
+    this.changeProgressLevel();
+    this.isPopupActive = true;
   }
 
   changeHelp(): void {
     const amountHelps = Object.keys(this.helps[this.currentLevel]).length;
-    console.log(amountHelps);
     this.currentHelp = (this.currentHelp + 1) % amountHelps;
   }
 
   changeProgressLevel(): void {
-      if (this.navElements) {
-        this.navElements.forEach((el: any) => {
+
+    if (this.navElements) {
+        this.navElements.forEach((e: any) => {
+          const el = e.nativeElement;
           const numberElem = parseInt(el.innerText, 10);
+          console.log(numberElem === this.currentLevel);
           el.classList.toggle('nav-elem__previous', numberElem < this.currentLevel);
           el.classList.toggle('nav-elem__active', numberElem === this.currentLevel);
         });
@@ -104,7 +110,16 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     }
   }
 
-  changeRoute(): void {
-    this.router.navigate(['/trial-level']);
+
+  changeRoute(item: number | string): void {
+    if (item === 'exit') {
+      this.router.navigate(['']);
+      return;
+    }
+    this.changeLevel(item);
+    this.router.navigate([`level${item}`]);
+  }
+  closePopup(): void {
+    this.isPopupActive = false;
   }
 }

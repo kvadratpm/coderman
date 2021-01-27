@@ -19,9 +19,9 @@ export class Phaser1Component implements OnInit {
       scale: {
         parent: 'phaser',
         mode: Phaser.Scale.FIT,
-        //width: window.screen.width*1,
+        // width: window.screen.width*1,
         width: 650,
-        //height: window.screen.height*1,
+        // height: window.screen.height*1,
         height: 650,
       },
       physics: {
@@ -40,75 +40,74 @@ export class Phaser1Component implements OnInit {
 }
 class MainScene extends Phaser.Scene {
 
-  public star: any;
   score = 0;
   scoreText!: any;
   coins!: any;
   platforms!: any;
-  public cursors: any;
-  public player: any;
+  cursors!: any;
+  player!: any;
 
   constructor() {
     super({ key: 'main' });
   }
 
 
-  preload() {
+  preload(): void {
 
     this.load.animation('gemData', 'assets/phaser1/gems.json');
     this.load.atlas('gems', 'assets/phaser1/gems.png', 'assets/phaser1/gems.json');
-    this.load.image("tiles", "assets/phaser1/back9.png");
-    this.load.tilemapTiledJSON("map", "assets/phaser1/level1.json");
-    this.load.atlas("hero1", "assets/phaser1/hero1.png", "assets/phaser1/hero1.json");
+    this.load.image('tiles', 'assets/phaser1/back9.png');
+    this.load.tilemapTiledJSON('map', 'assets/phaser1/level1.json');
+    this.load.atlas('hero1', 'assets/phaser1/hero1.png', 'assets/phaser1/hero1.json');
   }
 
-  create() {
+  create(): void {
 
-  this.player = this.physics.add.sprite(400, 350, "hero1", "front");
-  console.log(typeof this.player)
-  console.log(this.player)
-    const map = this.make.tilemap({ key: "map", tileWidth: 50, tileHeight: 50 });
-    const tileset = map.addTilesetImage("tile", 'tiles');
+    this.player = this.physics.add.sprite(400, 350, 'hero1', 'front');
+    console.log(typeof this.player);
+    console.log(this.player);
+    const map = this.make.tilemap({ key: 'map', tileWidth: 50, tileHeight: 50 });
+    const tileset = map.addTilesetImage('tile', 'tiles');
     const layer = map.createLayer(0, tileset, 0, 0);
-    const spawnPoint = map.findObject("Objects", obj => obj.name === "Spawn Point");
+    const spawnPoint = map.findObject('Objects', obj => obj.name === 'Spawn Point');
     layer.setCollisionByProperty({ collides: true });
     this.player = this.physics.add
-      .sprite(spawnPoint.x!, spawnPoint.y!, "hero1", "front")
-      .setSize(30, 40)
-      .setOffset(0, 24);
-      console.log(typeof this.player)
-      console.log(this.player)
+        .sprite(spawnPoint.x!, spawnPoint.y!, 'hero1', 'front')
+        .setSize(30, 40)
+        .setOffset(0, 24);
+    console.log(typeof this.player);
+    console.log(this.player);
     this.physics.add.collider(this.player, layer);
     const anims = this.anims;
     anims.create({
-      key: "left",
-      frames: anims.generateFrameNames("hero1", { prefix: "left.", start: 0, end: 3, zeroPad: 3 }),
-      frameRate: 10,
-      repeat: -1
-    });
+        key: 'left',
+        frames: anims.generateFrameNames('hero1', { prefix: 'left.', start: 0, end: 3, zeroPad: 3 }),
+        frameRate: 10,
+        repeat: -1
+      });
     anims.create({
-      key: "right",
-      frames: anims.generateFrameNames("hero1", { prefix: "right.", start: 0, end: 3, zeroPad: 3 }),
-      frameRate: 10,
-      repeat: -1
-    });
+        key: 'right',
+        frames: anims.generateFrameNames('hero1', { prefix: 'right.', start: 0, end: 3, zeroPad: 3 }),
+        frameRate: 10,
+        repeat: -1
+      });
     anims.create({
-      key: "front",
-      frames: anims.generateFrameNames("hero1", { prefix: "front.", start: 0, end: 3, zeroPad: 3 }),
-      frameRate: 10,
-      repeat: -1
-    });
+        key: 'front',
+        frames: anims.generateFrameNames('hero1', { prefix: 'front.', start: 0, end: 3, zeroPad: 3 }),
+        frameRate: 10,
+        repeat: -1
+      });
     anims.create({
-      key: "back",
-      frames: anims.generateFrameNames("hero1", { prefix: "back.", start: 0, end: 3, zeroPad: 3 }),
-      frameRate: 10,
-      repeat: -1
-    });
+        key: 'back',
+        frames: anims.generateFrameNames('hero1', { prefix: 'back.', start: 0, end: 3, zeroPad: 3 }),
+        frameRate: 10,
+        repeat: -1
+      });
     const camera = this.cameras.main;
     camera.startFollow(this.player);
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
-    this.cursors = this.input.keyboard.createCursorKeys();
+    const cursors = this.input.keyboard.createCursorKeys();
 
 
     this.anims.create({ key: 'diamond', frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }), repeat: -1 });
@@ -117,36 +116,36 @@ class MainScene extends Phaser.Scene {
     this.anims.create({ key: 'square', frames: this.anims.generateFrameNames('gems', { prefix: 'square_', end: 14, zeroPad: 4 }), repeat: -1 });
 
 
-    ///звезды
+      /// звезды
     const coins = [
-      this.physics.add.sprite(150, 150, "gems").play('prism'),
-      this.physics.add.sprite(150, 450, 'gems').play('square'),
-      this.physics.add.sprite(450, 450, 'gems').play('ruby'),
-      this.physics.add.sprite(450, 150, 'gems').play('diamond')
-    ]
+        this.physics.add.sprite(150, 150, 'gems').play('prism'),
+        this.physics.add.sprite(150, 450, 'gems').play('square'),
+        this.physics.add.sprite(450, 450, 'gems').play('ruby'),
+        this.physics.add.sprite(450, 150, 'gems').play('diamond')
+      ];
 
 
   }
 
-  update() {
-
+  update(): void {
+/*
     const speed = 200;
     const prevVelocity = this.player.body.velocity.clone();
 
     // Stop any previous movement from the last frame
     this.player.body.setVelocity(0);
-
+console.log(this.player.body)
     // Horizontal movement
-    if (this.cursors && this.cursors.left.isDown) {
+    if (this.cursors.left.isDown) {
       this.player.body.setVelocityX(-speed);
-    } else if (this.cursors && this.cursors.right.isDown) {
+    } else if (this.player.right.isDown) {
       this.player.body.setVelocityX(speed);
     }
 
     // Vertical movement
-    if (this.cursors && this.cursors.up.isDown) {
+    if (this.cursors.up.isDown) {
       this.player.body.setVelocityY(-speed);
-    } else if (this.cursors && this.cursors.down.isDown) {
+    } else if (this.cursors.down.isDown) {
       this.player.body.setVelocityY(speed);
     }
 
@@ -154,13 +153,13 @@ class MainScene extends Phaser.Scene {
     this.player.body.velocity.normalize().scale(speed);
 
     // Update the animation last and give left/right animations precedence over up/down animations
-    if (this.cursors && this.cursors.left.isDown) {
+    if (this.cursors.left.isDown) {
       this.player.anims.play("left", true);
-    } else if (this.cursors && this.cursors.right.isDown) {
+    } else if (this.cursors.right.isDown) {
       this.player.anims.play("right", true);
-    } else if (this.cursors && this.cursors.up.isDown) {
+    } else if (this.cursors.up.isDown) {
       this.player.anims.play("back", true);
-    } else if (this.cursors && this.cursors.down.isDown) {
+    } else if (this.cursors.down.isDown) {
       this.player.anims.play("front", true);
     } else {
       this.player.anims.stop();
@@ -170,7 +169,7 @@ class MainScene extends Phaser.Scene {
       else if (prevVelocity.x > 0) this.player.setTexture("hero1", "right");
       else if (prevVelocity.y < 0) this.player.setTexture("hero1", "back");
       else if (prevVelocity.y > 0) this.player.setTexture("hero1", "front");
-    }
+    }*/
   }
 }
 

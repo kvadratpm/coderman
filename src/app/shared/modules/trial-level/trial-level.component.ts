@@ -1,26 +1,43 @@
-import { ViewChild } from '@angular/core';
-import { Component } from '@angular/core';
+import { ViewChild, Component, AfterViewInit } from '@angular/core';
 import { CodefieldComponent } from '../../components/codefield/codefield.component';
 import { GamefieldComponent } from '../../components/gamefield/gamefield.component';
-import { GameService } from '../../services/game.service';
-import { AfterViewInit } from '@angular/core';
+import { GameService, SceneConfig } from '../../services/game.service';
 
 @Component({
   selector: 'app-trial-level',
   templateUrl: './trial-level.component.html',
   styleUrls: ['./trial-level.component.scss'],
-  providers: [GameService]
 })
 
 export class TrialLevelComponent implements AfterViewInit {
 
+  sceneConfig: SceneConfig = {
+    tileMap: {
+      key: 'map',
+      path: 'assets/phaser1/level1.json',
+      layers: []
+    },
+    hero: {
+      key: 'hero1',
+      pngPath: 'assets/phaser1/hero1.png',
+      jsonPath: 'assets/phaser1/hero1.json'
+    }
+  };
+
+  scene: GameService = new GameService(this.sceneConfig);
+
   @ViewChild(CodefieldComponent) codeField!: CodefieldComponent;
   @ViewChild(GamefieldComponent) gameField!: GamefieldComponent;
 
-  constructor(public gameService: GameService) { }
+  constructor() { }
 
   ngAfterViewInit(): void {
-    this.gameService.startGame(this.gameField.field, 0, 0, 0, [{x: 5, y: 5}]);
+    this.gameField.field.scene.add('trial-level', this.scene, true);
   }
 
 }
+
+/*
+    this.load.image('tiles', 'assets/phaser1/back9.png'); // изображение с тайлами
+    this.load.tilemapTiledJSON('map', 'assets/phaser1/level1.json'); // тайлмэп текущего уровня
+    this.load.atlas('hero1', 'assets/phaser1/hero1.png', 'assets/phaser1/hero1.json'); // json hero animation */

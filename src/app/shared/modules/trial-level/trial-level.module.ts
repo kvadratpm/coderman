@@ -8,7 +8,6 @@ const routes: Routes = [
   {path: 'trial-level', component: TrialLevelComponent}
 ];
 
-
 @NgModule({
   declarations: [
     TrialLevelComponent
