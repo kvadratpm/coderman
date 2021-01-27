@@ -18,9 +18,9 @@ export class GamefieldComponent implements OnInit {
         parent: 'phaser',
         mode: Phaser.Scale.FIT,
         // width: window.screen.width*1,
-        width: 650,
+        width: window.screen.width * 0.5,
         // height: window.screen.height*1,
-        height: 650,
+        height: window.screen.width * 0.5,
       },
       physics: {
         default: 'arcade',

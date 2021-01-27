@@ -14,13 +14,13 @@ export class Level1Component implements AfterViewInit {
   sceneConfig: SceneConfig = {
     tileMap: {
       key: 'map',
-      path: 'assets/phaser1/level1.json',
+      path: 'assets/level1/level1.json',
       layers: []
     },
     hero: {
       key: 'hero1',
-      pngPath: 'assets/level1/hero1.png',
-      jsonPath: 'assets/level1/hero1.json'
+      pngPath: 'assets/hero/hero1.png',
+      jsonPath: 'assets/hero/hero1.json'
     }
   };
 
