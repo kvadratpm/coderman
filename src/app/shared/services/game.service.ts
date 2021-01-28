@@ -31,6 +31,17 @@ export class GameService extends Phaser.Scene {
   target!: any;
   isSuccess = false
 
+//временно
+orc1!:any
+orc2!:any
+hero2!:any
+hero3!:any
+shield!:any
+head!:any
+sword!:any
+finish!:any
+//********* */
+
 
 
   constructor(config: SceneConfig) {
@@ -40,12 +51,25 @@ export class GameService extends Phaser.Scene {
 
 
   preload(): void {
-    this.load.animation('gemData', 'assets/phaser1/gems.json');
-    this.load.atlas('gems', 'assets/phaser1/gems.png', 'assets/phaser1/gems.json');
+
+    this.load.atlas('gems', 'assets/phaser1/gems1.png', 'assets/phaser1/gems1.json');
     this.load.image('tiles', 'assets/map/tiles.png'); // изображение с тайлами - оно одно везде?
-    this.load.image('point', 'assets/phaser1/point.png');
+    this.load.image('point', 'assets/phaser1/lighter1.png');
     this.load.tilemapTiledJSON(this.sceneConfig.tileMap.key, this.sceneConfig.tileMap.path); // тайлмэп текущего уровня
     this.load.atlas(this.sceneConfig.hero.key, this.sceneConfig.hero.pngPath, this.sceneConfig.hero.jsonPath); // json hero animation
+
+//**************временные текстуры***************
+
+this.load.atlas('orc1', 'assets/enemies/orc1.png', 'assets/enemies/orc1.json'); // черт1
+this.load.atlas('orc2', 'assets/enemies/orc2.png', 'assets/enemies/orc2.json'); // черт2
+this.load.atlas('hero2', 'assets/heroes/hero1.png', 'assets/heroes/hero1.json')// hero2
+this.load.atlas('hero3', 'assets/heroes/warrior2.png', 'assets/heroes/warrior2.json') // hero3
+this.load.image('sword', 'assets/armour/sword.png'); // меч
+this.load.image('head', 'assets/armour/head.png'); // шлем
+this.load.image('shield', 'assets/armour/shield.png'); // щит
+this.load.image('finish', 'assets/phaser1/finish.png'); // finish point
+
+//******************************** */
   }
 
   create(): void {
@@ -59,11 +83,11 @@ export class GameService extends Phaser.Scene {
     layer.setCollisionByProperty({ collides: true });
     this.SpawnX = spawnPoint.x! * this.scaleCoef;
     this.SpawnY = spawnPoint.y! * this.scaleCoef;
-    console.log(this.SpawnX, this.SpawnY, this.cell)
     this.target = this.physics.add.image(this.SpawnX, this.SpawnY, 'point')
+    this.target.setScale(this.scaleCoef);
     this.player = this.physics.add
       .sprite(spawnPoint.x! * this.scaleCoef, spawnPoint.y! * this.scaleCoef, this.sceneConfig.hero.key, 'front')
-      .setSize(30, 40)
+      .setSize(50, 60)
       .setOffset(0, 24)
       .setScale(window.screen.width * 0.5 / 650);
     this.physics.add.collider(this.player, layer);
@@ -94,6 +118,49 @@ export class GameService extends Phaser.Scene {
       repeat: -1
     });
 
+
+//*********временные текстуры**********************************
+this.anims.create({ key: 'stand1', frames: this.anims.generateFrameNames('orc1', { prefix: 'stand1.', start: 0, end: 13, zeroPad: 3 }),frameRate: 5, repeat: -1 });
+this.anims.create({ key: 'lay1', frames: this.anims.generateFrameNames('orc1', { prefix: 'lay1.', start: 0, end: 11, zeroPad: 3 })});
+this.anims.create({ key: 'stand2', frames: this.anims.generateFrameNames('orc2', { prefix: 'stand2.', start: 0, end: 15, zeroPad: 3 }),frameRate: 5, repeat: -1 });
+this.anims.create({ key: 'lay2', frames: this.anims.generateFrameNames('orc2', { prefix: 'lay2.', start: 0, end: 14, zeroPad: 3 })});
+anims.create({key: 'left2',frames: anims.generateFrameNames('hero2', { prefix: 'left2.', start: 0, end: 3, zeroPad: 3 }),frameRate: 10,repeat: -1});
+anims.create({key: 'right2',frames: anims.generateFrameNames('hero2', { prefix: 'right2.', start: 0, end: 3, zeroPad: 3 }),frameRate: 10,repeat: -1});
+anims.create({key: 'front2',frames: anims.generateFrameNames('hero2', { prefix: 'front2.', start: 0, end: 3, zeroPad: 3 }),frameRate: 10,repeat: -1});
+anims.create({key: 'back2',frames: anims.generateFrameNames('hero2', { prefix: 'back2.', start: 0, end: 3, zeroPad: 3 }),frameRate: 10,repeat: -1});
+anims.create({key: 'wait',frames: anims.generateFrameNames('hero3', { prefix: 'wait.', start: 0, end: 19, zeroPad: 3 }),frameRate: 10,repeat: -1});
+
+
+this.orc1  = this.physics.add
+.sprite(100 * this.scaleCoef, 100 * this.scaleCoef, 'orc1', 'stand1')
+.setScale(window.screen.width * 0.5 / 650);
+this.orc1.play('stand1')
+this.orc2  = this.physics.add
+.sprite(200 * this.scaleCoef, 100 * this.scaleCoef, 'orc2', 'stand2')
+.setScale(window.screen.width * 0.5 / 650);
+this.orc2.play('lay2')
+this.hero2 = this.physics.add
+.sprite(300 * this.scaleCoef, 100 * this.scaleCoef, 'hero2', 'front2')
+.setScale(window.screen.width * 0.5 / 650);
+this.hero3 = this.physics.add
+.sprite(400 * this.scaleCoef, 100 * this.scaleCoef, 'hero3', 'wait')
+.setScale(window.screen.width * 0.5 / 650);
+this.hero3.play('wait')
+this.sword = this.physics.add.image(500 * this.scaleCoef, 100 * this.scaleCoef, 'sword')
+this.sword.setScale(this.scaleCoef)
+this.head = this.physics.add.image(200 * this.scaleCoef, 200 * this.scaleCoef, 'head')
+this.head.setScale(this.scaleCoef)
+this.shield = this.physics.add.image(300 * this.scaleCoef, 200 * this.scaleCoef, 'shield')
+this.shield.setScale(this.scaleCoef)
+this.finish = this.physics.add.image(325* this.scaleCoef,325 * this.scaleCoef, 'finish')
+this.finish.setScale(this.scaleCoef)
+
+
+
+
+//*********временные **********************************
+
+
     const camera = this.cameras.main;
     camera.startFollow(this.player);
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -110,10 +177,7 @@ export class GameService extends Phaser.Scene {
       this.physics.add.sprite(450, 450, 'gems').play('ruby'),
       this.physics.add.sprite(450, 150, 'gems').play('diamond')
     ];
-    coins.forEach((coin, i) => {
-      coin.setX(gemPoints[i].x! * this.scaleCoef);
-      coin.setY(gemPoints[i].y! * this.scaleCoef);
-    });
+
 
     coins.forEach((coin, i) => {
       coin.setX(gemPoints[i].x! * this.scaleCoef);
