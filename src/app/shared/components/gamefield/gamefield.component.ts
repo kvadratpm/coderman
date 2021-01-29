@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Phaser from 'phaser';
 
+
 @Component({
   selector: 'app-gamefield',
   templateUrl: './gamefield.component.html',
@@ -17,10 +18,9 @@ export class GamefieldComponent implements OnInit {
       scale: {
         parent: 'phaser',
         mode: Phaser.Scale.FIT,
-        // width: window.screen.width*1,
         width: window.screen.width * 0.5,
-        // height: window.screen.height*1,
         height: window.screen.width * 0.5,
+
       },
       physics: {
         default: 'arcade',

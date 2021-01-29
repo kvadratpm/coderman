@@ -1,7 +1,7 @@
 import { ViewChild, Component, AfterViewInit } from '@angular/core';
 import { CodefieldComponent } from '../../components/codefield/codefield.component';
 import { GamefieldComponent } from '../../components/gamefield/gamefield.component';
-import { GameService, SceneConfig } from '../../services/game.service';
+import { GameService, SceneConfig, SettingsMenu} from '../../services/game.service';
 
 @Component({
   selector: 'app-level1',
@@ -24,6 +24,7 @@ export class Level1Component implements AfterViewInit {
   };
 
   scene: GameService = new GameService(this.sceneConfig);
+  settingsMenu: SettingsMenu = new SettingsMenu();
 
   @ViewChild(CodefieldComponent) codeField!: CodefieldComponent;
   @ViewChild(GamefieldComponent) gameField!: GamefieldComponent;
@@ -32,6 +33,8 @@ export class Level1Component implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.gameField.field.scene.add('level1', this.scene, true);
+    this.gameField.field.scene.add('settings', this.settingsMenu, false);
+
   }
 
 }
