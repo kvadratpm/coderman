@@ -1,16 +1,47 @@
 import * as Phaser from 'phaser';
 
+/**
+ * С помощью этой конфигурации создаётся новый уровень игры.
+ * @param tileMap - параметры тайлмэпа текущего уровня
+ * @param tileMap.key - ключ создаваемого уровня, используем именование level1, level2 и так далее
+ * @param tileMap.path - путь до файла, достаточно указать папку с уровнем и json файл
+ * @param hero - параметры спрайта героя
+ * @param hero.key - ключ спрайта, именуем в соотвествии с используемым спрайтом, например, используем спрайт hero1.png, ключ называем hero1
+ * @param hero.pngPath - имя png файла с героем
+ * @param hero.jsonPath - имя json файла с героем
+ */
 export interface SceneConfig {
+  /**
+   * @param tileMap - параметры тайлмэпа текущего уровня
+   */
   tileMap: { // параметры тайлмэпа
+    /**
+     * @param tileMap.key - ключ создаваемого уровня, используем именование level1, level2 и так далее
+     */
     key: string, // ключ для привязки
+    /**
+     * @param tileMap.path - путь до файла, достаточно указать папку с уровнем и json файл
+     */
     path: string, // путь до файла
-    layers: string[] // удаляю
   };
+  /**
+   * @param hero - параметры спрайта героя
+   */
   hero: {
+    /**
+     * @param hero.key - ключ спрайта, именуем в соотвествии с используемым спрайтом,
+     * например, используем спрайт hero1.png, ключ называем hero1
+     */
     key: string, // ключ героя
+    /**
+     * @param hero.pngPath - имя png файла с героем
+     */
     pngPath: string, // путь до пнгшки героя
+    /**
+     * @param hero.jsonPath - имя json файла с героем
+     */
     jsonPath: string // путь до json героя
-  }; // врагов
+  };
 }
 
 
@@ -28,8 +59,6 @@ export class GameService extends Phaser.Scene {
   platforms!: any;
   player!: any;
   sceneConfig: SceneConfig;
-
-
   scaleCoef = window.screen.width * 0.5 / 650;
   cell = window.screen.width * 0.5 / 13;
   SpawnY!: any;
@@ -37,7 +66,9 @@ export class GameService extends Phaser.Scene {
   PointX!: any;
   PointY!: any;
   target!: any;
-  isSuccess = false
+  levelTarget = 0;
+  isSuccess = false;
+
 
   //временно
   orc1!: any
@@ -49,6 +80,7 @@ export class GameService extends Phaser.Scene {
   sword!: any
   finish!: any
   //********* */
+
 
   constructor(config: SceneConfig) {
     super({ key: 'main' });
@@ -66,19 +98,27 @@ export class GameService extends Phaser.Scene {
     this.load.atlas('gems', 'assets/phaser1/gems1.png', 'assets/phaser1/gems1.json');
     this.load.image('tiles', 'assets/map/tiles.png'); // изображение с тайлами - оно одно везде?
     this.load.image('point', 'assets/phaser1/lighter1.png');
-    this.load.tilemapTiledJSON(this.sceneConfig.tileMap.key, this.sceneConfig.tileMap.path); // тайлмэп текущего уровня
-    this.load.atlas(this.sceneConfig.hero.key, this.sceneConfig.hero.pngPath, this.sceneConfig.hero.jsonPath); // json hero animation
 
-    //**************временные текстуры***************
+    this.load.tilemapTiledJSON(this.sceneConfig.tileMap.key,
+      `assets/${this.sceneConfig.tileMap.path}`); // тайлмэп текущего уровня
+    this.load.atlas(this.sceneConfig.hero.key,
+      `assets/heroes/${this.sceneConfig.hero.pngPath}`,
+      `assets/heroes/${this.sceneConfig.hero.jsonPath}`); //
+
+// **************временные текстуры***************
+
     this.load.atlas('orc1', 'assets/enemies/orc1.png', 'assets/enemies/orc1.json'); // черт1
     this.load.atlas('orc2', 'assets/enemies/orc2.png', 'assets/enemies/orc2.json'); // черт2
-    this.load.atlas('hero2', 'assets/heroes/hero1.png', 'assets/heroes/hero1.json')// hero2
-    this.load.atlas('hero3', 'assets/heroes/warrior2.png', 'assets/heroes/warrior2.json') // hero3
+    this.load.atlas('hero2', 'assets/heroes/hero1.png', 'assets/heroes/hero1.json'); // hero2
+    this.load.atlas('hero3', 'assets/heroes/warrior2.png', 'assets/heroes/warrior2.json'); // hero3
+
     this.load.image('sword', 'assets/armour/sword.png'); // меч
     this.load.image('head', 'assets/armour/head.png'); // шлем
     this.load.image('shield', 'assets/armour/shield.png'); // щит
     this.load.image('finish', 'assets/phaser1/finish.png'); // finish point
-    //******************************** */
+
+// ******************************** 
+
   }
 
   create(): void {
@@ -88,11 +128,12 @@ export class GameService extends Phaser.Scene {
     layer.setScale(this.scaleCoef);
     const spawnPoint = map.findObject('Items', obj => obj.name === 'Spawn Point');
     const gemPoints = map.filterObjects('Items', elem => elem.name === 'Gem Point');
-    console.log(gemPoints);
+    const lootPoints = map.filterObjects('Items', elem => elem.name === 'Loot Point');
+    const enemiesPoints = map.filterObjects('Enemies', elem => elem.name === 'Enemy Point');
     layer.setCollisionByProperty({ collides: true });
     this.SpawnX = spawnPoint.x! * this.scaleCoef;
     this.SpawnY = spawnPoint.y! * this.scaleCoef;
-    this.target = this.physics.add.image(this.SpawnX, this.SpawnY, 'point')
+    this.target = this.physics.add.image(this.SpawnX, this.SpawnY, 'point');
     this.target.setScale(this.scaleCoef);
     this.player = this.physics.add
       .sprite(spawnPoint.x! * this.scaleCoef, spawnPoint.y! * this.scaleCoef, this.sceneConfig.hero.key, 'front')
@@ -101,6 +142,7 @@ export class GameService extends Phaser.Scene {
       .setScale(window.screen.width * 0.5 / 650);
     this.physics.add.collider(this.player, layer);
     const anims = this.anims;
+
     anims.create({ key: 'left', frames: anims.generateFrameNames(this.sceneConfig.hero.key, { prefix: 'left.', start: 0, end: 3, zeroPad: 3 }), frameRate: 10, repeat: -1 });
     anims.create({ key: 'right', frames: anims.generateFrameNames(this.sceneConfig.hero.key, { prefix: 'right.', start: 0, end: 3, zeroPad: 3 }), frameRate: 10, repeat: -1 });
     anims.create({ key: 'front', frames: anims.generateFrameNames(this.sceneConfig.hero.key, { prefix: 'front.', start: 0, end: 3, zeroPad: 3 }), frameRate: 10, repeat: -1 });
@@ -143,36 +185,42 @@ export class GameService extends Phaser.Scene {
     this.finish.setScale(this.scaleCoef)
 
     //*******************************************
+
     const camera = this.cameras.main;
     camera.startFollow(this.player);
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-
+/*
     this.anims.create({ key: 'diamond', frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'prism', frames: this.anims.generateFrameNames('gems', { prefix: 'prism_', end: 6, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'ruby', frames: this.anims.generateFrameNames('gems', { prefix: 'ruby_', end: 6, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'square', frames: this.anims.generateFrameNames('gems', { prefix: 'square_', end: 14, zeroPad: 4 }), repeat: -1 });
+*/
 
-    /// звезды
-    const coins = [
-      this.physics.add.sprite(0, 0, 'gems').play('prism'),
-      this.physics.add.sprite(150, 450, 'gems').play('square'),
-      this.physics.add.sprite(450, 450, 'gems').play('ruby'),
-      this.physics.add.sprite(450, 150, 'gems').play('diamond')
+    /// Лут, враги, звезды
+    const coinsKey = [
+      'prism',
+      'square',
+      'ruby',
+      'diamond'
     ];
 
+    const enemiesKey = [];
 
-    coins.forEach((coin, i) => {
-      coin.setX(gemPoints[i].x! * this.scaleCoef);
-      coin.setY(gemPoints[i].y! * this.scaleCoef);
+    const lootsKey = [];
+
+    gemPoints.forEach((point) => {
+      const coin = this.physics.add.sprite(0, 0, 'gems').play(coinsKey[Math.floor(Math.random() * coinsKey.length)]);
+      coin.setX(point.x! * this.scaleCoef);
+      coin.setY(point.y! * this.scaleCoef);
       this.physics.add.overlap(this.player, coin, () => {
-        coin.disableBody(true, true)
-
+        coin.disableBody(true, true);
         this.score += 1;
         this.scoreText.setText('Score: ' + this.score);
         if (this.score === 2) {
-          this.isSuccess = true
-          this.checkIfSuccess()
+          this.isSuccess = true;
+          this.checkIfSuccess();
         }
+
       }, () => { return }, this)
     })
     this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px' })
@@ -213,13 +261,14 @@ export class GameService extends Phaser.Scene {
     }
 
     //**********************************************************************
+
   }
 
   update(): void {
-    var distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.SpawnX, this.SpawnY);
+    const distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.SpawnX, this.SpawnY);
     if (this.player.body.speed > 0 && distance < 7) {
       this.player.body.reset(this.SpawnX, this.SpawnY);
-      this.player.stop(true, null)
+      this.player.stop(true, null);
     }
 
   }
@@ -228,33 +277,31 @@ export class GameService extends Phaser.Scene {
     return new Promise((res) => {
       switch (direction) {
         case 0:
-          this.SpawnY -= this.cell
-          this.target.setPosition(this.SpawnX, this.SpawnY)
-          this.physics.moveToObject(this.player, this.target, 80)
+          this.SpawnY -= this.cell;
+          this.target.setPosition(this.SpawnX, this.SpawnY);
+          this.physics.moveToObject(this.player, this.target, 80);
           this.player.play('back', true);
           break;
         case 90:
-          this.SpawnX += this.cell
-          this.target.setPosition(this.SpawnX, this.SpawnY)
-          this.physics.moveToObject(this.player, this.target, 80)
+          this.SpawnX += this.cell;
+          this.target.setPosition(this.SpawnX, this.SpawnY);
+          this.physics.moveToObject(this.player, this.target, 80);
           this.player.play('right', true);
           break;
         case 180:
-          this.SpawnY += this.cell
-          this.target.setPosition(this.SpawnX, this.SpawnY)
+          this.SpawnY += this.cell;
+          this.target.setPosition(this.SpawnX, this.SpawnY);
           this.player.play('front', true);
-          this.physics.moveToObject(this.player, this.target, 80)
+          this.physics.moveToObject(this.player, this.target, 80);
           break;
         case 270:
-          this.SpawnX -= this.cell
-          this.target.setPosition(this.SpawnX, this.SpawnY)
-          this.physics.moveToObject(this.player, this.target, 80)
-
+          this.SpawnX -= this.cell;
+          this.target.setPosition(this.SpawnX, this.SpawnY);
+          this.physics.moveToObject(this.player, this.target, 80);
           this.player.play('left', true);
           break;
       }
       setTimeout(() => {
-
         res();
       }, 800);
     });
@@ -263,7 +310,7 @@ export class GameService extends Phaser.Scene {
   async rotateRight(): Promise<void> {
     return new Promise((res) => {
       this.currentDirection = this.currentDirection === 270 ? 0 : this.currentDirection + 90;
-      console.log('right')
+      console.log('right');
       setTimeout(() => {
         res();
       }, 1500);
@@ -286,7 +333,7 @@ export class GameService extends Phaser.Scene {
         const steps = Number(elem.match(/\d+/));
         for (let i = 0; i < steps; i++) {
 
-          await this.movePlayer(this.currentDirection)
+          await this.movePlayer(this.currentDirection);
 
         }
       }
@@ -300,8 +347,8 @@ export class GameService extends Phaser.Scene {
   }
   // **************формула успешного окончания или нет  по умолчанию ФЕЙЛ*********************
 
-  checkIfSuccess() {
-    this.isSuccess ? console.log('winnn') : console.log("fail")
+  checkIfSuccess(): void {
+    this.isSuccess ? console.log('winnn') : console.log('fail');
   }
 }
 
