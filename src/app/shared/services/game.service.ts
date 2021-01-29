@@ -1,14 +1,45 @@
 import * as Phaser from 'phaser';
 
+/**
+ * С помощью этой конфигурации создаётся новый уровень игры.
+ * @param tileMap - параметры тайлмэпа текущего уровня
+ * @param tileMap.key - ключ создаваемого уровня, используем именование level1, level2 и так далее
+ * @param tileMap.path - путь до файла, достаточно указать папку с уровнем и json файл
+ * @param hero - параметры спрайта героя
+ * @param hero.key - ключ спрайта, именуем в соотвествии с используемым спрайтом, например, используем спрайт hero1.png, ключ называем hero1
+ * @param hero.pngPath - имя png файла с героем
+ * @param hero.jsonPath - имя json файла с героем
+ */
 export interface SceneConfig {
+  /**
+   * @param tileMap - параметры тайлмэпа текущего уровня
+   */
   tileMap: { // параметры тайлмэпа
+    /**
+     * @param tileMap.key - ключ создаваемого уровня, используем именование level1, level2 и так далее
+     */
     key: string, // ключ для привязки
+    /**
+     * @param tileMap.path - путь до файла, достаточно указать папку с уровнем и json файл
+     */
     path: string, // путь до файла
-    layers: string[] // удаляю
   };
+  /**
+   * @param hero - параметры спрайта героя
+   */
   hero: {
+    /**
+     * @param hero.key - ключ спрайта, именуем в соотвествии с используемым спрайтом,
+     * например, используем спрайт hero1.png, ключ называем hero1
+     */
     key: string, // ключ героя
+    /**
+     * @param hero.pngPath - имя png файла с героем
+     */
     pngPath: string, // путь до пнгшки героя
+    /**
+     * @param hero.jsonPath - имя json файла с героем
+     */
     jsonPath: string // путь до json героя
   };
 }
@@ -54,8 +85,11 @@ finish!: any;
     this.load.atlas('gems', 'assets/phaser1/gems1.png', 'assets/phaser1/gems1.json');
     this.load.image('tiles', 'assets/map/tiles.png'); // изображение с тайлами - оно одно везде?
     this.load.image('point', 'assets/phaser1/lighter1.png');
-    this.load.tilemapTiledJSON(this.sceneConfig.tileMap.key, this.sceneConfig.tileMap.path); // тайлмэп текущего уровня
-    this.load.atlas(this.sceneConfig.hero.key, this.sceneConfig.hero.pngPath, this.sceneConfig.hero.jsonPath); // json hero animation
+    this.load.tilemapTiledJSON(this.sceneConfig.tileMap.key,
+      `assets/${this.sceneConfig.tileMap.path}`); // тайлмэп текущего уровня
+    this.load.atlas(this.sceneConfig.hero.key,
+      `assets/heroes/${this.sceneConfig.hero.pngPath}`,
+      `assets/heroes/${this.sceneConfig.hero.jsonPath}`); //
 
 // **************временные текстуры***************
 
@@ -120,15 +154,48 @@ finish!: any;
 
 
 // *********временные текстуры**********************************
-this.anims.create({ key: 'stand1', frames: this.anims.generateFrameNames('orc1', { prefix: 'stand1.', start: 0, end: 13, zeroPad: 3 }), frameRate: 5, repeat: -1 });
-    this.anims.create({ key: 'lay1', frames: this.anims.generateFrameNames('orc1', { prefix: 'lay1.', start: 0, end: 11, zeroPad: 3 })});
-this.anims.create({ key: 'stand2', frames: this.anims.generateFrameNames('orc2', { prefix: 'stand2.', start: 0, end: 15, zeroPad: 3 }), frameRate: 5, repeat: -1 });
-    this.anims.create({ key: 'lay2', frames: this.anims.generateFrameNames('orc2', { prefix: 'lay2.', start: 0, end: 14, zeroPad: 3 })});
-anims.create({key: 'left2', frames: anims.generateFrameNames('hero2', { prefix: 'left2.', start: 0, end: 3, zeroPad: 3 }), frameRate: 10, repeat: -1});
-anims.create({key: 'right2', frames: anims.generateFrameNames('hero2', { prefix: 'right2.', start: 0, end: 3, zeroPad: 3 }), frameRate: 10, repeat: -1});
-anims.create({key: 'front2', frames: anims.generateFrameNames('hero2', { prefix: 'front2.', start: 0, end: 3, zeroPad: 3 }), frameRate: 10, repeat: -1});
-anims.create({key: 'back2', frames: anims.generateFrameNames('hero2', { prefix: 'back2.', start: 0, end: 3, zeroPad: 3 }), frameRate: 10, repeat: -1});
-anims.create({key: 'wait', frames: anims.generateFrameNames('hero3', { prefix: 'wait.', start: 0, end: 19, zeroPad: 3 }), frameRate: 10, repeat: -1});
+    this.anims.create({
+      key: 'stand1',
+      frames: this.anims.generateFrameNames('orc1', { prefix: 'stand1.', start: 0, end: 13, zeroPad: 3 }),
+      frameRate: 5, repeat: -1
+    });
+    this.anims.create({
+      key: 'lay1',
+      frames: this.anims.generateFrameNames('orc1', { prefix: 'lay1.', start: 0, end: 11, zeroPad: 3 })
+    });
+    this.anims.create({
+      key: 'stand2',
+      frames: this.anims.generateFrameNames('orc2', { prefix: 'stand2.', start: 0, end: 15, zeroPad: 3 }),
+      frameRate: 5, repeat: -1 });
+    this.anims.create({
+      key: 'lay2',
+      frames: this.anims.generateFrameNames('orc2', { prefix: 'lay2.', start: 0, end: 14, zeroPad: 3 })
+    });
+    this.anims.create({
+      key: 'left2',
+      frames: anims.generateFrameNames('hero2', { prefix: 'left2.', start: 0, end: 3, zeroPad: 3 }),
+      frameRate: 10, repeat: -1
+    });
+    this.anims.create({
+      key: 'right2',
+      frames: anims.generateFrameNames('hero2', { prefix: 'right2.', start: 0, end: 3, zeroPad: 3 }),
+      frameRate: 10, repeat: -1
+    });
+    this.anims.create({
+      key: 'front2',
+      frames: anims.generateFrameNames('hero2', { prefix: 'front2.', start: 0, end: 3, zeroPad: 3 }),
+      frameRate: 10, repeat: -1
+    });
+    this.anims.create({
+      key: 'back2',
+      frames: anims.generateFrameNames('hero2', { prefix: 'back2.', start: 0, end: 3, zeroPad: 3 }),
+      frameRate: 10, repeat: -1
+    });
+    this.anims.create({
+      key: 'wait',
+      frames: anims.generateFrameNames('hero3', { prefix: 'wait.', start: 0, end: 19, zeroPad: 3 }),
+      frameRate: 10, repeat: -1
+    });
 
 
     this.orc1  = this.physics.add
@@ -164,11 +231,12 @@ anims.create({key: 'wait', frames: anims.generateFrameNames('hero3', { prefix: '
     const camera = this.cameras.main;
     camera.startFollow(this.player);
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-
+/*
     this.anims.create({ key: 'diamond', frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'prism', frames: this.anims.generateFrameNames('gems', { prefix: 'prism_', end: 6, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'ruby', frames: this.anims.generateFrameNames('gems', { prefix: 'ruby_', end: 6, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'square', frames: this.anims.generateFrameNames('gems', { prefix: 'square_', end: 14, zeroPad: 4 }), repeat: -1 });
+*/
 
     /// Лут, враги, звезды
     const coinsKey = [
