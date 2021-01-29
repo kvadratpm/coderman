@@ -90,11 +90,6 @@ export class GameService extends Phaser.Scene {
       this.sceneConfig.tileMap.key,
       `assets/${this.sceneConfig.tileMap.path}`
     );
-    this.load.atlas(
-      this.sceneConfig.hero.key,
-      this.sceneConfig.hero.pngPath,
-      this.sceneConfig.hero.jsonPath
-    );
     // *****MeNU*****
     this.load.image('button', 'assets/button/button.png');
     this.load.image('button_pressed', 'assets/button/button_pressed.png');
