@@ -14,7 +14,6 @@
         </li>
       </ul>
     </nav>
-
     <div class="exit-wrapper">
         <label for="exit" class="exit-label">Выход</label>
         <button  id="exit" class="material-icons icon icon_active button" (click)="changeRoute('exit')">exit_to_app</button>
@@ -32,6 +31,8 @@
     <div class="rotate-wrapper" *ngIf="isRotate">
       <div (click)="updateEditor('Player.rotateRight()')" class="button button__controller button__action button__level3">Rotate Right</div>
       <div (click)="updateEditor('Player.rotateLeft()')" class="button button__controller button__action button__level3">Rotate Left</div>
+      <!-- player.take, player.put, player.attack, -->
+      <!-- loop -> 1, 2, 3, ... , 10 -->
     </div>
     <div class="actions-wrapper">
       <div *ngIf="isCommand" class="button button__controller button__action button__level2">Move</div>

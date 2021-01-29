@@ -428,7 +428,11 @@ class Button extends Phaser.GameObjects.Container {
   targetScene: any;
   currentText: any;
   scene!: any;
-  constructor(scene1: Phaser.Scene, x: number, y: number, fontColor: any, key1: string | Phaser.Textures.Texture, key2: string, text: string | string[], type: string, name: string, targetScene?: string) {
+  constructor(
+    scene1: Phaser.Scene,
+    x: number, y: number,
+    fontColor: any, key1: string | Phaser.Textures.Texture,
+    key2: string, text: string | string[], type: string, name: string, targetScene?: string) {
     super(scene1);
     this.scene = scene1;
     this.x = x;
@@ -441,8 +445,7 @@ class Button extends Phaser.GameObjects.Container {
     }
     const button = this.scene.add.image(x, y, key1).setInteractive();
     button.setScale(0.5 * window.screen.width * 0.5 / 650);
-    // tslint:disable-next-line:prefer-const
-    let buttonText = this.scene.add.text(x, y, text, {
+    const buttonText = this.scene.add.text(x, y, text, {
       fontSize: '16px', color: fontColor
     });
 
