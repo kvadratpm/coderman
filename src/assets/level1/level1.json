@@ -36,56 +36,134 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":224.033535165347,
-                 "y":575.221238938053
+                 "x":224.034,
+                 "y":575.221
                 }, 
                 {
                  "height":0,
                  "id":3,
                  "name":"Gem Point",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"ruby"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":474.557522123894,
-                 "y":223.276665114113
+                 "x":474.558,
+                 "y":223.277
                 }, 
                 {
                  "height":0,
                  "id":4,
                  "name":"Gem Point",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"ruby"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":476.828132277597,
-                 "y":480.612482533768
+                 "x":476.828,
+                 "y":480.612
                 }, 
                 {
                  "height":0,
                  "id":5,
                  "name":"Gem Point",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"diamond"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":374.650675360969,
-                 "y":385.246856078249
+                 "x":374.651,
+                 "y":385.247
                 }, 
                 {
                  "height":0,
                  "id":6,
                  "name":"Gem Point",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"ruby"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":225.547275267816,
-                 "y":334.536562645552
+                 "x":225.547,
+                 "y":334.537
+                }, 
+                {
+                 "height":0,
+                 "id":7,
+                 "name":"Enemy Point",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"orc",
+                         "type":"string",
+                         "value":"1"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":275.500698649278,
+                 "y":226.30414531905
+                }, 
+                {
+                 "height":0,
+                 "id":8,
+                 "name":"Enemy Point",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"orc",
+                         "type":"string",
+                         "value":"2"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":376.921285514672,
+                 "y":133.209129017233
+                }, 
+                {
+                 "height":0,
+                 "id":9,
+                 "name":"Loot Point",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"lootname",
+                         "type":"string",
+                         "value":"sword"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":176.350721937587,
+                 "y":130.938518863531
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -94,7 +172,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":7,
+ "nextobjectid":10,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

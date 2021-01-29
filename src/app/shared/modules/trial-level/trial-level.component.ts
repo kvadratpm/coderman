@@ -15,7 +15,6 @@ export class TrialLevelComponent implements AfterViewInit {
     tileMap: {
       key: 'map',
       path: 'assets/phaser1/level1.json',
-      layers: []
     },
     hero: {
       key: 'hero1',

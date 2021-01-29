@@ -45,9 +45,7 @@ export interface SceneConfig {
 }
 export class GameService extends Phaser.Scene {
 
-  score = 0;
   currentDirection = 0;
-  scoreText!: any;
   platforms!: any;
   player!: any;
   sceneConfig: SceneConfig;
@@ -61,38 +59,37 @@ export class GameService extends Phaser.Scene {
   levelTarget = 0;
   isSuccess = false;
 
-// временно
-orc1!: any;
-orc2!: any;
-hero2!: any;
-hero3!: any;
-shield!: any;
-head!: any;
-sword!: any;
-finish!: any;
-// ********* */
-
-
+  // временно
+  orc1!: any;
+  orc2!: any;
+  hero2!: any;
+  hero3!: any;
+  shield!: any;
+  head!: any;
+  sword!: any;
+  finish!: any;
+  // ********* */
 
   constructor(config: SceneConfig) {
     super({ key: 'main' });
     this.sceneConfig = config;
   }
 
-
   preload(): void {
-
-    this.load.atlas('gems', 'assets/phaser1/gems1.png', 'assets/phaser1/gems1.json');
-    this.load.image('tiles', 'assets/map/tiles.png'); // изображение с тайлами - оно одно везде?
+    this.load.image('tiles', 'assets/map/tiles.png');
     this.load.image('point', 'assets/phaser1/lighter1.png');
-    this.load.tilemapTiledJSON(this.sceneConfig.tileMap.key,
-      `assets/${this.sceneConfig.tileMap.path}`); // тайлмэп текущего уровня
-    this.load.atlas(this.sceneConfig.hero.key,
+    this.load.tilemapTiledJSON(
+      this.sceneConfig.tileMap.key,
+      `assets/${this.sceneConfig.tileMap.path}`
+    );
+    this.load.atlas(
+      this.sceneConfig.hero.key,
       `assets/heroes/${this.sceneConfig.hero.pngPath}`,
-      `assets/heroes/${this.sceneConfig.hero.jsonPath}`); //
+      `assets/heroes/${this.sceneConfig.hero.jsonPath}`
+    );
 
 // **************временные текстуры***************
-
+    this.load.atlas('gems', 'assets/phaser1/gems1.png', 'assets/phaser1/gems1.json');
     this.load.atlas('orc1', 'assets/enemies/orc1.png', 'assets/enemies/orc1.json'); // черт1
     this.load.atlas('orc2', 'assets/enemies/orc2.png', 'assets/enemies/orc2.json'); // черт2
     this.load.atlas('hero2', 'assets/heroes/hero1.png', 'assets/heroes/hero1.json'); // hero2
@@ -101,7 +98,6 @@ finish!: any;
     this.load.image('head', 'assets/armour/head.png'); // шлем
     this.load.image('shield', 'assets/armour/shield.png'); // щит
     this.load.image('finish', 'assets/phaser1/finish.png'); // finish point
-
 // ******************************** */
   }
 
@@ -113,7 +109,7 @@ finish!: any;
     const spawnPoint = map.findObject('Items', obj => obj.name === 'Spawn Point');
     const gemPoints = map.filterObjects('Items', elem => elem.name === 'Gem Point');
     const lootPoints = map.filterObjects('Items', elem => elem.name === 'Loot Point');
-    const enemiesPoints = map.filterObjects('Enemies', elem => elem.name === 'Enemy Point');
+    const enemiesPoints = map.filterObjects('Items', elem => elem.name === 'Enemy Point');
     layer.setCollisionByProperty({ collides: true });
     this.SpawnX = spawnPoint.x! * this.scaleCoef;
     this.SpawnY = spawnPoint.y! * this.scaleCoef;
@@ -197,21 +193,21 @@ finish!: any;
       frameRate: 10, repeat: -1
     });
 
-
+    /*
     this.orc1  = this.physics.add
-.sprite(100 * this.scaleCoef, 100 * this.scaleCoef, 'orc1', 'stand1')
-.setScale(window.screen.width * 0.5 / 650);
+      .sprite(100 * this.scaleCoef, 100 * this.scaleCoef, 'orc1', 'stand1')
+      .setScale(window.screen.width * 0.5 / 650);
     this.orc1.play('stand1');
     this.orc2  = this.physics.add
-.sprite(200 * this.scaleCoef, 100 * this.scaleCoef, 'orc2', 'stand2')
-.setScale(window.screen.width * 0.5 / 650);
+      .sprite(200 * this.scaleCoef, 100 * this.scaleCoef, 'orc2', 'stand2')
+      .setScale(window.screen.width * 0.5 / 650);
     this.orc2.play('lay2');
     this.hero2 = this.physics.add
-.sprite(300 * this.scaleCoef, 100 * this.scaleCoef, 'hero2', 'front2')
-.setScale(window.screen.width * 0.5 / 650);
+      .sprite(300 * this.scaleCoef, 100 * this.scaleCoef, 'hero2', 'front2')
+      .setScale(window.screen.width * 0.5 / 650);
     this.hero3 = this.physics.add
-.sprite(400 * this.scaleCoef, 100 * this.scaleCoef, 'hero3', 'wait')
-.setScale(window.screen.width * 0.5 / 650);
+      .sprite(400 * this.scaleCoef, 100 * this.scaleCoef, 'hero3', 'wait')
+      .setScale(window.screen.width * 0.5 / 650);
     this.hero3.play('wait');
     this.sword = this.physics.add.image(500 * this.scaleCoef, 100 * this.scaleCoef, 'sword');
     this.sword.setScale(this.scaleCoef);
@@ -221,6 +217,7 @@ finish!: any;
     this.shield.setScale(this.scaleCoef);
     this.finish = this.physics.add.image(325 * this.scaleCoef, 325 * this.scaleCoef, 'finish');
     this.finish.setScale(this.scaleCoef);
+    */
 
 
 
@@ -231,40 +228,52 @@ finish!: any;
     const camera = this.cameras.main;
     camera.startFollow(this.player);
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-/*
+
     this.anims.create({ key: 'diamond', frames: this.anims.generateFrameNames('gems', { prefix: 'diamond_', end: 15, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'prism', frames: this.anims.generateFrameNames('gems', { prefix: 'prism_', end: 6, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'ruby', frames: this.anims.generateFrameNames('gems', { prefix: 'ruby_', end: 6, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'square', frames: this.anims.generateFrameNames('gems', { prefix: 'square_', end: 14, zeroPad: 4 }), repeat: -1 });
-*/
 
     /// Лут, враги, звезды
-    const coinsKey = [
-      'prism',
-      'square',
-      'ruby',
-      'diamond'
-    ];
+    if (gemPoints) {
+      this.levelTarget += gemPoints.length;
+      gemPoints.forEach((point) => {
+        const coin = this.physics.add.sprite(0, 0, 'gems').play(point.properties[0].value);
+        coin.setX(point.x! * this.scaleCoef);
+        coin.setY(point.y! * this.scaleCoef);
+        coin.setScale(this.scaleCoef);
+        this.physics.add.overlap(this.player, coin, () => {
+          coin.disableBody(true, true);
+          this.levelTarget -= 1;
+        }, () => { return; }, this);
+      });
+    }
 
-    const enemiesKey = [];
+    if (enemiesPoints) {
+      enemiesPoints.forEach((point) => {
+        const enemy = this.physics.add.sprite(0, 0, `orc${point.properties[0].value}`).play(`stand${point.properties[0].value}`);
+        enemy.setX(point.x! * this.scaleCoef);
+        enemy.setY(point.y! * this.scaleCoef);
+        enemy.setScale(this.scaleCoef);
+        this.physics.add.overlap(this.player, enemy, () => {
+          enemy.disableBody(true, true);
+          this.levelTarget -= 1;
+        }, () => { return; }, this);
+      });
+    }
 
-    const lootsKey = [];
-
-    gemPoints.forEach((point) => {
-      const coin = this.physics.add.sprite(0, 0, 'gems').play(coinsKey[Math.floor(Math.random() * coinsKey.length)]);
-      coin.setX(point.x! * this.scaleCoef);
-      coin.setY(point.y! * this.scaleCoef);
-      this.physics.add.overlap(this.player, coin, () => {
-        coin.disableBody(true, true);
-        this.score += 1;
-        this.scoreText.setText('Score: ' + this.score);
-        if (this.score === 2) {
-          this.isSuccess = true;
-          this.checkIfSuccess();
-        }
-      }, () => { return; }, this);
-    });
-    this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px' });
+    if (lootPoints) {
+      lootPoints.forEach((point) => {
+        const loot = this.physics.add.sprite(0, 0, point.properties[0].value);
+        loot.setX(point.x! * this.scaleCoef);
+        loot.setY(point.y! * this.scaleCoef);
+        loot.setScale(this.scaleCoef);
+        this.physics.add.overlap(this.player, loot, () => {
+          loot.disableBody(true, true);
+          this.levelTarget -= 1;
+        }, () => { return; }, this);
+      });
+    }
   }
 
   update(): void {
@@ -330,14 +339,11 @@ finish!: any;
   }
 
   async startTurn(cmd: string[]): Promise<void> {
-    console.log(cmd);
     for (const elem of cmd) {
       if (elem.includes('move')) {
         const steps = Number(elem.match(/\d+/));
         for (let i = 0; i < steps; i++) {
-
           await this.movePlayer(this.currentDirection);
-
         }
       }
       if (elem.includes('rotateRight')) {
@@ -347,11 +353,17 @@ finish!: any;
         await this.rotateLeft();
       }
     }
+    this.checkIfSuccess();
   }
   // **************формула успешного окончания или нет  по умолчанию ФЕЙЛ*********************
 
   checkIfSuccess(): void {
-    this.isSuccess ? console.log('winnn') : console.log('fail');
+    if (this.levelTarget === 0) {
+      alert('win!');
+    } else {
+      alert(this.levelTarget);
+    }
+    this.scene.restart();
   }
 }
 // не удалять!!
