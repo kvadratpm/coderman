@@ -34,7 +34,11 @@
       <!-- player.take, player.put, player.attack, -->
       <!-- loop -> 1, 2, 3, ... , 10 -->
     </div>
-    <div class="actions-wrapper"></div>
+    <div class="actions-wrapper" *ngIf="isAction">
+      <div (click)="updateEditor('Player.Put()')" class="button button__controller button__action button__level3">Put</div>
+      <div (click)="updateEditor('Player.Take()')" class="button button__controller button__action button__level3">Take</div>
+      <div (click)="updateEditor('Player.Attack()')" class="button button__controller button__action button__level3">Attack</div>
+    </div>
     <div class="commands-wrapper">
       <div *ngIf="isCommand" class="button button__controller button__action button__level2">Move</div>
       <div *ngIf="isCommand" class="button button__controller button__action button__level2">Rotate</div>

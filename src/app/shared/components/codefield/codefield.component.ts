@@ -17,6 +17,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   currentHelp = 0; // TODO: Создать интерфейс, принимаемые значения - keyof Helps.CurrentLevel
   isCommand = false;
   isRotate = false;
+  isAction = false;
   aceEditor!: any;
   helps: { [index: string]: {[index: string]: string} } = helps; // TODO: Создать интерфейс Helps
   @ViewChildren('interactiveLighting') navElements: any;
@@ -87,15 +88,22 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
       if (!this.isCommand) {
         this.isRotate = false;
         this.isMoveControl = false;
+        this.isAction = false;
       }
     } else if (e.target.closest('.button__level2')) {
       const buttonLevel2 = e.target.closest('.button__level2');
       if (buttonLevel2.innerText === 'Rotate') {
         this.isRotate = !this.isRotate;
         this.isMoveControl = false;
+        this.isAction = false;
       } else if (buttonLevel2.innerText === 'Move') {
         this.isMoveControl = !this.isMoveControl;
         this.isRotate = false;
+        this.isAction = false;
+      } else if (buttonLevel2.innerText === 'Actions') {
+        this.isAction = !this.isAction;
+        this.isRotate = false;
+        this.isMoveControl = false;
       }
     }
   }
@@ -107,6 +115,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
       this.isCommand = false;
       this.isRotate = false;
       this.isMoveControl = false;
+      this.isAction = false;
     }
   }
 
