@@ -119,7 +119,6 @@ export class GameService extends Phaser.Scene {
     this.load.image('head', 'assets/armour/head.png'); // шлем
     this.load.image('shield', 'assets/armour/shield.png'); // щит
     this.load.image('finish', 'assets/phaser1/finish.png'); // finish point
-// ******************************** */
   }
 
   create(): void {
@@ -405,7 +404,8 @@ export class SettingsMenu extends Phaser.Scene {
     this.add.text(200, 350, 'Music',
       { fontSize: '28px', color: '#ffffff' });
     const musicButton = new Button(this, 300, 180, '#000', 'button', 'button_pressed', this.gameSettings[0].value === true ? 'On' : 'Off', 'toggle', 'music');
-    const backButton = new Button(this, 180, 230, '#000', 'button', 'button_pressed', 'Back', 'navigation', 'back', 'main');}
+    const backButton = new Button(this, 180, 230, '#000', 'button', 'button_pressed', 'Back', 'navigation', 'back', 'main');
+  }
 
   playButtonSound() {
     if (this.gameSettings[1].value) {
