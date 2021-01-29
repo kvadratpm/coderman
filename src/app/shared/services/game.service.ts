@@ -43,7 +43,15 @@ export interface SceneConfig {
     jsonPath: string // путь до json героя
   };
 }
+
+
 export class GameService extends Phaser.Scene {
+  gameSettings!: any;
+  defaultSettings: any = [
+    { setting: 'music', value: true },
+    { setting: 'sfx', value: true }
+  ];
+
 
   currentDirection = 0;
   platforms!: any;
@@ -84,6 +92,23 @@ export class GameService extends Phaser.Scene {
     );
     this.load.atlas(
       this.sceneConfig.hero.key,
+      this.sceneConfig.hero.pngPath,
+      this.sceneConfig.hero.jsonPath
+    );
+    // *****MeNU*****
+    this.load.image('button', 'assets/button/button.png');
+    this.load.image('button_pressed', 'assets/button/button_pressed.png');
+    this.load.audio('buttonSound', 'assets/audio/putNlay.mp3');
+    this.load.audio('backgroundMusic', 'assets/audio/second.mp3');
+    // ****************************
+
+    this.load.atlas('gems', 'assets/phaser1/gems1.png', 'assets/phaser1/gems1.json');
+    this.load.image('tiles', 'assets/map/tiles.png'); // изображение с тайлами - оно одно везде?
+    this.load.image('point', 'assets/phaser1/lighter1.png');
+
+    this.load.tilemapTiledJSON(this.sceneConfig.tileMap.key,
+      `assets/${this.sceneConfig.tileMap.path}`); // тайлмэп текущего уровня
+    this.load.atlas(this.sceneConfig.hero.key,
       `assets/heroes/${this.sceneConfig.hero.pngPath}`,
       `assets/heroes/${this.sceneConfig.hero.jsonPath}`
     );
@@ -94,6 +119,7 @@ export class GameService extends Phaser.Scene {
     this.load.atlas('orc2', 'assets/enemies/orc2.png', 'assets/enemies/orc2.json'); // черт2
     this.load.atlas('hero2', 'assets/heroes/hero1.png', 'assets/heroes/hero1.json'); // hero2
     this.load.atlas('hero3', 'assets/heroes/warrior2.png', 'assets/heroes/warrior2.json'); // hero3
+
     this.load.image('sword', 'assets/armour/sword.png'); // меч
     this.load.image('head', 'assets/armour/head.png'); // шлем
     this.load.image('shield', 'assets/armour/shield.png'); // щит
@@ -366,29 +392,84 @@ export class GameService extends Phaser.Scene {
     this.scene.restart();
   }
 }
-// не удалять!!
-/*function create ()
-{
-    zone = this.add.zone(300, 200).setSize(200, 200);
-    this.physics.world.enable(zone);
-    zone.body.setAllowGravity(false);
-    zone.body.moves = false;
 
-    var group = this.physics.add.group({
-        key: 'block',
-        frameQuantity: 4,
-        bounceX: 1,
-        bounceY: 1,
-        collideWorldBounds: true,
-        velocityX: 120,
-        velocityY: 60
+export class SettingsMenu extends Phaser.Scene {
+  gameSettings!: any;
+
+  constructor() {
+    super({ key: 'settings' });
+  }
+  create() {
+    this.gameSettings = JSON.parse(localStorage.getItem('myGameSettings') || '{}');
+    this.add.text(250, 40, 'Settings', {
+      fontSize: '56px', color: '#ffffff'
+    });
+    this.add.text(200, 220, 'Sound Effects',
+      { fontSize: '28px', color: '#ffffff' });
+    const soundFxButton = new Button(this, 300, 115, '#000', 'button', 'button_pressed', this.gameSettings[1].value === true ? 'On' : 'Off', 'toggle', 'sfx');
+    this.add.text(200, 350, 'Music',
+      { fontSize: '28px', color: '#ffffff' });
+    const musicButton = new Button(this, 300, 180, '#000', 'button', 'button_pressed', this.gameSettings[0].value === true ? 'On' : 'Off', 'toggle', 'music');
+    const backButton = new Button(this, 180, 230, '#000', 'button', 'button_pressed', 'Back', 'navigation', 'back', 'main');}
+
+  playButtonSound() {
+    if (this.gameSettings[1].value) {
+      this.sound.play('buttonSound');
+    } else { this.sound.stopAll(); }
+  }
+
+  toggleItem(button: { name: string; }, text: string) {
+    if (button.name === 'sfx') {
+      this.gameSettings[1].value = text === 'On' ? true : false;
+    } else if (button.name === 'music') {
+      this.gameSettings[0].value = text === 'On' ? true : false;
+    }
+    localStorage.setItem('myGameSettings',
+      JSON.stringify(this.gameSettings));
+  }
+}
+
+class Button extends Phaser.GameObjects.Container {
+  targetScene: any;
+  currentText: any;
+  scene!: any;
+  constructor(scene1: Phaser.Scene, x: number, y: number, fontColor: any, key1: string | Phaser.Textures.Texture, key2: string, text: string | string[], type: string, name: string, targetScene?: string) {
+    super(scene1);
+    this.scene = scene1;
+    this.x = x;
+    this.y = y;
+    this.name = name;
+    if (type === 'navigation') {
+      this.targetScene = targetScene;
+    } else if (type === 'toggle') {
+      this.currentText = text;
+    }
+    const button = this.scene.add.image(x, y, key1).setInteractive();
+    button.setScale(0.5 * window.screen.width * 0.5 / 650);
+    // tslint:disable-next-line:prefer-const
+    let buttonText = this.scene.add.text(x, y, text, {
+      fontSize: '16px', color: fontColor
     });
 
-    this.physics.add.overlap(group, zone);
+    Phaser.Display.Align.In.Center(buttonText, button);
+    this.add(button);
+    this.add(buttonText);
+    button.on('pointerdown', () => {
+      button.setTexture(key2);
+      this.scene.playButtonSound();
+    });
+    button.on('pointerup', () => {
+      button.setTexture(key1);
+      if (this.targetScene) {
+        setTimeout(() => {
+          this.scene.scene.launch(targetScene);
+          this.scene.scene.stop(this.scene);
+        }, 300);
+      } else if (this.currentText) {
+        buttonText.text = buttonText.text === 'On' ? 'Off' : 'On';
+        this.scene.toggleItem(this, buttonText.text);
+      }
+    });
+    this.scene.add.existing(this);
+  }
 }
-
-function update ()
-{
-    zone.body.debugBodyColor = zone.body.touching.none ? 0x00ffff : 0xffff00;
-}
- */
