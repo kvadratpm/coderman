@@ -10,7 +10,7 @@ export interface SceneConfig {
     key: string, // ключ героя
     pngPath: string, // путь до пнгшки героя
     jsonPath: string // путь до json героя
-  }; // врагов
+  };
 }
 export class GameService extends Phaser.Scene {
 
@@ -20,8 +20,6 @@ export class GameService extends Phaser.Scene {
   platforms!: any;
   player!: any;
   sceneConfig: SceneConfig;
-
-
   scaleCoef = window.screen.width * 0.5 / 650;
   cell = window.screen.width * 0.5 / 13;
   SpawnY!: any;
@@ -29,7 +27,8 @@ export class GameService extends Phaser.Scene {
   PointX!: any;
   PointY!: any;
   target!: any;
-  isSuccess = false
+  levelTarget = 0;
+  isSuccess = false;
 
 
 
@@ -55,12 +54,13 @@ export class GameService extends Phaser.Scene {
     layer.setScale(this.scaleCoef);
     const spawnPoint = map.findObject('Items', obj => obj.name === 'Spawn Point');
     const gemPoints = map.filterObjects('Items', elem => elem.name === 'Gem Point');
-    console.log(gemPoints);
+    const lootPoints = map.filterObjects('Items', elem => elem.name === 'Loot Point');
+    const enemiesPoints = map.filterObjects('Enemies', elem => elem.name === 'Enemy Point');
     layer.setCollisionByProperty({ collides: true });
     this.SpawnX = spawnPoint.x! * this.scaleCoef;
     this.SpawnY = spawnPoint.y! * this.scaleCoef;
-    console.log(this.SpawnX, this.SpawnY, this.cell)
-    this.target = this.physics.add.image(this.SpawnX, this.SpawnY, 'point')
+    console.log(this.SpawnX, this.SpawnY, this.cell);
+    this.target = this.physics.add.image(this.SpawnX, this.SpawnY, 'point');
     this.player = this.physics.add
       .sprite(spawnPoint.x! * this.scaleCoef, spawnPoint.y! * this.scaleCoef, this.sceneConfig.hero.key, 'front')
       .setSize(30, 40)
@@ -103,40 +103,40 @@ export class GameService extends Phaser.Scene {
     this.anims.create({ key: 'ruby', frames: this.anims.generateFrameNames('gems', { prefix: 'ruby_', end: 6, zeroPad: 4 }), repeat: -1 });
     this.anims.create({ key: 'square', frames: this.anims.generateFrameNames('gems', { prefix: 'square_', end: 14, zeroPad: 4 }), repeat: -1 });
 
-    /// звезды
-    const coins = [
-      this.physics.add.sprite(0, 0, 'gems').play('prism'),
-      this.physics.add.sprite(150, 450, 'gems').play('square'),
-      this.physics.add.sprite(450, 450, 'gems').play('ruby'),
-      this.physics.add.sprite(450, 150, 'gems').play('diamond')
+    /// Лут, враги, звезды
+    const coinsKey = [
+      'prism',
+      'square',
+      'ruby',
+      'diamond'
     ];
-    coins.forEach((coin, i) => {
-      coin.setX(gemPoints[i].x! * this.scaleCoef);
-      coin.setY(gemPoints[i].y! * this.scaleCoef);
-    });
 
-    coins.forEach((coin, i) => {
-      coin.setX(gemPoints[i].x! * this.scaleCoef);
-      coin.setY(gemPoints[i].y! * this.scaleCoef);
+    const enemiesKey = [];
+
+    const lootsKey = [];
+    
+    gemPoints.forEach((point) => {
+      const coin = this.physics.add.sprite(0, 0, 'gems').play(coinsKey[Math.floor(Math.random() * coinsKey.length)]);
+      coin.setX(point.x! * this.scaleCoef);
+      coin.setY(point.y! * this.scaleCoef);
       this.physics.add.overlap(this.player, coin, () => {
-        coin.disableBody(true, true)
-
+        coin.disableBody(true, true);
         this.score += 1;
         this.scoreText.setText('Score: ' + this.score);
         if (this.score === 2) {
-          this.isSuccess = true
-          this.checkIfSuccess()
+          this.isSuccess = true;
+          this.checkIfSuccess();
         }
-      }, () => { return }, this)
-    })
-    this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px' })
+      }, () => { return; }, this);
+    });
+    this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px' });
   }
 
   update(): void {
-    var distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.SpawnX, this.SpawnY);
+    const distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.SpawnX, this.SpawnY);
     if (this.player.body.speed > 0 && distance < 7) {
       this.player.body.reset(this.SpawnX, this.SpawnY);
-      this.player.stop(true, null)
+      this.player.stop(true, null);
     }
 
   }
@@ -145,33 +145,31 @@ export class GameService extends Phaser.Scene {
     return new Promise((res) => {
       switch (direction) {
         case 0:
-          this.SpawnY -= this.cell
-          this.target.setPosition(this.SpawnX, this.SpawnY)
-          this.physics.moveToObject(this.player, this.target, 80)
+          this.SpawnY -= this.cell;
+          this.target.setPosition(this.SpawnX, this.SpawnY);
+          this.physics.moveToObject(this.player, this.target, 80);
           this.player.play('back', true);
           break;
         case 90:
-          this.SpawnX += this.cell
-          this.target.setPosition(this.SpawnX, this.SpawnY)
-          this.physics.moveToObject(this.player, this.target, 80)
+          this.SpawnX += this.cell;
+          this.target.setPosition(this.SpawnX, this.SpawnY);
+          this.physics.moveToObject(this.player, this.target, 80);
           this.player.play('right', true);
           break;
         case 180:
-          this.SpawnY += this.cell
-          this.target.setPosition(this.SpawnX, this.SpawnY)
+          this.SpawnY += this.cell;
+          this.target.setPosition(this.SpawnX, this.SpawnY);
           this.player.play('front', true);
-          this.physics.moveToObject(this.player, this.target, 80)
+          this.physics.moveToObject(this.player, this.target, 80);
           break;
         case 270:
-          this.SpawnX -= this.cell
-          this.target.setPosition(this.SpawnX, this.SpawnY)
-          this.physics.moveToObject(this.player, this.target, 80)
-
+          this.SpawnX -= this.cell;
+          this.target.setPosition(this.SpawnX, this.SpawnY);
+          this.physics.moveToObject(this.player, this.target, 80);
           this.player.play('left', true);
           break;
       }
       setTimeout(() => {
-
         res();
       }, 800);
     });
@@ -180,7 +178,7 @@ export class GameService extends Phaser.Scene {
   async rotateRight(): Promise<void> {
     return new Promise((res) => {
       this.currentDirection = this.currentDirection === 270 ? 0 : this.currentDirection + 90;
-      console.log('right')
+      console.log('right');
       setTimeout(() => {
         res();
       }, 1500);
@@ -203,7 +201,7 @@ export class GameService extends Phaser.Scene {
         const steps = Number(elem.match(/\d+/));
         for (let i = 0; i < steps; i++) {
 
-          await this.movePlayer(this.currentDirection)
+          await this.movePlayer(this.currentDirection);
 
         }
       }
@@ -217,8 +215,8 @@ export class GameService extends Phaser.Scene {
   }
   // **************формула успешного окончания или нет  по умолчанию ФЕЙЛ*********************
 
-  checkIfSuccess() {
-    this.isSuccess ? console.log('winnn') : console.log("fail")
+  checkIfSuccess(): void {
+    this.isSuccess ? console.log('winnn') : console.log('fail');
   }
 }
 // не удалять!!
