@@ -117,7 +117,7 @@ export class GameService extends Phaser.Scene {
     this.load.image('shield', 'assets/armour/shield.png'); // щит
     this.load.image('finish', 'assets/phaser1/finish.png'); // finish point
 
-// ******************************** 
+// ********************************
 
   }
 
