@@ -30,12 +30,14 @@
       <div class="button button__controller button__action button__level3" *ngFor="let item of moveLimit" (click)="updateEditor('Player.move('+ item + ')')">{{item}}</div>
     </div>
     <div class="rotate-wrapper" *ngIf="isRotate">
-      <div (click)="updateEditor('Player.rotateRight()')" class="button button__controller button__action button__level3">Rotate Right</div>
       <div (click)="updateEditor('Player.rotateLeft()')" class="button button__controller button__action button__level3">Rotate Left</div>
+      <div (click)="updateEditor('Player.rotateRight()')" class="button button__controller button__action button__level3">Rotate Right</div>
     </div>
-    <div class="actions-wrapper">
+    <div class="actions-wrapper"></div>
+    <div class="commands-wrapper">
       <div *ngIf="isCommand" class="button button__controller button__action button__level2">Move</div>
       <div *ngIf="isCommand" class="button button__controller button__action button__level2">Rotate</div>
+      <div *ngIf="isCommand" class="button button__controller button__action button__level2">Actions</div>
     </div>
     <div class="button button__controller button__level1">Player</div>
   </div>
@@ -49,3 +51,4 @@
     <button (click)="closePopup()" class="button popup__button button__controller">Начать выполнение</button>
   </div>
 </div>
+
