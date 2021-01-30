@@ -112,6 +112,7 @@ export class GameService extends Phaser.Scene {
     const layer = map.createLayer('Ground', tileset, 0, 0); // id слоя по его названию в тайлсете
     layer.setScale(this.scaleCoef);
     const spawnPoint = map.findObject('Items', obj => obj.name === 'Spawn Point');
+    const finishPoint = map.findObject('Items', obj => obj.name === 'Finish Point');
     const gemPoints = map.filterObjects('Items', elem => elem.name === 'Gem Point');
     const lootPoints = map.filterObjects('Items', elem => elem.name === 'Loot Point');
     const enemiesPoints = map.filterObjects('Items', elem => elem.name === 'Enemy Point');
@@ -262,9 +263,15 @@ export class GameService extends Phaser.Scene {
         }, () => { return; }, this);
       });
     }
+
+    if (finishPoint) {
+      const finish = this.physics.add.sprite(finishPoint.x!, finishPoint.y!, 'finish');
+      finish.setScale(this.scaleCoef);
+    }
+    // **************
   }
 
-  // **************
+
 
   update(): void {
     const distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.SpawnX, this.SpawnY);
