@@ -4,7 +4,7 @@
   <export target="level1.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="tiles" tilewidth="50" tileheight="50" tilecount="1680" columns="48">
-  <image source="../map/tiles.png" trans="ff00ff" width="2436" height="1752"/>
+  <image source="../../map/tiles.png" trans="ff00ff" width="2436" height="1752"/>
   <tile id="0">
    <properties>
     <property name="colides" type="bool" value="true"/>
