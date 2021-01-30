@@ -4,10 +4,6 @@
   height: 80%;
   display: flex;
   z-index: 1;
-  app-gamefield {
-    width: 50%;
-    height: 100%;
-  }
   .codefield-wrapper {
     width: 50%;
     display: flex;
@@ -17,14 +13,12 @@
       height: 100%;
     }
   }
-  .start-wrapper {
+  .start-button {
+    margin: 0 10px;
     transition-duration: 0.1s;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: absolute;
-    bottom: 20px;
-    left: 30px;
     cursor: pointer;
     padding: 10px;
     &:hover {
@@ -34,6 +28,12 @@
         color: rgb(19, 125, 255);
       }
     }
+  }
+  .start-buttons-wrapper {
+    display: flex;
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
   }
   button {
     color: #0167e4;

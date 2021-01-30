@@ -66,6 +66,7 @@ export class GameService extends Phaser.Scene {
   target!: any;
   levelTarget = 0;
   isSuccess = false;
+  isRestart = false;
 
   constructor(config: SceneConfig) {
     super({ key: 'main' });
@@ -225,7 +226,7 @@ export class GameService extends Phaser.Scene {
 
     // *** Рендер лута, врагов, камней ***
     if (gemPoints) {
-      this.levelTarget += gemPoints.length;
+      this.levelTarget = gemPoints.length;
       gemPoints.forEach((point) => {
         const coin = this.physics.add.sprite(0, 0, 'gems').play(point.properties[0].value);
         coin.setX(point.x! * this.scaleCoef);
@@ -336,10 +337,18 @@ export class GameService extends Phaser.Scene {
 
   async startTurn(cmd: string[]): Promise<void> {
     for (const elem of cmd) {
+      if (this.isRestart) {
+        this.isRestart = false;
+        break;
+      }
       if (elem.includes('move')) {
         const steps = Number(elem.match(/\d+/));
         for (let i = 0; i < steps; i++) {
           await this.movePlayer(this.currentDirection);
+          if (this.isRestart) {
+            this.isRestart = false;
+            break;
+          }
         }
       }
       if (elem.includes('rotateRight')) {
@@ -358,6 +367,11 @@ export class GameService extends Phaser.Scene {
     } else {
       alert(this.levelTarget);
     }
+    this.scene.restart();
+  }
+
+  restart(): void {
+    this.isRestart = true;
     this.scene.restart();
   }
 }
