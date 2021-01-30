@@ -278,6 +278,7 @@ export class GameService extends Phaser.Scene {
     if (this.player.body.speed > 0 && distance < 7) {
       this.player.body.reset(this.SpawnX, this.SpawnY);
       this.player.stop(true, null);
+      console.log("STOP")
     }
   }
 
