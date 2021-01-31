@@ -4,23 +4,23 @@ import { GamefieldComponent } from '../../components/gamefield/gamefield.compone
 import { GameService, SceneConfig, SettingsMenu} from '../../services/game.service';
 
 @Component({
-  selector: 'app-level1',
-  templateUrl: './level1.component.html',
-  styleUrls: ['./level1.component.scss']
+  selector: 'app-level2',
+  templateUrl: './level2.component.html',
+  styleUrls: ['./level2.component.scss']
 })
 
-export class Level1Component implements AfterViewInit {
+export class Level2Component implements AfterViewInit {
 
   sceneConfig: SceneConfig = {
-    levelNumber: 1,
+    levelNumber: 2,
     tileMap: {
       key: 'map',
       path: 'level1/level1.json'
     },
     hero: {
-      key: 'emptyhero',
-      pngPath: 'emptyhero.png',
-      jsonPath: 'emptyhero.json'
+      key: 'hero1',
+      pngPath: 'hero1.png',
+      jsonPath: 'hero1.json'
     }
   };
 
@@ -33,7 +33,7 @@ export class Level1Component implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit(): void {
-    this.gameField.field.scene.add('level1', this.scene, true);
+    this.gameField.field.scene.add('level2', this.scene, true);
     this.gameField.field.scene.add('settings', this.settingsMenu, false);
 
   }

@@ -10,6 +10,7 @@ import { SharedModule } from './shared/modules/shared.module';
 import { NavpanelComponent } from './shared/components/navpanel/navpanel.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { Level1Module } from './shared/modules/level1/level1.module';
+import { Level2Module } from './shared/modules/level2/level2.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { Level1Module } from './shared/modules/level1/level1.module';
     FormsModule,
     SharedModule,
     NgwWowModule,
-    Level1Module
+    Level1Module,
+    Level2Module
   ],
   exports: [
     SharedModule

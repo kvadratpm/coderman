@@ -12,6 +12,10 @@ import * as Phaser from 'phaser';
  */
 export interface SceneConfig {
   /**
+   * @param levelNumber - номер уровня
+   */
+  levelNumber: number;
+  /**
    * @param tileMap - параметры тайлмэпа текущего уровня
    */
   tileMap: {
