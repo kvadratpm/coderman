@@ -306,8 +306,8 @@ export class GameService extends Phaser.Scene {
     }
     // **************
     this.gameSettings = JSON.parse(localStorage.getItem('myGameSettings') || '{}');
-    console.log(this.gameSettings);
-    if (this.gameSettings === null || this.gameSettings.length <= 0 || this.gameSettings === '{}') {
+    console.log(this.gameSettings.length)
+    if (this.gameSettings === null  || this.gameSettings.length<=0||this.gameSettings.length === undefined) {
       localStorage.setItem('myGameSettings', JSON.stringify(this.defaultSettings));
       this.gameSettings = this.defaultSettings;
       console.log(this.gameSettings);
