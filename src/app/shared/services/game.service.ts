@@ -48,8 +48,8 @@ export interface SceneConfig {
 export class GameService extends Phaser.Scene {
   gameSettings!: any;
   defaultSettings: any = [
-    { setting: 'music', value: true },
-    { setting: 'sfx', value: true }
+    { setting: 'music', value: false },
+    { setting: 'sfx', value: false }
   ];
 
 
@@ -92,6 +92,13 @@ export class GameService extends Phaser.Scene {
     this.load.image('button_pressed', 'assets/button/button_pressed.png');
     this.load.audio('buttonSound', 'assets/audio/putNlay.mp3');
     this.load.audio('backgroundMusic', 'assets/audio/second.mp3');
+    this.load.audio('fail', 'assets/audio/fail.mp3');
+    this.load.audio('success', 'assets/audio/success.mp3');
+    this.load.audio('fight', 'assets/audio/fight.mp3');
+    this.load.audio('step', 'assets/audio/step.mp3');
+    this.load.audio('takestuff', 'assets/audio/takestuff.mp3');
+    this.load.audio('putNplay', 'assets/audio/putNplay.mp3');
+
     // ****************************
 
     // ***Персонажи и текстуры***
@@ -108,6 +115,8 @@ export class GameService extends Phaser.Scene {
   }
 
   create(): void {
+
+    console.log(this.defaultSettings)
     const map = this.make.tilemap({ key: 'map', tileWidth: this.cell, tileHeight: this.cell });
     const tileset = map.addTilesetImage('tiles', 'tiles');
     const layer = map.createLayer('Ground', tileset, 0, 0); // id слоя по его названию в тайлсете
@@ -135,7 +144,7 @@ export class GameService extends Phaser.Scene {
       frames: this.anims.generateFrameNames(
         this.sceneConfig.hero.key,
         { prefix: 'left.', start: 0, end: 3, zeroPad: 3 }
-        ),
+      ),
       frameRate: 10,
       repeat: -1
     });
@@ -162,7 +171,7 @@ export class GameService extends Phaser.Scene {
       frames: this.anims.generateFrameNames(
         this.sceneConfig.hero.key,
         { prefix: 'left.attack.', start: 0, end: 14, zeroPad: 3 }
-        ),
+      ),
       frameRate: 15
     });
     this.anims.create({
@@ -195,7 +204,8 @@ export class GameService extends Phaser.Scene {
     this.anims.create({
       key: 'stand2',
       frames: this.anims.generateFrameNames('orc2', { prefix: 'stand2.', start: 0, end: 15, zeroPad: 3 }),
-      frameRate: 5, repeat: -1 });
+      frameRate: 5, repeat: -1
+    });
     this.anims.create({
       key: 'lay2',
       frames: this.anims.generateFrameNames('orc2', { prefix: 'lay2.', start: 0, end: 14, zeroPad: 3 })
@@ -241,11 +251,11 @@ export class GameService extends Phaser.Scene {
     });
     // ****************
 
-/*
-    const camera = this.cameras.main;
-    camera.startFollow(this.player);
-    camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    */
+    /*
+        const camera = this.cameras.main;
+        camera.startFollow(this.player);
+        camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+        */
 
     // *** Рендер лута, врагов, камней ***
     if (gemPoints) {
@@ -294,7 +304,8 @@ export class GameService extends Phaser.Scene {
     }
     // **************
     this.gameSettings = JSON.parse(localStorage.getItem('myGameSettings') || '{}');
-    if (this.gameSettings === null || this.gameSettings.length <= 0) {
+    console.log(this.gameSettings)
+    if (this.gameSettings === null || this.gameSettings.length <= 0 || this.gameSettings ==='{}') {
       localStorage.setItem('myGameSettings', JSON.stringify(this.defaultSettings));
       this.gameSettings = this.defaultSettings;
       console.log(this.gameSettings)
@@ -341,6 +352,7 @@ export class GameService extends Phaser.Scene {
 
   async movePlayer(direction: number): Promise<void> {
     return new Promise((res) => {
+      this.sound.play('step')
       switch (direction) {
         case 0:
           this.SpawnY -= this.cell;
@@ -375,6 +387,7 @@ export class GameService extends Phaser.Scene {
 
   async rotateRight(): Promise<void> {
     return new Promise((res) => {
+      this.sound.play('step')
       this.currentDirection = this.currentDirection === 270 ? 0 : this.currentDirection + 90;
       console.log('right');
       setTimeout(() => {
@@ -385,6 +398,7 @@ export class GameService extends Phaser.Scene {
   }
   async rotateLeft(): Promise<void> {
     return new Promise((res) => {
+      this.sound.play('step')
       this.currentDirection = this.currentDirection === 0 ? 270 : this.currentDirection - 90;
       setTimeout(() => {
         res();
@@ -392,27 +406,28 @@ export class GameService extends Phaser.Scene {
     });
   }
 
-async attack(): Promise<void> {
-  return new Promise((res) => {
-    switch (this.currentDirection) {
-      case 0:
-        this.player.play('back.attack', true);
-        break;
-      case 90:
-        this.player.play('right.attack', true);
-        break;
-      case 180:
-        this.player.play('front.attack', true);
-        break;
-      case 270:
-        this.player.play('left.attack', true);
-        break;
-    }
-    setTimeout(() => {
-      res();
-    }, 1500);
-  });
-}
+  async attack(): Promise<void> {
+    return new Promise((res) => {
+      this.sound.play('fight')
+      switch (this.currentDirection) {
+        case 0:
+          this.player.play('back.attack', true);
+          break;
+        case 90:
+          this.player.play('right.attack', true);
+          break;
+        case 180:
+          this.player.play('front.attack', true);
+          break;
+        case 270:
+          this.player.play('left.attack', true);
+          break;
+      }
+      setTimeout(() => {
+        res();
+      }, 1500);
+    });
+  }
 
 
   async startTurn(cmd: string[]): Promise<void> {
@@ -446,8 +461,11 @@ async attack(): Promise<void> {
 
   checkIfSuccess(): void {
     if (this.levelTarget === 0) {
+      this.sound.play('success')
       alert('win!');
+
     } else {
+      this.sound.play('fail')
       alert(this.levelTarget);
     }
     this.scene.restart();
