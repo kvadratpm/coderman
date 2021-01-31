@@ -17,9 +17,9 @@ export class Level1Component implements AfterViewInit {
       path: 'level1/level1.json'
     },
     hero: {
-      key: 'emptyhero',
-      pngPath: 'emptyhero.png',
-      jsonPath: 'emptyhero.json'
+      key: 'hero1',
+      pngPath: 'hero1.png',
+      jsonPath: 'hero1.json'
     }
   };
 

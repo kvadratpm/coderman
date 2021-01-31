@@ -157,6 +157,29 @@ export class GameService extends Phaser.Scene {
       frameRate: 10,
       repeat: -1
     });
+    this.anims.create({
+      key: 'left.attack',
+      frames: this.anims.generateFrameNames(
+        this.sceneConfig.hero.key,
+        { prefix: 'left.attack.', start: 0, end: 14, zeroPad: 3 }
+        ),
+      frameRate: 15
+    });
+    this.anims.create({
+      key: 'right.attack',
+      frames: this.anims.generateFrameNames(this.sceneConfig.hero.key, { prefix: 'right.attack.', start: 0, end: 14, zeroPad: 3 }),
+      frameRate: 15
+    });
+    this.anims.create({
+      key: 'front.attack',
+      frames: this.anims.generateFrameNames(this.sceneConfig.hero.key, { prefix: 'front.attack.', start: 0, end: 12, zeroPad: 3 }),
+      frameRate: 15
+    });
+    this.anims.create({
+      key: 'back.attack',
+      frames: this.anims.generateFrameNames(this.sceneConfig.hero.key, { prefix: 'back.attack.', start: 0, end: 14, zeroPad: 3 }),
+      frameRate: 15
+    });
     // *************************
 
     // ***Анимации врагов ***/
@@ -281,7 +304,7 @@ export class GameService extends Phaser.Scene {
 
     const music = this.sound.add('backgroundMusic', {
       mute: false,
-      volume: 0.2,
+      volume: 0.1,
       rate: 1,
       loop: true,
       delay: 200
@@ -369,6 +392,29 @@ export class GameService extends Phaser.Scene {
     });
   }
 
+async attack(): Promise<void> {
+  return new Promise((res) => {
+    switch (this.currentDirection) {
+      case 0:
+        this.player.play('back.attack', true);
+        break;
+      case 90:
+        this.player.play('right.attack', true);
+        break;
+      case 180:
+        this.player.play('front.attack', true);
+        break;
+      case 270:
+        this.player.play('left.attack', true);
+        break;
+    }
+    setTimeout(() => {
+      res();
+    }, 1500);
+  });
+}
+
+
   async startTurn(cmd: string[]): Promise<void> {
     for (const elem of cmd) {
       if (this.isRestart) {
@@ -390,6 +436,9 @@ export class GameService extends Phaser.Scene {
       }
       if (elem.includes('rotateLeft')) {
         await this.rotateLeft();
+      }
+      if (elem.includes('Attack')) {
+        await this.attack();
       }
     }
     this.checkIfSuccess();
