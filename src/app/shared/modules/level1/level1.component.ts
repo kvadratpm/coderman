@@ -1,7 +1,8 @@
 import { ViewChild, Component, AfterViewInit } from '@angular/core';
 import { CodefieldComponent } from '../../components/codefield/codefield.component';
 import { GamefieldComponent } from '../../components/gamefield/gamefield.component';
-import { GameService, SceneConfig, SettingsMenu} from '../../services/game.service';
+import { GameService, SceneConfig} from '../../services/game.service';
+import { SettingsMenu} from '../../services/menu.service';
 
 @Component({
   selector: 'app-level1',
