@@ -269,6 +269,39 @@ export class GameService extends Phaser.Scene {
       finish.setScale(this.scaleCoef);
     }
     // **************
+    this.gameSettings = JSON.parse(localStorage.getItem('myGameSettings') || '{}');
+    if (this.gameSettings === null || this.gameSettings.length <= 0) {
+      localStorage.setItem('myGameSettings', JSON.stringify(this.defaultSettings));
+      this.gameSettings = this.defaultSettings;
+      console.log(this.gameSettings)
+    }
+
+    const settingsButton = new Button(this, 310, 7, '#000', 'button', 'button_pressed', 'Settings', 'navigation', 'settings', 'settings');
+
+    const music = this.sound.add('backgroundMusic', {
+      mute: false,
+      volume: 0.2,
+      rate: 1,
+      loop: true,
+      delay: 200
+    });
+
+
+
+    if (this.gameSettings[0].value) {
+      console.log(this.gameSettings[0].value)
+      music.play();
+    } else if (!this.gameSettings[0].value) {
+      music.stop()
+      this.sound.stopAll()
+      console.log(this.gameSettings[0].value);
+    }
+  }
+
+  playButtonSound() {
+    if (this.gameSettings[1].value) {
+      this.sound.play('buttonSound');
+    }
   }
 
 
@@ -386,7 +419,7 @@ export class SettingsMenu extends Phaser.Scene {
   playButtonSound(): void {
     if (this.gameSettings[1].value) {
       this.sound.play('buttonSound');
-    } else { this.sound.stopAll(); }
+    } else { this.sound.pauseAll(); }
   }
 
   toggleItem(button: { name: string; }, text: string): void {
