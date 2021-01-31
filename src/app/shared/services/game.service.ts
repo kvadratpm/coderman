@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-
+import {Button} from './button.service'
 /**
  * С помощью этой конфигурации создаётся новый уровень игры.
  * @param tileMap - параметры тайлмэпа текущего уровня
@@ -44,14 +44,12 @@ export interface SceneConfig {
   };
 }
 
-
 export class GameService extends Phaser.Scene {
   gameSettings!: any;
   defaultSettings: any = [
     { setting: 'music', value: false },
-    { setting: 'sfx', value: false }
+    { setting: 'sfx', value: true }
   ];
-
 
   currentDirection = 0;
   platforms!: any;
@@ -321,8 +319,6 @@ export class GameService extends Phaser.Scene {
       delay: 200
     });
 
-
-
     if (this.gameSettings[0].value) {
       console.log(this.gameSettings[0].value)
       music.play();
@@ -338,8 +334,6 @@ export class GameService extends Phaser.Scene {
       this.sound.play('buttonSound');
     }
   }
-
-
 
   update(): void {
     const distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.SpawnX, this.SpawnY);
@@ -398,7 +392,6 @@ export class GameService extends Phaser.Scene {
   }
   async rotateLeft(): Promise<void> {
     return new Promise((res) => {
-      this.sound.play('step')
       this.currentDirection = this.currentDirection === 0 ? 270 : this.currentDirection - 90;
       setTimeout(() => {
         res();
@@ -477,87 +470,3 @@ export class GameService extends Phaser.Scene {
   }
 }
 
-export class SettingsMenu extends Phaser.Scene {
-  gameSettings!: any;
-
-  constructor() {
-    super({ key: 'settings' });
-  }
-  create(): void {
-    this.gameSettings = JSON.parse(localStorage.getItem('myGameSettings') || '{}');
-    this.add.text(250, 40, 'Settings', {
-      fontSize: '56px', color: '#ffffff'
-    });
-    this.add.text(200, 220, 'Sound Effects',
-      { fontSize: '28px', color: '#ffffff' });
-    const soundFxButton = new Button(this, 300, 115, '#000', 'button', 'button_pressed', this.gameSettings[1].value === true ? 'On' : 'Off', 'toggle', 'sfx');
-    this.add.text(200, 350, 'Music',
-      { fontSize: '28px', color: '#ffffff' });
-    const musicButton = new Button(this, 300, 180, '#000', 'button', 'button_pressed', this.gameSettings[0].value === true ? 'On' : 'Off', 'toggle', 'music');
-    const backButton = new Button(this, 180, 230, '#000', 'button', 'button_pressed', 'Back', 'navigation', 'back', 'main');
-  }
-
-  playButtonSound(): void {
-    if (this.gameSettings[1].value) {
-      this.sound.play('buttonSound');
-    } else { this.sound.pauseAll(); }
-  }
-
-  toggleItem(button: { name: string; }, text: string): void {
-    if (button.name === 'sfx') {
-      this.gameSettings[1].value = text === 'On' ? true : false;
-    } else if (button.name === 'music') {
-      this.gameSettings[0].value = text === 'On' ? true : false;
-    }
-    localStorage.setItem('myGameSettings',
-      JSON.stringify(this.gameSettings));
-  }
-}
-
-class Button extends Phaser.GameObjects.Container {
-  targetScene: any;
-  currentText: any;
-  scene!: any;
-  constructor(
-    scene1: Phaser.Scene,
-    x: number, y: number,
-    fontColor: any, key1: string | Phaser.Textures.Texture,
-    key2: string, text: string | string[], type: string, name: string, targetScene?: string) {
-    super(scene1);
-    this.scene = scene1;
-    this.x = x;
-    this.y = y;
-    this.name = name;
-    if (type === 'navigation') {
-      this.targetScene = targetScene;
-    } else if (type === 'toggle') {
-      this.currentText = text;
-    }
-    const button = this.scene.add.image(x, y, key1).setInteractive();
-    button.setScale(0.5 * window.screen.width * 0.5 / 650);
-    const buttonText = this.scene.add.text(x, y, text, {
-      fontSize: '16px', color: fontColor
-    });
-
-    Phaser.Display.Align.In.Center(buttonText, button);
-    this.add(button);
-    this.add(buttonText);
-    button.on('pointerdown', () => {
-      button.setTexture(key2);
-      this.scene.playButtonSound();
-    });
-    button.on('pointerup', () => {
-      button.setTexture(key1);
-      if (this.targetScene) {
-        setTimeout(() => {
-          this.scene.scene.launch(targetScene);
-          this.scene.scene.stop(this.scene);
-        }, 300);
-      } else if (this.currentText) {
-        buttonText.text = buttonText.text === 'On' ? 'Off' : 'On';
-        this.scene.toggleItem(this, buttonText.text);
-      }
-    });
-    this.scene.add.existing(this);
-  }
-}
