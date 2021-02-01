@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared.module';
 
 const routes: Routes = [
-  {path: 'level1', component: Level1Component}
+  {path: '', component: Level1Component}
 ];
 
 @NgModule({
