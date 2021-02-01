@@ -19,11 +19,13 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   isCommand = false;
   isRotate = false;
   isAction = false;
+  isCycleControl = false;
   aceEditor!: any;
   helps: { [index: string]: {[index: string]: string} } = helps; // TODO: Создать интерфейс Helps
   @ViewChildren('interactiveLighting') navElements: any;
   isMoveControl = false;
   moveLimit: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  cycleLimit: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   levels: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   isPopupActive = true;
   isWin = false;
@@ -54,7 +56,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
 
   updateEditor(event: string): void {
     this.aceEditor.insert(`${event}\n`, false);
-    this.aceEditor.navigateFileEnd();
+
   }
 
   get code(): string[] {
@@ -97,6 +99,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
         this.isRotate = false;
         this.isMoveControl = false;
         this.isAction = false;
+        this.isCycleControl = false;
       }
     } else if (e.target.closest('.button__level2')) {
       const buttonLevel2 = e.target.closest('.button__level2');
@@ -104,14 +107,22 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
         this.isRotate = !this.isRotate;
         this.isMoveControl = false;
         this.isAction = false;
+        this.isCycleControl = false;
       } else if (buttonLevel2.innerText === 'Move') {
         this.isMoveControl = !this.isMoveControl;
         this.isRotate = false;
         this.isAction = false;
+        this.isCycleControl = false;
       } else if (buttonLevel2.innerText === 'Actions') {
         this.isAction = !this.isAction;
         this.isRotate = false;
         this.isMoveControl = false;
+        this.isCycleControl = false;
+      } else if (buttonLevel2.innerText === 'Loop') {
+        this.isCycleControl = !this.isCycleControl;
+        this.isRotate = false;
+        this.isMoveControl = false;
+        this.isAction = false;
       }
     }
   }
@@ -124,6 +135,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
       this.isRotate = false;
       this.isMoveControl = false;
       this.isAction = false;
+      this.isCycleControl = false;
     }
   }
 
@@ -168,6 +180,12 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     this.popupText = this.helps[this.currentLevel][0];
     this.popupTopic = `Задание №${this.currentLevel}`;
     this.popupButtonInnerText = 'Начать выполнение';
+  }
+
+  addLoop(item: number): void {
+    const loop = `loop ${item}\n\nend`;
+    this.updateEditor(loop);
+    this.aceEditor.navigateUp(2);
   }
 
 }
