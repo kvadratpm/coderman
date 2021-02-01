@@ -13,9 +13,10 @@ import { SettingsMenu} from '../../services/menu.service';
 export class Level1Component implements AfterViewInit {
 
   sceneConfig: SceneConfig = {
+    score: 0,
     tileMap: {
       key: 'map',
-      path: 'level1/level1.json'
+      path: 'level10/level10.json'
     },
     hero: {
       key: 'hero1',
