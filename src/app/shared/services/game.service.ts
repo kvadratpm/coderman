@@ -1,5 +1,6 @@
 import * as Phaser from 'phaser';
 import {Button} from './button.service'
+import {CodefieldComponent} from '../components/codefield/codefield.component';
 /**
  * С помощью этой конфигурации создаётся новый уровень игры.
  * @param tileMap - параметры тайлмэпа текущего уровня
@@ -423,7 +424,8 @@ export class GameService extends Phaser.Scene {
   }
 
 
-  async startTurn(cmd: string[]): Promise<void> {
+  async startTurn(codeField: CodefieldComponent): Promise<void> {
+    const cmd = codeField.code;
     for (const elem of cmd) {
       if (this.isRestart) {
         this.isRestart = false;
@@ -449,19 +451,21 @@ export class GameService extends Phaser.Scene {
         await this.attack();
       }
     }
-    this.checkIfSuccess();
+    this.checkIfSuccess(codeField);
   }
 
-  checkIfSuccess(): void {
+  checkIfSuccess(codeField: CodefieldComponent): void {
     if (this.levelTarget === 0) {
-      this.sound.play('success')
-      alert('win!');
-
+      codeField.openWinPopup();
+      this.sound.play('success');
     } else {
-      this.sound.play('fail')
-      alert(this.levelTarget);
+      codeField.openLosePopup();
+
+      this.sound.play('fail');
+      setTimeout(() => {
+      this.scene.restart();
+      }, 3000);
     }
-    this.scene.restart();
   }
 
   restart(): void {

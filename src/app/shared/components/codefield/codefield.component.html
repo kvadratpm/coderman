@@ -48,12 +48,12 @@
   </div>
   <div *ngIf="isPopupActive" class="overlay"></div>
   <div *ngIf="isPopupActive" class="popup">
-    <div class="popup__topic">Задание №{{currentLevel}}</div>
+    <div class="popup__topic"[innerText]="popupTopic">Задание №{{currentLevel}}</div>
     <div class="popup__content">
       <div class="popup__avatar avatar"></div>
-      <div class="popup__text">{{helps[currentLevel][0]}}</div>
+      <div class="popup__text" [innerText]="popupText"></div>
     </div>
-    <button (click)="closePopup()" class="button popup__button button__controller">Начать выполнение</button>
+    <button (click)="closePopup()" class="button popup__button button__controller" [innerText]="popupButtonInnerText"></button>
   </div>
 </div>
 

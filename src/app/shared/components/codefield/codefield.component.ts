@@ -3,6 +3,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as ace from 'ace-builds';
 import helps from './json/helps.json';
+import {GameService} from '../../services/game.service';
 
 @Component({
   selector: 'app-codefield',
@@ -13,7 +14,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
 
   @ViewChild('editor') private editor!: ElementRef<HTMLElement>;
 
-  currentLevel: number | string = 1; // TODO: Создать интерфейс, принимаемые значения - keyof Helps
+  currentLevel = 1; // TODO: Создать интерфейс, принимаемые значения - keyof Helps
   currentHelp = 0; // TODO: Создать интерфейс, принимаемые значения - keyof Helps.CurrentLevel
   isCommand = false;
   isRotate = false;
@@ -25,6 +26,12 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   moveLimit: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   levels: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   isPopupActive = true;
+  isWin = false;
+  isLose = false;
+  popupTopic = `Задание №${this.currentLevel}`;
+  popupText = this.helps[this.currentLevel][0];
+  popupButtonInnerText = 'Начать выполнение';
+  isWelcome = false;
 
   constructor(private router: Router) {
   }
@@ -61,7 +68,8 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
       this.currentLevel = levelNumber;
     }
     this.changeProgressLevel();
-    this.isPopupActive = true;
+    this.openWelcomePopup();
+    this.aceEditor.setValue('', 0);
   }
 
   changeHelp(): void {
@@ -130,5 +138,36 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   }
   closePopup(): void {
     this.isPopupActive = false;
+    this.isWelcome = false;
+    if (this.isWin) {
+      this.isWin = false;
+      const nextLevel = this.currentLevel + 1;
+      this.changeRoute(nextLevel);
+    } else if (this.isLose) {
+      this.isLose = false;
+    }
   }
+
+  openLosePopup(): void {
+    this.isPopupActive = true;
+    this.isLose = true;
+    this.popupText = 'Не расстраивайтесь! Просто попробуйте еще раз!';
+    this.popupTopic = `Поражение...`;
+    this.popupButtonInnerText = 'Повторить';
+  }
+  openWinPopup(): void {
+    this.isPopupActive = true;
+    this.isWin = true;
+    this.popupText = 'Отлично! Вы большой молодец, продолжайте в том же духе!';
+    this.popupTopic = `Победа!`;
+    this.popupButtonInnerText = 'Продолжить';
+  }
+  openWelcomePopup(): void {
+    this.isPopupActive = true;
+    this.isWelcome = true;
+    this.popupText = this.helps[this.currentLevel][0];
+    this.popupTopic = `Задание №${this.currentLevel}`;
+    this.popupButtonInnerText = 'Начать выполнение';
+  }
+
 }
