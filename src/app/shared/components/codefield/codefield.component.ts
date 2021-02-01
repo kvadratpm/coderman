@@ -3,6 +3,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as ace from 'ace-builds';
 import helps from './json/helps.json';
+import {GameService} from '../../services/game.service';
 
 @Component({
   selector: 'app-codefield',
@@ -13,18 +14,26 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
 
   @ViewChild('editor') private editor!: ElementRef<HTMLElement>;
 
-  currentLevel: number | string = 1; // TODO: Создать интерфейс, принимаемые значения - keyof Helps
+  currentLevel = 1; // TODO: Создать интерфейс, принимаемые значения - keyof Helps
   currentHelp = 0; // TODO: Создать интерфейс, принимаемые значения - keyof Helps.CurrentLevel
   isCommand = false;
   isRotate = false;
   isAction = false;
+  isCycleControl = false;
   aceEditor!: any;
   helps: { [index: string]: {[index: string]: string} } = helps; // TODO: Создать интерфейс Helps
   @ViewChildren('interactiveLighting') navElements: any;
   isMoveControl = false;
   moveLimit: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  cycleLimit: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   levels: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   isPopupActive = true;
+  isWin = false;
+  isLose = false;
+  popupTopic = `Задание №${this.currentLevel}`;
+  popupText = this.helps[this.currentLevel][0];
+  popupButtonInnerText = 'Начать выполнение';
+  isWelcome = false;
 
   constructor(private router: Router) {
   }
@@ -47,7 +56,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
 
   updateEditor(event: string): void {
     this.aceEditor.insert(`${event}\n`, false);
-    this.aceEditor.navigateFileEnd();
+
   }
 
   get code(): string[] {
@@ -61,7 +70,8 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
       this.currentLevel = levelNumber;
     }
     this.changeProgressLevel();
-    this.isPopupActive = true;
+    this.openWelcomePopup();
+    this.aceEditor.setValue('', 0);
   }
 
   changeHelp(): void {
@@ -89,6 +99,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
         this.isRotate = false;
         this.isMoveControl = false;
         this.isAction = false;
+        this.isCycleControl = false;
       }
     } else if (e.target.closest('.button__level2')) {
       const buttonLevel2 = e.target.closest('.button__level2');
@@ -96,14 +107,22 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
         this.isRotate = !this.isRotate;
         this.isMoveControl = false;
         this.isAction = false;
+        this.isCycleControl = false;
       } else if (buttonLevel2.innerText === 'Move') {
         this.isMoveControl = !this.isMoveControl;
         this.isRotate = false;
         this.isAction = false;
+        this.isCycleControl = false;
       } else if (buttonLevel2.innerText === 'Actions') {
         this.isAction = !this.isAction;
         this.isRotate = false;
         this.isMoveControl = false;
+        this.isCycleControl = false;
+      } else if (buttonLevel2.innerText === 'Loop') {
+        this.isCycleControl = !this.isCycleControl;
+        this.isRotate = false;
+        this.isMoveControl = false;
+        this.isAction = false;
       }
     }
   }
@@ -116,6 +135,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
       this.isRotate = false;
       this.isMoveControl = false;
       this.isAction = false;
+      this.isCycleControl = false;
     }
   }
 
@@ -130,5 +150,42 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   }
   closePopup(): void {
     this.isPopupActive = false;
+    this.isWelcome = false;
+    if (this.isWin) {
+      this.isWin = false;
+      const nextLevel = this.currentLevel + 1;
+      this.changeRoute(nextLevel);
+    } else if (this.isLose) {
+      this.isLose = false;
+    }
   }
+
+  openLosePopup(): void {
+    this.isPopupActive = true;
+    this.isLose = true;
+    this.popupText = 'Не расстраивайтесь! Просто попробуйте еще раз!';
+    this.popupTopic = `Поражение...`;
+    this.popupButtonInnerText = 'Повторить';
+  }
+  openWinPopup(): void {
+    this.isPopupActive = true;
+    this.isWin = true;
+    this.popupText = 'Отлично! Вы большой молодец, продолжайте в том же духе!';
+    this.popupTopic = `Победа!`;
+    this.popupButtonInnerText = 'Продолжить';
+  }
+  openWelcomePopup(): void {
+    this.isPopupActive = true;
+    this.isWelcome = true;
+    this.popupText = this.helps[this.currentLevel][0];
+    this.popupTopic = `Задание №${this.currentLevel}`;
+    this.popupButtonInnerText = 'Начать выполнение';
+  }
+
+  addLoop(item: number): void {
+    const loop = `loop ${item}\n\nend`;
+    this.updateEditor(loop);
+    this.aceEditor.navigateUp(2);
+  }
+
 }

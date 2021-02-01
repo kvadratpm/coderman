@@ -9,7 +9,6 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from './shared/modules/shared.module';
 import { NavpanelComponent } from './shared/components/navpanel/navpanel.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
-import { Level1Module } from './shared/modules/level1/level1.module';
 
 @NgModule({
   declarations: [
@@ -24,8 +23,7 @@ import { Level1Module } from './shared/modules/level1/level1.module';
     AceEditorModule,
     FormsModule,
     SharedModule,
-    NgwWowModule,
-    Level1Module
+    NgwWowModule
   ],
   exports: [
     SharedModule

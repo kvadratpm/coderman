@@ -1,5 +1,8 @@
 import * as Phaser from 'phaser';
-import { Button } from './button.service'
+
+import {Button} from './button.service'
+import {CodefieldComponent} from '../components/codefield/codefield.component';
+
 /**
  * С помощью этой конфигурации создаётся новый уровень игры.
  * @param tileMap - параметры тайлмэпа текущего уровня
@@ -12,9 +15,15 @@ import { Button } from './button.service'
  */
 export interface SceneConfig {
   /**
+
   * @param score -необходимое количество очков для прохождения уровня
   * */
-  score: number
+  //score: number
+
+   * @param levelNumber - номер уровня
+   */
+  levelNumber: number;
+
   /**
    * @param tileMap - параметры тайлмэпа текущего уровня
    */
@@ -123,7 +132,7 @@ export class GameService extends Phaser.Scene {
 
   create(): void {
 
-    console.log(this.defaultSettings)
+    console.log(this.defaultSettings);
     const map = this.make.tilemap({ key: 'map', tileWidth: this.cell, tileHeight: this.cell });
     const tileset = map.addTilesetImage('tiles', 'tiles');
     const layer = map.createLayer('Ground', tileset, 0, 0); // id слоя по его названию в тайлсете
@@ -344,6 +353,7 @@ export class GameService extends Phaser.Scene {
     if (this.gameSettings === null || this.gameSettings.length <= 0 || this.gameSettings.length === undefined) {
       localStorage.setItem('myGameSettings', JSON.stringify(this.defaultSettings));
       this.gameSettings = this.defaultSettings;
+
     }
 
     const settingsButton = new Button(this, 310, 7, '#000', 'button', 'button_pressed', 'Settings', 'navigation', 'settings', 'settings');
@@ -364,7 +374,7 @@ export class GameService extends Phaser.Scene {
     }
   }
 
-  playButtonSound() {
+  playButtonSound(): void {
     if (this.gameSettings[1].value) {
       this.sound.play('buttonSound');
     }
@@ -381,6 +391,7 @@ export class GameService extends Phaser.Scene {
 
   async movePlayer(direction: number): Promise<void> {
     return new Promise((res) => {
+
       if (this.gameSettings[0].value) { this.sound.play('step') }
       switch (direction) {
         case 0:
@@ -436,6 +447,7 @@ export class GameService extends Phaser.Scene {
   async attack(): Promise<void> {
     return new Promise((res) => {
       if (this.gameSettings[0].value) { this.sound.play('fight') }
+
       switch (this.currentDirection) {
         case 0:
           this.player.play('back.attack', true);
@@ -465,7 +477,8 @@ export class GameService extends Phaser.Scene {
   async put() {
   }
 
-  async startTurn(cmd: string[]): Promise<void> {
+  async startTurn(codeField: CodefieldComponent): Promise<void> {
+    const cmd = codeField.code;
     for (const elem of cmd) {
       if (this.isRestart) {
         this.isRestart = false;
@@ -498,9 +511,10 @@ export class GameService extends Phaser.Scene {
       }
 
     }
-    this.checkIfSuccess();
+    this.checkIfSuccess(codeField);
   }
 
+/*
   checkIfSuccess(): void {
     const distancePlayertofinish = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.finishX, this.finishY);
     if (distancePlayertofinish < 20 && this.levelTarget === this.sceneConfig.score) {
@@ -510,8 +524,20 @@ export class GameService extends Phaser.Scene {
       if (this.gameSettings[0].value) { this.sound.play('fail') }
       alert(this.levelTarget);
       console.log(this.levelTarget, distancePlayertofinish)
+*/
+  checkIfSuccess(codeField: CodefieldComponent): void {
+    if (this.levelTarget === 0) {
+      codeField.openWinPopup();
+      this.sound.play('success');
+    } else {
+      codeField.openLosePopup();
+
+      this.sound.play('fail');
+      setTimeout(() => {
+      this.scene.restart();
+      }, 3000);
+
     }
-    this.scene.restart();
   }
 
   restart(): void {
