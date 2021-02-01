@@ -13,6 +13,10 @@ import {CodefieldComponent} from '../components/codefield/codefield.component';
  */
 export interface SceneConfig {
   /**
+   * @param levelNumber - номер уровня
+   */
+  levelNumber: number;
+  /**
    * @param tileMap - параметры тайлмэпа текущего уровня
    */
   tileMap: {
@@ -115,7 +119,7 @@ export class GameService extends Phaser.Scene {
 
   create(): void {
 
-    console.log(this.defaultSettings)
+    console.log(this.defaultSettings);
     const map = this.make.tilemap({ key: 'map', tileWidth: this.cell, tileHeight: this.cell });
     const tileset = map.addTilesetImage('tiles', 'tiles');
     const layer = map.createLayer('Ground', tileset, 0, 0); // id слоя по его названию в тайлсете
@@ -303,11 +307,11 @@ export class GameService extends Phaser.Scene {
     }
     // **************
     this.gameSettings = JSON.parse(localStorage.getItem('myGameSettings') || '{}');
-    console.log(this.gameSettings.length)
-    if (this.gameSettings === null  || this.gameSettings.length<=0||this.gameSettings.length === undefined) {
+    console.log(this.gameSettings.length);
+    if (this.gameSettings === null  || this.gameSettings.length <= 0 || this.gameSettings.length === undefined) {
       localStorage.setItem('myGameSettings', JSON.stringify(this.defaultSettings));
       this.gameSettings = this.defaultSettings;
-      console.log(this.gameSettings)
+      console.log(this.gameSettings);
     }
 
     const settingsButton = new Button(this, 310, 7, '#000', 'button', 'button_pressed', 'Settings', 'navigation', 'settings', 'settings');
@@ -321,16 +325,16 @@ export class GameService extends Phaser.Scene {
     });
 
     if (this.gameSettings[0].value) {
-      console.log(this.gameSettings[0].value)
+      console.log(this.gameSettings[0].value);
       music.play();
     } else if (!this.gameSettings[0].value) {
-      music.stop()
-      this.sound.stopAll()
+      music.stop();
+      this.sound.stopAll();
       console.log(this.gameSettings[0].value);
     }
   }
 
-  playButtonSound() {
+  playButtonSound(): void {
     if (this.gameSettings[1].value) {
       this.sound.play('buttonSound');
     }
@@ -341,13 +345,13 @@ export class GameService extends Phaser.Scene {
     if (this.player.body.speed > 0 && distance < 7) {
       this.player.body.reset(this.SpawnX, this.SpawnY);
       this.player.stop(true, null);
-      console.log("STOP")
+      console.log('STOP');
     }
   }
 
   async movePlayer(direction: number): Promise<void> {
     return new Promise((res) => {
-      this.sound.play('step')
+      this.sound.play('step');
       switch (direction) {
         case 0:
           this.SpawnY -= this.cell;
@@ -382,7 +386,7 @@ export class GameService extends Phaser.Scene {
 
   async rotateRight(): Promise<void> {
     return new Promise((res) => {
-      this.sound.play('step')
+      this.sound.play('step');
       this.currentDirection = this.currentDirection === 270 ? 0 : this.currentDirection + 90;
       console.log('right');
       setTimeout(() => {
@@ -402,7 +406,7 @@ export class GameService extends Phaser.Scene {
 
   async attack(): Promise<void> {
     return new Promise((res) => {
-      this.sound.play('fight')
+      this.sound.play('fight');
       switch (this.currentDirection) {
         case 0:
           this.player.play('back.attack', true);
