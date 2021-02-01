@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="2021.01.13" orientation="orthogonal" renderorder="right-down" width="13" height="13" tilewidth="50" tileheight="50" infinite="0" nextlayerid="8" nextobjectid="76">
+<map version="1.4" tiledversion="2021.01.13" orientation="orthogonal" renderorder="right-down" width="13" height="13" tilewidth="50" tileheight="50" infinite="0" nextlayerid="6" nextobjectid="76">
  <editorsettings>
-  <export target="../level2/level2.json" format="json"/>
+  <export target="level3.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="tiles" tilewidth="50" tileheight="50" tilecount="1680" columns="48">
   <image source="../../../../../../../../../images/tiles.png" width="2427" height="1752"/>
@@ -358,15 +358,15 @@
 1646,1647,1648,1649,1650,1651,1652,1653,1654,1655,1656,1657,1658
 </data>
  </layer>
- <layer id="7" name="World" width="13" height="13">
+ <layer id="5" name="World" width="13" height="13">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,894,895,896,897,0,0,0,0,
+0,0,0,0,0,942,943,944,945,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -376,10 +376,28 @@
 </data>
  </layer>
  <objectgroup id="2" name="Items" offsetx="0.747771" offsety="1.49554">
-  <object id="1" name="Spawn Point" x="325" y="375">
+  <object id="1" name="Spawn Point" x="275" y="475">
    <point/>
   </object>
-  <object id="2" name="Finish Point" x="325" y="175">
+  <object id="2" name="Finish Point" x="325" y="125">
+   <point/>
+  </object>
+  <object id="73" name="Gem Point" x="475" y="475">
+   <properties>
+    <property name="color" value="prism"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="74" name="Gem Point" x="475" y="325">
+   <properties>
+    <property name="color" value="ruby"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="75" name="Gem Point" x="475" y="125">
+   <properties>
+    <property name="color" value="diamond"/>
+   </properties>
    <point/>
   </object>
  </objectgroup>
