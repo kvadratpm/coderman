@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
 
-import {Button} from './button.service'
+import {Button} from './button.service';
 import {CodefieldComponent} from '../components/codefield/codefield.component';
 
 /**
@@ -15,15 +15,13 @@ import {CodefieldComponent} from '../components/codefield/codefield.component';
  */
 export interface SceneConfig {
   /**
-
-  * @param score -необходимое количество очков для прохождения уровня
-  * */
-  //score: number
-
+   * @param score - необходимое количество очков для прохождения уровня
+   */
+  //score: number;
+  /**
    * @param levelNumber - номер уровня
    */
   levelNumber: number;
-
   /**
    * @param tileMap - параметры тайлмэпа текущего уровня
    */
@@ -78,9 +76,9 @@ export class GameService extends Phaser.Scene {
   levelTarget = 0;
   isSuccess = false;
   isRestart = false;
-  finishX!: any
-  finishY!: any
-  lootCoordinate!: any
+  finishX!: any;
+  finishY!: any;
+  lootCoordinate!: any;
 
   constructor(config: SceneConfig) {
     super({ key: 'main' });
@@ -158,8 +156,8 @@ export class GameService extends Phaser.Scene {
     this.physics.add.collider(this.target, layer);
     this.physics.add.collider(this.target, world);
     if (finishPoint) {
-      this.finishX = finishPoint.x
-      this.finishY = finishPoint.y
+      this.finishX = finishPoint.x;
+      this.finishY = finishPoint.y;
       const finish = this.physics.add.image(finishPoint.x! * this.scaleCoef, finishPoint.y! * this.scaleCoef, 'finish');
       finish.setScale(this.scaleCoef);
 
@@ -307,9 +305,9 @@ export class GameService extends Phaser.Scene {
         */
 
     // *** Рендер лута, врагов, камней ***
-        if (aliesPoint) {
-      const alies = this.physics.add.sprite(aliesPoint.x! * this.scaleCoef, aliesPoint.y! * this.scaleCoef, 'hero3').play('wait')
-      alies.setScale(this.scaleCoef*0.9);
+    if (aliesPoint) {
+      const alies = this.physics.add.sprite(aliesPoint.x! * this.scaleCoef, aliesPoint.y! * this.scaleCoef, 'hero3').play('wait');
+      alies.setScale(this.scaleCoef * 0.9);
     }
     if (gemPoints) {
       gemPoints.forEach((point) => {
@@ -329,7 +327,7 @@ export class GameService extends Phaser.Scene {
         const enemy = this.physics.add.sprite(0, 0, `orc${point.properties[0].value}`).play(`stand${point.properties[0].value}`);
         enemy.setX(point.x! * this.scaleCoef);
         enemy.setY(point.y! * this.scaleCoef);
-        enemy.setScale(this.scaleCoef*0.85);
+        enemy.setScale(this.scaleCoef * 0.85);
 
       });
     }
@@ -338,7 +336,7 @@ export class GameService extends Phaser.Scene {
         const loot = this.physics.add.sprite(0, 0, point.properties[0].value).play(point.properties[0].value);
         loot.setX(point.x! * this.scaleCoef);
         loot.setY(point.y! * this.scaleCoef);
-        this.lootCoordinate = point.y! + point.x!
+        this.lootCoordinate = point.y! + point.x!;
         loot.setScale(this.scaleCoef * 0.8);
         this.physics.add.overlap(this.player, loot, () => {
           loot.disableBody(true, true);
@@ -369,8 +367,8 @@ export class GameService extends Phaser.Scene {
     if (this.gameSettings[0].value) {
       music.play();
     } else if (!this.gameSettings[0].value) {
-      music.stop()
-      this.sound.stopAll()
+      music.stop();
+      this.sound.stopAll();
     }
   }
 
@@ -392,7 +390,7 @@ export class GameService extends Phaser.Scene {
   async movePlayer(direction: number): Promise<void> {
     return new Promise((res) => {
 
-      if (this.gameSettings[0].value) { this.sound.play('step') }
+      if (this.gameSettings[0].value) { this.sound.play('step'); }
       switch (direction) {
         case 0:
           this.SpawnY -= this.cell;
@@ -446,7 +444,7 @@ export class GameService extends Phaser.Scene {
 
   async attack(): Promise<void> {
     return new Promise((res) => {
-      if (this.gameSettings[0].value) { this.sound.play('fight') }
+      if (this.gameSettings[0].value) { this.sound.play('fight'); }
 
       switch (this.currentDirection) {
         case 0:
