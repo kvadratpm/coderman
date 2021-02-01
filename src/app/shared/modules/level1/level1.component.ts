@@ -19,12 +19,12 @@ export class Level1Component implements AfterViewInit {
 
     tileMap: {
       key: 'map',
-      path: 'level10/level10.json'
+      path: 'level1/level1.json'
     },
     hero: {
-      key: 'hero1',
-      pngPath: 'hero1.png',
-      jsonPath: 'hero1.json'
+      key: 'emptyhero',
+      pngPath: 'emptyhero.png',
+      jsonPath: 'emptyhero.json'
     }
   };
 
