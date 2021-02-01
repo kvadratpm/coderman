@@ -1,4 +1,5 @@
 import { ViewChild, Component, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CodefieldComponent } from '../../components/codefield/codefield.component';
 import { GamefieldComponent } from '../../components/gamefield/gamefield.component';
 import { GameService, SceneConfig } from '../../services/game.service';
@@ -31,7 +32,7 @@ export class Level1Component implements AfterViewInit {
   @ViewChild(CodefieldComponent) codeField!: CodefieldComponent;
   @ViewChild(GamefieldComponent) gameField!: GamefieldComponent;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngAfterViewInit(): void {
     this.gameField.field.scene.add('level1', this.scene, true);
