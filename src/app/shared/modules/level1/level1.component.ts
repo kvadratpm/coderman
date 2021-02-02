@@ -22,7 +22,7 @@ export class Level1Component implements AfterViewInit {
     codeField: this.codeField,
     tileMap: {
       key: 'map',
-      path: 'level1/level1.json'
+      path: 'level5/level5.json'
     },
     hero: {
       key: 'emptyhero',
