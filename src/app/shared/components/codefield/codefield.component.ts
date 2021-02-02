@@ -201,4 +201,8 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     this.aceEditor.navigateUp(2);
   }
 
+  reset(): void {
+    this.aceEditor.setValue('');
+  }
+
 }
