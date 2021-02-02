@@ -13,24 +13,28 @@ import { SettingsMenu } from '../../services/menu.service';
 
 export class Level1Component implements AfterViewInit {
 
+  @ViewChild(CodefieldComponent) codeField!: CodefieldComponent;
+  @ViewChild(GamefieldComponent) gameField!: GamefieldComponent;
+
   sceneConfig: SceneConfig = {
+    // score: 0,
     levelNumber: 1,
+    codeField: this.codeField,
     tileMap: {
       key: 'map',
       path: 'level1/level1.json'
     },
     hero: {
-      key: 'hero1',
-      pngPath: 'hero1.png',
-      jsonPath: 'hero1.json'
+      key: 'emptyhero',
+      pngPath: 'emptyhero.png',
+      jsonPath: 'emptyhero.json'
     }
   };
 
   scene: GameService = new GameService(this.sceneConfig);
   settingsMenu: SettingsMenu = new SettingsMenu();
 
-  @ViewChild(CodefieldComponent) codeField!: CodefieldComponent;
-  @ViewChild(GamefieldComponent) gameField!: GamefieldComponent;
+
 
   constructor(private router: Router) { }
 

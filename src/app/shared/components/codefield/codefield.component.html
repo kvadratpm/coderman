@@ -6,7 +6,7 @@
     <nav class="level-nav">
       <ul class="nav-list">
         <li class="nav-elem" *ngFor="let item of levels">
-          <a (click)="changeRoute(item)" class="nav-link">
+          <a (click)="changeRoute(item)" class="nav-link" routerLinkActive="nav-elem__active" >
             <div class="nav-elem__outer-circle">
               <div #interactiveLighting class="nav-elem__inner-circle">{{item}}</div>
             </div>
@@ -28,6 +28,9 @@
     <div class="move-wrapper" *ngIf="isMoveControl">
       <div class="button button__controller button__action button__level3" *ngFor="let item of moveLimit" (click)="updateEditor('Player.move('+ item + ')')">{{item}}</div>
     </div>
+    <div class="cycle-wrapper" *ngIf="isCycleControl">
+      <div class="button button__controller button__action button__level3" *ngFor="let item of cycleLimit" (click)="addLoop(item)">{{item}}</div>
+    </div>
     <div class="rotate-wrapper" *ngIf="isRotate">
       <div (click)="updateEditor('Player.rotateLeft()')" class="button button__controller button__action button__level3">Rotate Left</div>
       <div (click)="updateEditor('Player.rotateRight()')" class="button button__controller button__action button__level3">Rotate Right</div>
@@ -43,6 +46,7 @@
       <div *ngIf="isCommand" class="button button__controller button__action button__level2">Move</div>
       <div *ngIf="isCommand" class="button button__controller button__action button__level2">Rotate</div>
       <div *ngIf="isCommand" class="button button__controller button__action button__level2">Actions</div>
+      <div *ngIf="isCommand" class="button button__controller button__action button__level2">Loop</div>
     </div>
     <div class="button button__controller button__level1">Player</div>
   </div>

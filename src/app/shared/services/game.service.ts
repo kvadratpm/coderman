@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
-import {Button} from './button.service'
+import {Button} from './button.service';
 import {CodefieldComponent} from '../components/codefield/codefield.component';
+
 /**
  * С помощью этой конфигурации создаётся новый уровень игры.
  * @param tileMap - параметры тайлмэпа текущего уровня
@@ -13,9 +14,14 @@ import {CodefieldComponent} from '../components/codefield/codefield.component';
  */
 export interface SceneConfig {
   /**
+   * @param score - необходимое количество очков для прохождения уровня
+   */
+  // score: number;
+  /**
    * @param levelNumber - номер уровня
    */
   levelNumber: number;
+  codeField: CodefieldComponent;
   /**
    * @param tileMap - параметры тайлмэпа текущего уровня
    */
@@ -70,6 +76,10 @@ export class GameService extends Phaser.Scene {
   levelTarget = 0;
   isSuccess = false;
   isRestart = false;
+  finishX!: any;
+  finishY!: any;
+  lootCoordinate!: any;
+  isLoading = true;
 
   constructor(config: SceneConfig) {
     super({ key: 'main' });
@@ -112,34 +122,47 @@ export class GameService extends Phaser.Scene {
     this.load.image('head', 'assets/armour/head.png'); // шлем
     this.load.image('shield', 'assets/armour/shield.png'); // щит
     this.load.atlas('gems', 'assets/gems/gems1.png', 'assets/gems/gems1.json'); // камни
+    this.load.atlas('bronze', 'assets/gems/coin.png', 'assets/gems/coin.json'); // монета
     this.load.image('point', 'assets/points/lighter1.png'); // текущая точка
     this.load.image('finish', 'assets/points/finish.png'); // финишная точка
+    this.load.image('deliver', 'assets/points/deliverPoint.png'); // точка для доставки
     // ********
   }
 
   create(): void {
-
     console.log(this.defaultSettings);
     const map = this.make.tilemap({ key: 'map', tileWidth: this.cell, tileHeight: this.cell });
     const tileset = map.addTilesetImage('tiles', 'tiles');
     const layer = map.createLayer('Ground', tileset, 0, 0); // id слоя по его названию в тайлсете
+    const world = map.createLayer('World', tileset, 0, 0); // id слоя по его названию в тайлсете
+    const upperLayout = map.createLayer('UpperLayout', tileset, 0, 0); // id слоя по его названию в тайлсете
+    upperLayout.setScale(this.scaleCoef);
+    world.setScale(this.scaleCoef);
+    layer.setCollisionByProperty({ collides: true });
     layer.setScale(this.scaleCoef);
     const spawnPoint = map.findObject('Items', obj => obj.name === 'Spawn Point');
     const finishPoint = map.findObject('Items', obj => obj.name === 'Finish Point');
+    const deliverPoint = map.findObject('Items', obj => obj.name === 'Deliver Point');
+    const aliesPoint = map.findObject('Items', obj => obj.name === 'Alies Point');
     const gemPoints = map.filterObjects('Items', elem => elem.name === 'Gem Point');
     const lootPoints = map.filterObjects('Items', elem => elem.name === 'Loot Point');
     const enemiesPoints = map.filterObjects('Items', elem => elem.name === 'Enemy Point');
     layer.setCollisionByProperty({ collides: true });
+    world.setCollisionByProperty({ collides: true });
     this.SpawnX = spawnPoint.x! * this.scaleCoef;
     this.SpawnY = spawnPoint.y! * this.scaleCoef;
     this.target = this.physics.add.image(this.SpawnX, this.SpawnY, 'point');
     this.target.setScale(this.scaleCoef);
+    this.physics.add.collider(this.target, layer);
+    this.physics.add.collider(this.target, world);
     this.player = this.physics.add
-      .sprite(spawnPoint.x! * this.scaleCoef, spawnPoint.y! * this.scaleCoef, this.sceneConfig.hero.key, 'front')
-      .setSize(50, 60)
+      .sprite(spawnPoint.x! * this.scaleCoef, spawnPoint.y! * this.scaleCoef, this.sceneConfig.hero.key, 'back')
+      .setSize(45, 45)
       .setOffset(0, 24)
       .setScale(window.screen.width * 0.5 / 650);
     this.physics.add.collider(this.player, layer);
+    this.physics.add.collider(this.player, world);
+
 
     // ***Анимации героя***
     this.anims.create({
@@ -252,6 +275,15 @@ export class GameService extends Phaser.Scene {
       ),
       repeat: -1
     });
+    this.anims.create({
+      key: 'bronze',
+      frames: this.anims.generateFrameNames(
+        'bronze',
+        { prefix: 'Bronze.', start: 1, end: 9, zeroPad: 3 }
+      ),
+      repeat: -1,
+      frameRate: 10,
+    });
     // ****************
 
     /*
@@ -261,13 +293,35 @@ export class GameService extends Phaser.Scene {
         */
 
     // *** Рендер лута, врагов, камней ***
+    if (aliesPoint) {
+      const alies = this.physics.add.sprite(aliesPoint.x! * this.scaleCoef, aliesPoint.y! * this.scaleCoef, 'hero3').play('wait');
+      alies.setScale(this.scaleCoef * 0.9);
+    }
+
+    if (finishPoint) {
+      this.levelTarget += 1;
+      this.finishX = finishPoint.x;
+      this.finishY = finishPoint.y;
+      const finish = this.physics.add.image(finishPoint.x! * this.scaleCoef, finishPoint.y! * this.scaleCoef, 'finish');
+      finish.setScale(this.scaleCoef);
+      this.physics.add.overlap(this.player, finish, () => {
+        finish.disableBody(true, false);
+        this.levelTarget -= 1;
+      }, () => { return; }, this);
+    }
+
+    if (deliverPoint) {
+      const deliver = this.physics.add.image(deliverPoint.x! * this.scaleCoef, deliverPoint.y! * this.scaleCoef, 'deliver');
+      deliver.setScale(this.scaleCoef);
+    }
+
     if (gemPoints) {
-      this.levelTarget = gemPoints.length;
+      this.levelTarget += gemPoints.length;
       gemPoints.forEach((point) => {
         const coin = this.physics.add.sprite(0, 0, 'gems').play(point.properties[0].value);
         coin.setX(point.x! * this.scaleCoef);
         coin.setY(point.y! * this.scaleCoef);
-        coin.setScale(this.scaleCoef);
+        coin.setScale(this.scaleCoef * 0.8);
         this.physics.add.overlap(this.player, coin, () => {
           coin.disableBody(true, true);
           this.levelTarget -= 1;
@@ -276,24 +330,22 @@ export class GameService extends Phaser.Scene {
     }
 
     if (enemiesPoints) {
+      this.levelTarget += enemiesPoints.length;
       enemiesPoints.forEach((point) => {
         const enemy = this.physics.add.sprite(0, 0, `orc${point.properties[0].value}`).play(`stand${point.properties[0].value}`);
         enemy.setX(point.x! * this.scaleCoef);
         enemy.setY(point.y! * this.scaleCoef);
-        enemy.setScale(this.scaleCoef);
-        this.physics.add.overlap(this.player, enemy, () => {
-          enemy.disableBody(true, true);
-          this.levelTarget -= 1;
-        }, () => { return; }, this);
+        enemy.setScale(this.scaleCoef * 0.85);
       });
     }
-
     if (lootPoints) {
+      this.levelTarget += lootPoints.length;
       lootPoints.forEach((point) => {
-        const loot = this.physics.add.sprite(0, 0, point.properties[0].value);
+        const loot = this.physics.add.sprite(0, 0, point.properties[0].value).play(point.properties[0].value);
         loot.setX(point.x! * this.scaleCoef);
         loot.setY(point.y! * this.scaleCoef);
-        loot.setScale(this.scaleCoef);
+        this.lootCoordinate = point.y! + point.x!;
+        loot.setScale(this.scaleCoef * 0.8);
         this.physics.add.overlap(this.player, loot, () => {
           loot.disableBody(true, true);
           this.levelTarget -= 1;
@@ -301,17 +353,15 @@ export class GameService extends Phaser.Scene {
       });
     }
 
-    if (finishPoint) {
-      const finish = this.physics.add.sprite(finishPoint.x!, finishPoint.y!, 'finish');
-      finish.setScale(this.scaleCoef);
-    }
+    console.log(this.levelTarget);
+
+
     // **************
     this.gameSettings = JSON.parse(localStorage.getItem('myGameSettings') || '{}');
-    console.log(this.gameSettings.length);
-    if (this.gameSettings === null  || this.gameSettings.length <= 0 || this.gameSettings.length === undefined) {
+    if (this.gameSettings === null || this.gameSettings.length <= 0 || this.gameSettings.length === undefined) {
       localStorage.setItem('myGameSettings', JSON.stringify(this.defaultSettings));
       this.gameSettings = this.defaultSettings;
-      console.log(this.gameSettings);
+
     }
 
     const settingsButton = new Button(this, 310, 7, '#000', 'button', 'button_pressed', 'Settings', 'navigation', 'settings', 'settings');
@@ -325,12 +375,10 @@ export class GameService extends Phaser.Scene {
     });
 
     if (this.gameSettings[0].value) {
-      console.log(this.gameSettings[0].value);
       music.play();
     } else if (!this.gameSettings[0].value) {
       music.stop();
       this.sound.stopAll();
-      console.log(this.gameSettings[0].value);
     }
   }
 
@@ -341,17 +389,17 @@ export class GameService extends Phaser.Scene {
   }
 
   update(): void {
-    const distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.SpawnX, this.SpawnY);
-    if (this.player.body.speed > 0 && distance < 7) {
+    this.isLoading = false;
+    const distancePlayertoTarget = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.SpawnX, this.SpawnY);
+    if (this.player.body.speed > 0 && distancePlayertoTarget < 7) {
       this.player.body.reset(this.SpawnX, this.SpawnY);
       this.player.stop(true, null);
-      console.log('STOP');
     }
   }
 
   async movePlayer(direction: number): Promise<void> {
     return new Promise((res) => {
-      this.sound.play('step');
+      if (this.gameSettings[0].value) { this.sound.play('step'); }
       switch (direction) {
         case 0:
           this.SpawnY -= this.cell;
@@ -386,7 +434,6 @@ export class GameService extends Phaser.Scene {
 
   async rotateRight(): Promise<void> {
     return new Promise((res) => {
-      this.sound.play('step');
       this.currentDirection = this.currentDirection === 270 ? 0 : this.currentDirection + 90;
       console.log('right');
       setTimeout(() => {
@@ -406,7 +453,8 @@ export class GameService extends Phaser.Scene {
 
   async attack(): Promise<void> {
     return new Promise((res) => {
-      this.sound.play('fight');
+      if (this.gameSettings[0].value) { this.sound.play('fight'); }
+
       switch (this.currentDirection) {
         case 0:
           this.player.play('back.attack', true);
@@ -426,7 +474,15 @@ export class GameService extends Phaser.Scene {
       }, 1500);
     });
   }
-
+  async take(): Promise<void> {
+    return new Promise((res) => {
+      setTimeout(() => {
+        res();
+      }, 1500);
+    });
+  }
+  async put() {
+  }
 
   async startTurn(codeField: CodefieldComponent): Promise<void> {
     const cmd = codeField.code;
@@ -454,26 +510,47 @@ export class GameService extends Phaser.Scene {
       if (elem.includes('Attack')) {
         await this.attack();
       }
+      if (elem.includes('Take')) {
+        await this.take();
+      }
+      if (elem.includes('Put')) {
+        await this.put();
+      }
+
     }
     this.checkIfSuccess(codeField);
   }
 
+/*
+  checkIfSuccess(): void {
+    const distancePlayertofinish = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.finishX, this.finishY);
+    if (distancePlayertofinish < 20 && this.levelTarget === this.sceneConfig.score) {
+      if (this.gameSettings[0].value) { this.sound.play('success') }
+      alert('win!');
+    } else {
+      if (this.gameSettings[0].value) { this.sound.play('fail') }
+      alert(this.levelTarget);
+      console.log(this.levelTarget, distancePlayertofinish)
+*/
   checkIfSuccess(codeField: CodefieldComponent): void {
     if (this.levelTarget === 0) {
       codeField.openWinPopup();
       this.sound.play('success');
     } else {
       codeField.openLosePopup();
-
+      this.levelTarget = 0;
+      this.currentDirection = 0;
       this.sound.play('fail');
       setTimeout(() => {
       this.scene.restart();
       }, 3000);
+
     }
   }
 
   restart(): void {
-    this.isRestart = true;
+    this.levelTarget = 0;
+    this.currentDirection = 0;
     this.scene.restart();
   }
 }

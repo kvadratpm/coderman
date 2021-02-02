@@ -1,6 +1,6 @@
 import {OnInit, ViewChildren} from '@angular/core';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import * as ace from 'ace-builds';
 import helps from './json/helps.json';
 import {GameService} from '../../services/game.service';
@@ -14,16 +14,18 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
 
   @ViewChild('editor') private editor!: ElementRef<HTMLElement>;
 
-  currentLevel = 1; // TODO: Создать интерфейс, принимаемые значения - keyof Helps
-  currentHelp = 0; // TODO: Создать интерфейс, принимаемые значения - keyof Helps.CurrentLevel
+  currentLevel = Number(/\d+/.exec(this.router.url)); // TODO: Создать интерфейс, принимаемые значения - keyof Helps
+  currentHelp = this.currentLevel - 1; // TODO: Создать интерфейс, принимаемые значения - keyof Helps.CurrentLevel
   isCommand = false;
   isRotate = false;
   isAction = false;
+  isCycleControl = false;
   aceEditor!: any;
   helps: { [index: string]: {[index: string]: string} } = helps; // TODO: Создать интерфейс Helps
   @ViewChildren('interactiveLighting') navElements: any;
   isMoveControl = false;
   moveLimit: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  cycleLimit: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   levels: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   isPopupActive = true;
   isWin = false;
@@ -32,8 +34,9 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   popupText = this.helps[this.currentLevel][0];
   popupButtonInnerText = 'Начать выполнение';
   isWelcome = false;
+  lastWinLevel = 0;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -50,11 +53,16 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     });
     this.changeProgressLevel();
     this.navElements = this.navElements.toArray();
+    if (localStorage.getItem('lastWinLevel')) {
+      this.lastWinLevel = parseInt(localStorage.getItem('lastWinLevel') as string, 10);
+    } else {
+      localStorage.setItem('lastWinLevel', String(this.lastWinLevel));
+    }
   }
 
   updateEditor(event: string): void {
     this.aceEditor.insert(`${event}\n`, false);
-    this.aceEditor.navigateFileEnd();
+
   }
 
   get code(): string[] {
@@ -78,7 +86,6 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   }
 
   changeProgressLevel(): void {
-
     if (this.navElements) {
         this.navElements.forEach((e: any) => {
           const el = e.nativeElement;
@@ -97,6 +104,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
         this.isRotate = false;
         this.isMoveControl = false;
         this.isAction = false;
+        this.isCycleControl = false;
       }
     } else if (e.target.closest('.button__level2')) {
       const buttonLevel2 = e.target.closest('.button__level2');
@@ -104,14 +112,22 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
         this.isRotate = !this.isRotate;
         this.isMoveControl = false;
         this.isAction = false;
+        this.isCycleControl = false;
       } else if (buttonLevel2.innerText === 'Move') {
         this.isMoveControl = !this.isMoveControl;
         this.isRotate = false;
         this.isAction = false;
+        this.isCycleControl = false;
       } else if (buttonLevel2.innerText === 'Actions') {
         this.isAction = !this.isAction;
         this.isRotate = false;
         this.isMoveControl = false;
+        this.isCycleControl = false;
+      } else if (buttonLevel2.innerText === 'Loop') {
+        this.isCycleControl = !this.isCycleControl;
+        this.isRotate = false;
+        this.isMoveControl = false;
+        this.isAction = false;
       }
     }
   }
@@ -124,17 +140,26 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
       this.isRotate = false;
       this.isMoveControl = false;
       this.isAction = false;
+      this.isCycleControl = false;
     }
   }
 
 
-  changeRoute(item: number | string): void {
+  changeRoute(item: number | string, isWinSwap = false): void {
     if (item === 'exit') {
       this.router.navigate(['']);
       return;
     }
-    this.changeLevel(item);
-    this.router.navigate([`level${item}`]);
+    if (isWinSwap) {
+      localStorage.setItem('lastWinLevel', String(this.currentLevel));
+      this.changeLevel(item);
+      this.router.navigate([`level${item}`]);
+    } else if (item > this.lastWinLevel + 1) {
+      return;
+    } else {
+      this.changeLevel(item);
+      this.router.navigate([`level${item}`]);
+    }
   }
   closePopup(): void {
     this.isPopupActive = false;
@@ -142,7 +167,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     if (this.isWin) {
       this.isWin = false;
       const nextLevel = this.currentLevel + 1;
-      this.changeRoute(nextLevel);
+      this.changeRoute(nextLevel, true);
     } else if (this.isLose) {
       this.isLose = false;
     }
@@ -168,6 +193,16 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     this.popupText = this.helps[this.currentLevel][0];
     this.popupTopic = `Задание №${this.currentLevel}`;
     this.popupButtonInnerText = 'Начать выполнение';
+  }
+
+  addLoop(item: number): void {
+    const loop = `loop ${item}\n\nend`;
+    this.updateEditor(loop);
+    this.aceEditor.navigateUp(2);
+  }
+
+  reset(): void {
+    this.aceEditor.setValue('');
   }
 
 }
