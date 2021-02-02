@@ -34,6 +34,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   popupText = this.helps[this.currentLevel][0];
   popupButtonInnerText = 'Начать выполнение';
   isWelcome = false;
+  lastWinLevel = 0;
 
   constructor(private router: Router, private route: ActivatedRoute) {
   }
@@ -52,6 +53,11 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     });
     this.changeProgressLevel();
     this.navElements = this.navElements.toArray();
+    if (localStorage.getItem('lastWinLevel')) {
+      this.lastWinLevel = parseInt(localStorage.getItem('lastWinLevel') as string, 10);
+    } else {
+      localStorage.setItem('lastWinLevel', String(this.lastWinLevel));
+    }
   }
 
   updateEditor(event: string): void {
@@ -80,7 +86,6 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   }
 
   changeProgressLevel(): void {
-
     if (this.navElements) {
         this.navElements.forEach((e: any) => {
           const el = e.nativeElement;
@@ -140,13 +145,21 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   }
 
 
-  changeRoute(item: number | string): void {
+  changeRoute(item: number | string, isWinSwap = false): void {
     if (item === 'exit') {
       this.router.navigate(['']);
       return;
     }
-    this.changeLevel(item);
-    this.router.navigate([`level${item}`]);
+    if (isWinSwap) {
+      localStorage.setItem('lastWinLevel', String(this.currentLevel));
+      this.changeLevel(item);
+      this.router.navigate([`level${item}`]);
+    } else if (item > this.lastWinLevel + 1) {
+      return;
+    } else {
+      this.changeLevel(item);
+      this.router.navigate([`level${item}`]);
+    }
   }
   closePopup(): void {
     this.isPopupActive = false;
@@ -154,7 +167,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     if (this.isWin) {
       this.isWin = false;
       const nextLevel = this.currentLevel + 1;
-      this.changeRoute(nextLevel);
+      this.changeRoute(nextLevel, true);
     } else if (this.isLose) {
       this.isLose = false;
     }
