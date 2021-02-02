@@ -7,17 +7,17 @@
   <image source="../../../../../../../../../images/tiles.png" width="2427" height="1752"/>
   <tile id="893">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="894">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="895">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="941">
