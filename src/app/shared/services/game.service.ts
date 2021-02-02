@@ -17,7 +17,7 @@ export interface SceneConfig {
   /**
    * @param score - необходимое количество очков для прохождения уровня
    */
-  //score: number;
+  // score: number;
   /**
    * @param levelNumber - номер уровня
    */

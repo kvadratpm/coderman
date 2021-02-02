@@ -6,7 +6,7 @@
     <nav class="level-nav">
       <ul class="nav-list">
         <li class="nav-elem" *ngFor="let item of levels">
-          <a (click)="changeRoute(item)" class="nav-link">
+          <a (click)="changeRoute(item)" class="nav-link" routerLinkActive="nav-elem__active" >
             <div class="nav-elem__outer-circle">
               <div #interactiveLighting class="nav-elem__inner-circle">{{item}}</div>
             </div>

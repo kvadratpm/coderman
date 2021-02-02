@@ -1,6 +1,6 @@
 import {OnInit, ViewChildren} from '@angular/core';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import * as ace from 'ace-builds';
 import helps from './json/helps.json';
 import {GameService} from '../../services/game.service';
@@ -14,8 +14,8 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
 
   @ViewChild('editor') private editor!: ElementRef<HTMLElement>;
 
-  currentLevel = 1; // TODO: Создать интерфейс, принимаемые значения - keyof Helps
-  currentHelp = 0; // TODO: Создать интерфейс, принимаемые значения - keyof Helps.CurrentLevel
+  currentLevel = Number(/\d+/.exec(this.router.url)); // TODO: Создать интерфейс, принимаемые значения - keyof Helps
+  currentHelp = this.currentLevel - 1; // TODO: Создать интерфейс, принимаемые значения - keyof Helps.CurrentLevel
   isCommand = false;
   isRotate = false;
   isAction = false;
@@ -35,7 +35,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   popupButtonInnerText = 'Начать выполнение';
   isWelcome = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
