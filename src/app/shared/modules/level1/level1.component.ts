@@ -13,10 +13,13 @@ import { SettingsMenu } from '../../services/menu.service';
 
 export class Level1Component implements AfterViewInit {
 
+  @ViewChild(CodefieldComponent) codeField!: CodefieldComponent;
+  @ViewChild(GamefieldComponent) gameField!: GamefieldComponent;
+
   sceneConfig: SceneConfig = {
     // score: 0,
     levelNumber: 1,
-
+    codeField: this.codeField,
     tileMap: {
       key: 'map',
       path: 'level1/level1.json'
@@ -31,8 +34,7 @@ export class Level1Component implements AfterViewInit {
   scene: GameService = new GameService(this.sceneConfig);
   settingsMenu: SettingsMenu = new SettingsMenu();
 
-  @ViewChild(CodefieldComponent) codeField!: CodefieldComponent;
-  @ViewChild(GamefieldComponent) gameField!: GamefieldComponent;
+
 
   constructor(private router: Router) { }
 

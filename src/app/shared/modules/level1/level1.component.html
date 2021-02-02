@@ -5,7 +5,7 @@
       <button class="material-icons">play_arrow</button>
       <div class="start__text">Запустить</div>
     </div>
-    <div class="start-button" (click)="this.scene.restart()">
+    <div class="start-button" (click)="this.scene.restart(); this.codeField.reset()">
       <button class="material-icons">stop</button>
       <div class="start__text">Перезапустить</div>
     </div>
