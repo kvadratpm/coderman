@@ -354,19 +354,17 @@ export class GameService extends Phaser.Scene {
       this.levelTarget += lootPoints.length;
       lootPoints.forEach((point) => {
        const loot = this.physics.add.sprite(0, 0, point.properties[0].value).play(point.properties[0].value);
-        console.log(typeof loot)
         loot.setX(point.x! * this.scaleCoef);
         loot.setY(point.y! * this.scaleCoef);
         loot.setScale(this.scaleCoef * 0.8);
         this.physics.add.overlap(this.player, loot, () => {
           console.log(loot.x + loot.y-this.player.x-this.player.y)
-         if(loot.x + loot.y-this.player.x-this.player.y< Math.abs(20) && this.isTaken){
+         if(loot.x + loot.y-this.player.x-this.player.y< Math.abs(15) && this.isTaken){
           loot.disableBody(true, true);
           this.isTaken = false
           this.levelTarget -= 1;
         }
         }, () => { return; }, this);
-       // console.log(lootCoordinate)
       });
     }
 
