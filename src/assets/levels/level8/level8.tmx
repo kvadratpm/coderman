@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="2021.01.13" orientation="orthogonal" renderorder="right-down" width="13" height="13" tilewidth="50" tileheight="50" infinite="0" nextlayerid="16" nextobjectid="107">
  <editorsettings>
-  <export target="../level7/level7.json" format="json"/>
+  <export target="level8.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="tiles" tilewidth="50" tileheight="50" tilecount="1680" columns="48">
   <image source="../../../../../../../../../images/tiles.png" width="2427" height="1752"/>
@@ -3342,12 +3342,12 @@
   </tile>
   <tile id="681">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="682">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="683">
@@ -3577,17 +3577,17 @@
   </tile>
   <tile id="729">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="730">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="731">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="732">
@@ -3812,7 +3812,7 @@
   </tile>
   <tile id="777">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="778">
@@ -3822,7 +3822,7 @@
   </tile>
   <tile id="779">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="780">
@@ -8286,7 +8286,7 @@
   <object id="1" name="Spawn Point" x="525" y="525">
    <point/>
   </object>
-  <object id="97" name="Finish Point" x="75" y="125">
+  <object id="97" name="Finish Point" x="275" y="325">
    <point/>
   </object>
   <object id="102" name="Enemy Point" x="425" y="310">
