@@ -86,10 +86,10 @@ hr {
 .game-button:hover{
   background: $btn-hover;
   color: #050801;
-  box-shadow: 0 0 5px $btn-hover,
-              0 0 25px $btn-hover,
-              0 0 50px  $btn-hover,
-              0 0 200px $btn-hover;
+  box-shadow: 0 0 1px $btn-hover,
+              0 0 2px $btn-hover,
+              0 0 4px  $btn-hover,
+              0 0 8px $btn-hover;
 
 }
 
