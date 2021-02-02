@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
-import {Button} from './button.service';
-import {CodefieldComponent} from '../components/codefield/codefield.component';
+import { Button } from './button.service';
+import { CodefieldComponent } from '../components/codefield/codefield.component';
 
 /**
  * С помощью этой конфигурации создаётся новый уровень игры.
@@ -80,6 +80,10 @@ export class GameService extends Phaser.Scene {
   finishY!: any;
   lootCoordinate!: any;
   isLoading = true;
+  isMusicOn = false
+  isTaken = false
+  isPut = false
+
 
   constructor(config: SceneConfig) {
     super({ key: 'main' });
@@ -157,8 +161,8 @@ export class GameService extends Phaser.Scene {
     this.physics.add.collider(this.target, world);
     this.player = this.physics.add
       .sprite(spawnPoint.x! * this.scaleCoef, spawnPoint.y! * this.scaleCoef, this.sceneConfig.hero.key, 'back')
-      .setSize(45, 45)
-      .setOffset(0, 24)
+      .setSize(50* this.scaleCoef, 50* this.scaleCoef)
+      .setOffset(25* this.scaleCoef, 25* this.scaleCoef)
       .setScale(window.screen.width * 0.5 / 650);
     this.physics.add.collider(this.player, layer);
     this.physics.add.collider(this.player, world);
@@ -300,8 +304,8 @@ export class GameService extends Phaser.Scene {
 
     if (finishPoint) {
       this.levelTarget += 1;
-      this.finishX = finishPoint.x;
-      this.finishY = finishPoint.y;
+      this.finishX = finishPoint.x! * this.scaleCoef;
+      this.finishY = finishPoint.y! * this.scaleCoef;
       const finish = this.physics.add.image(finishPoint.x! * this.scaleCoef, finishPoint.y! * this.scaleCoef, 'finish');
       finish.setScale(this.scaleCoef);
       this.physics.add.overlap(this.player, finish, () => {
@@ -311,8 +315,16 @@ export class GameService extends Phaser.Scene {
     }
 
     if (deliverPoint) {
+      this.levelTarget += 1
       const deliver = this.physics.add.image(deliverPoint.x! * this.scaleCoef, deliverPoint.y! * this.scaleCoef, 'deliver');
       deliver.setScale(this.scaleCoef);
+      this.physics.add.overlap(this.player, deliver, () => {
+
+       if(deliver.x + deliver.y-this.player.x-this.player.y< Math.abs(20) && this.isPut){
+        this.isPut = false
+        this.levelTarget -= 1;
+      }
+    })
     }
 
     if (gemPoints) {
@@ -341,19 +353,24 @@ export class GameService extends Phaser.Scene {
     if (lootPoints) {
       this.levelTarget += lootPoints.length;
       lootPoints.forEach((point) => {
-        const loot = this.physics.add.sprite(0, 0, point.properties[0].value).play(point.properties[0].value);
+       const loot = this.physics.add.sprite(0, 0, point.properties[0].value).play(point.properties[0].value);
+        console.log(typeof loot)
         loot.setX(point.x! * this.scaleCoef);
         loot.setY(point.y! * this.scaleCoef);
-        this.lootCoordinate = point.y! + point.x!;
         loot.setScale(this.scaleCoef * 0.8);
         this.physics.add.overlap(this.player, loot, () => {
+          console.log(loot.x + loot.y-this.player.x-this.player.y)
+         if(loot.x + loot.y-this.player.x-this.player.y< Math.abs(20) && this.isTaken){
           loot.disableBody(true, true);
+          this.isTaken = false
           this.levelTarget -= 1;
+        }
         }, () => { return; }, this);
+       // console.log(lootCoordinate)
       });
     }
 
-    console.log(this.levelTarget);
+    ;
 
 
     // **************
@@ -361,7 +378,6 @@ export class GameService extends Phaser.Scene {
     if (this.gameSettings === null || this.gameSettings.length <= 0 || this.gameSettings.length === undefined) {
       localStorage.setItem('myGameSettings', JSON.stringify(this.defaultSettings));
       this.gameSettings = this.defaultSettings;
-
     }
 
     const settingsButton = new Button(this, 310, 7, '#000', 'button', 'button_pressed', 'Settings', 'navigation', 'settings', 'settings');
@@ -374,11 +390,13 @@ export class GameService extends Phaser.Scene {
       delay: 200
     });
 
-    if (this.gameSettings[0].value) {
+    if (this.gameSettings[0].value && !this.isMusicOn) {
       music.play();
+      this.isMusicOn = true
     } else if (!this.gameSettings[0].value) {
       music.stop();
       this.sound.stopAll();
+      this.isMusicOn = false
     }
   }
 
@@ -389,6 +407,7 @@ export class GameService extends Phaser.Scene {
   }
 
   update(): void {
+
     this.isLoading = false;
     const distancePlayertoTarget = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.SpawnX, this.SpawnY);
     if (this.player.body.speed > 0 && distancePlayertoTarget < 7) {
@@ -476,12 +495,19 @@ export class GameService extends Phaser.Scene {
   }
   async take(): Promise<void> {
     return new Promise((res) => {
+      this.isTaken = true
       setTimeout(() => {
         res();
       }, 1500);
     });
   }
-  async put() {
+  async put(): Promise<void>  {
+        return new Promise((res) => {
+      this.isPut = true
+      setTimeout(() => {
+        res();
+      }, 1500);
+    });
   }
 
   async startTurn(codeField: CodefieldComponent): Promise<void> {
@@ -521,28 +547,21 @@ export class GameService extends Phaser.Scene {
     this.checkIfSuccess(codeField);
   }
 
-/*
-  checkIfSuccess(): void {
-    const distancePlayertofinish = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.finishX, this.finishY);
-    if (distancePlayertofinish < 20 && this.levelTarget === this.sceneConfig.score) {
-      if (this.gameSettings[0].value) { this.sound.play('success') }
-      alert('win!');
-    } else {
-      if (this.gameSettings[0].value) { this.sound.play('fail') }
-      alert(this.levelTarget);
-      console.log(this.levelTarget, distancePlayertofinish)
-*/
+
+
   checkIfSuccess(codeField: CodefieldComponent): void {
-    if (this.levelTarget === 0) {
+    const distancePlayertofinish = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.finishX, this.finishY);
+        console.log(distancePlayertofinish)
+    if (distancePlayertofinish < 20 && this.levelTarget === 0) {
       codeField.openWinPopup();
-      this.sound.play('success');
+      if (this.gameSettings[0].value) { this.sound.play('success') }
     } else {
       codeField.openLosePopup();
       this.levelTarget = 0;
       this.currentDirection = 0;
-      this.sound.play('fail');
+      if (this.gameSettings[0].value) { this.sound.play('fail') }
       setTimeout(() => {
-      this.scene.restart();
+        this.scene.restart();
       }, 3000);
 
     }
