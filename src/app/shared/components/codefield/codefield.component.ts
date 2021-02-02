@@ -58,6 +58,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     } else {
       localStorage.setItem('lastWinLevel', String(this.lastWinLevel));
     }
+    localStorage.setItem('currentLevel', String(this.currentLevel));
   }
 
   updateEditor(event: string): void {
@@ -153,6 +154,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     if (isWinSwap) {
       localStorage.setItem('lastWinLevel', String(this.currentLevel));
       this.changeLevel(item);
+      localStorage.setItem('currentLevel', String(this.currentLevel));
       this.router.navigate([`level${item}`]);
     } else if (item > this.lastWinLevel + 1) {
       return;
