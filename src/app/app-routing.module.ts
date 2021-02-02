@@ -5,7 +5,8 @@ import { StartPageComponent } from './shared/components/start-page/start-page.co
 const routes: Routes = [
   {path: '', component: StartPageComponent},
   {path: 'level1', loadChildren: () => import ('./shared/modules/level1/level1.module'). then(m => m.Level1Module)},
-  {path: 'level2', loadChildren: () => import ('./shared/modules/level2/level2.module'). then(m => m.Level2Module)}
+  {path: 'level2', loadChildren: () => import ('./shared/modules/level2/level2.module'). then(m => m.Level2Module)},
+  {path: 'level3', loadChildren: () => import ('./shared/modules/level3/level3.module'). then(m => m.Level3Module)}
 ];
 
 @NgModule({

@@ -15,7 +15,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   @ViewChild('editor') private editor!: ElementRef<HTMLElement>;
 
   currentLevel = Number(/\d+/.exec(this.router.url)); // TODO: Создать интерфейс, принимаемые значения - keyof Helps
-  currentHelp = this.currentLevel - 1; // TODO: Создать интерфейс, принимаемые значения - keyof Helps.CurrentLevel
+  currentHelp = 0; // TODO: Создать интерфейс, принимаемые значения - keyof Helps.CurrentLevel
   isCommand = false;
   isRotate = false;
   isAction = false;
