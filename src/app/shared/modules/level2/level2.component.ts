@@ -17,17 +17,18 @@ export class Level2Component implements AfterViewInit {
     levelNumber: 2,
     tileMap: {
       key: 'map',
-      path: 'level1/level1.json'
+      path: 'level2/level2.json'
     },
     hero: {
-      key: 'hero1',
-      pngPath: 'hero1.png',
-      jsonPath: 'hero1.json'
+      key: 'emptyhero',
+      pngPath: 'emptyhero.png',
+      jsonPath: 'emptyhero.json'
     }
   };
 
   scene: GameService = new GameService(this.sceneConfig);
   settingsMenu: SettingsMenu = new SettingsMenu();
+  isLoading = true;
 
   @ViewChild(CodefieldComponent) codeField!: CodefieldComponent;
   @ViewChild(GamefieldComponent) gameField!: GamefieldComponent;
@@ -37,7 +38,7 @@ export class Level2Component implements AfterViewInit {
   ngAfterViewInit(): void {
     this.gameField.field.scene.add('level2', this.scene, true);
     this.gameField.field.scene.add('settings', this.settingsMenu, false);
-
+    this.isLoading = false;
   }
 
 }

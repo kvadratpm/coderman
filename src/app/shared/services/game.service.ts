@@ -1,5 +1,4 @@
 import * as Phaser from 'phaser';
-
 import {Button} from './button.service';
 import {CodefieldComponent} from '../components/codefield/codefield.component';
 
@@ -79,6 +78,7 @@ export class GameService extends Phaser.Scene {
   finishX!: any;
   finishY!: any;
   lootCoordinate!: any;
+  isLoading = true;
 
   constructor(config: SceneConfig) {
     super({ key: 'main' });
@@ -129,7 +129,6 @@ export class GameService extends Phaser.Scene {
   }
 
   create(): void {
-
     console.log(this.defaultSettings);
     const map = this.make.tilemap({ key: 'map', tileWidth: this.cell, tileHeight: this.cell });
     const tileset = map.addTilesetImage('tiles', 'tiles');
@@ -379,6 +378,7 @@ export class GameService extends Phaser.Scene {
   }
 
   update(): void {
+    this.isLoading = false;
     const distancePlayertoTarget = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.SpawnX, this.SpawnY);
     if (this.player.body.speed > 0 && distancePlayertoTarget < 7) {
       this.player.body.reset(this.SpawnX, this.SpawnY);
