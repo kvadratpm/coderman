@@ -29,10 +29,10 @@ export class GamefieldComponent implements OnInit {
        // debug: true,
        // debugShowBody: true,
        // debugShowStaticBody: true,
-        //debugShowVelocity: true,
-        //debugVelocityColor: 0xffff00,
+        // debugShowVelocity: true,
+        // debugVelocityColor: 0xffff00,
        // debugBodyColor: 0x0000ff,
-        //debugStaticBodyColor: 0xffffff
+        // debugStaticBodyColor: 0xffffff
       }
       }
     };
