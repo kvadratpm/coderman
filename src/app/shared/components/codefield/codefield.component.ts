@@ -66,7 +66,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   }
 
   get code(): string[] {
-    console.log(this.aceEditor.getValue())
+    console.log(this.aceEditor.getValue());
     return this.aceEditor.getValue().split('\n');
   }
 
@@ -182,7 +182,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   openLosePopup(): void {
     this.isPopupActive = true;
     this.isLose = true;
-    this.popupText = 'Не расстраивайтесь! Просто попробуйте еще раз!';
+    this.popupText = 'Не расстраивайся! Просто попробуйте еще раз!';
     this.popupTopic = `Поражение...`;
     this.popupButtonInnerText = 'Повторить';
   }
