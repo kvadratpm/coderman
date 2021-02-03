@@ -178,14 +178,14 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   openLosePopup(): void {
     this.isPopupActive = true;
     this.isLose = true;
-    this.popupText = 'Не расстраивайтесь! Просто попробуйте еще раз!';
+    this.popupText = 'Не расстраивайся! Просто попробуйте еще раз!';
     this.popupTopic = `Поражение...`;
     this.popupButtonInnerText = 'Повторить';
   }
   openWinPopup(): void {
     this.isPopupActive = true;
     this.isWin = true;
-    this.popupText = 'Отлично! Вы большой молодец, продолжайте в том же духе!';
+    this.popupText = 'Отлично! Ты большой молодец, продолжайте в том же духе!';
     this.popupTopic = `Победа!`;
     this.popupButtonInnerText = 'Продолжить';
   }
