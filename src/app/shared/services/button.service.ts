@@ -39,7 +39,7 @@ export class Button extends Phaser.GameObjects.Container {
       button.setTexture(key1);
       if (this.targetScene) {
         setTimeout(() => {
-          this.scene.scene.launch(targetScene);
+          this.scene.scene.start(targetScene);
           this.scene.scene.stop(this.scene);
         }, 300);
       } else if (this.currentText) {
