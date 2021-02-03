@@ -3,6 +3,9 @@ $btn-hover: #a26ef7;
 * {
   font-family: 'Inconsolata', monospace;
 }
+button {
+  outline: none;
+}
 
 .game {
   display: flex;

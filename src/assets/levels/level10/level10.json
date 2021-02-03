@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"..\/level9\/level10.json"
+         "target":"level10.json"
         }
     },
  "height":13,
@@ -72,8 +72,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":325,
-                 "y":75
+                 "x":525,
+                 "y":329
                 }, 
                 {
                  "height":0,
@@ -84,14 +84,14 @@
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"ruby"
+                         "value":"prism"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":123.252,
-                 "y":121.171
+                 "x":125,
+                 "y":187.837666666667
                 }, 
                 {
                  "height":0,
@@ -102,32 +102,14 @@
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"ruby"
+                         "value":"prism"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":224.586,
-                 "y":119.838
-                }, 
-                {
-                 "height":0,
-                 "id":117,
-                 "name":"Gem Point",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"color",
-                         "type":"string",
-                         "value":"ruby"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":325.919,
-                 "y":122.504
+                 "x":125,
+                 "y":136.504666666667
                 }, 
                 {
                  "height":0,
@@ -144,26 +126,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":427.252,
-                 "y":123.838
-                }, 
-                {
-                 "height":0,
-                 "id":119,
-                 "name":"Gem Point",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"color",
-                         "type":"string",
-                         "value":"diamond"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":375.252,
-                 "y":226.504
+                 "x":425,
+                 "y":125.666666666667
                 }, 
                 {
                  "height":0,
@@ -174,14 +138,14 @@
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"diamond"
+                         "value":"prism"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":272.586,
-                 "y":223.838
+                 "x":175.919333333333,
+                 "y":379.666666666667
                 }, 
                 {
                  "height":0,
@@ -198,12 +162,48 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":175.252,
-                 "y":225.171
+                 "x":375,
+                 "y":173.837666666667
                 }, 
                 {
                  "height":0,
                  "id":122,
+                 "name":"Gem Point",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"ruby"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":425,
+                 "y":325
+                }, 
+                {
+                 "height":0,
+                 "id":123,
+                 "name":"Gem Point",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"ruby"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":425,
+                 "y":183.838
+                }, 
+                {
+                 "height":0,
+                 "id":124,
                  "name":"Gem Point",
                  "point":true,
                  "properties":[
@@ -216,44 +216,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":472.586,
-                 "y":225.171
-                }, 
-                {
-                 "height":0,
-                 "id":123,
-                 "name":"Gem Point",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"color",
-                         "type":"string",
-                         "value":"prism"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":324.586,
-                 "y":323.838
-                }, 
-                {
-                 "height":0,
-                 "id":124,
-                 "name":"Gem Point",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"color",
-                         "type":"string",
-                         "value":"prism"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":421.919,
-                 "y":322.504
+                 "x":375,
+                 "y":379.666666666667
                 }, 
                 {
                  "height":0,
@@ -264,14 +228,14 @@
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"prism"
+                         "value":"ruby"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":521.919,
-                 "y":321.171
+                 "x":529.252333333333,
+                 "y":379.666666666667
                 }, 
                 {
                  "height":0,
@@ -282,32 +246,14 @@
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"prism"
+                         "value":"diamond"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":225.919,
-                 "y":322.504
-                }, 
-                {
-                 "height":0,
-                 "id":127,
-                 "name":"Gem Point",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"color",
-                         "type":"string",
-                         "value":"ruby"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":169.919,
-                 "y":423.838
+                 "x":327.252333333333,
+                 "y":379.666666666667
                 }, 
                 {
                  "height":0,
@@ -318,14 +264,14 @@
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"ruby"
+                         "value":"diamond"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":277.919,
-                 "y":425.171
+                 "x":325.919,
+                 "y":125.666666666667
                 }, 
                 {
                  "height":0,
@@ -336,18 +282,90 @@
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"ruby"
+                         "value":"diamond"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":373.919,
-                 "y":422.504
+                 "x":375,
+                 "y":125.666666666667
                 }, 
                 {
                  "height":0,
                  "id":130,
+                 "name":"Gem Point",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"diamond"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":275,
+                 "y":379.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":160,
+                 "name":"Gem Point",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"diamond"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":275,
+                 "y":325
+                }, 
+                {
+                 "height":0,
+                 "id":161,
+                 "name":"Gem Point",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"prism"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":125,
+                 "y":325
+                }, 
+                {
+                 "height":0,
+                 "id":162,
+                 "name":"Gem Point",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"diamond"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":275,
+                 "y":125.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":163,
                  "name":"Gem Point",
                  "point":true,
                  "properties":[
@@ -360,278 +378,242 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":476.586,
-                 "y":425.171
+                 "x":474.585562333333,
+                 "y":379.666666666667
                 }, 
                 {
                  "height":0,
-                 "id":131,
-                 "name":"Loot Point",
+                 "id":164,
+                 "name":"Gem Point",
                  "point":true,
                  "properties":[
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"bronze"
+                         "value":"ruby"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":223.918895666667,
-                 "y":174.50446
+                 "x":425,
+                 "y":379.666666666667
                 }, 
                 {
                  "height":0,
-                 "id":146,
-                 "name":"Loot Point",
+                 "id":165,
+                 "name":"Gem Point",
                  "point":true,
                  "properties":[
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"bronze"
+                         "value":"diamond"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":273.918895666667,
-                 "y":173.171126666667
-                }, 
-                {
-                 "height":0,
-                 "id":147,
-                 "name":"Loot Point",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"color",
-                         "type":"string",
-                         "value":"bronze"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":323.252229,
+                 "x":275,
                  "y":172.50446
                 }, 
                 {
                  "height":0,
-                 "id":148,
-                 "name":"Loot Point",
+                 "id":166,
+                 "name":"Gem Point",
                  "point":true,
                  "properties":[
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"bronze"
+                         "value":"prism"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":375.918895666667,
-                 "y":171.837793333333
+                 "x":125,
+                 "y":379.666666666667
                 }, 
                 {
                  "height":0,
-                 "id":149,
-                 "name":"Loot Point",
+                 "id":167,
+                 "name":"Gem Point",
                  "point":true,
                  "properties":[
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"bronze"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":422.585562333333,
-                 "y":175.171126666667
-                }, 
-                {
-                 "height":0,
-                 "id":150,
-                 "name":"Loot Point",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"color",
-                         "type":"string",
-                         "value":"bronze"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":225.918895666667,
-                 "y":271.837793333333
-                }, 
-                {
-                 "height":0,
-                 "id":151,
-                 "name":"Loot Point",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"color",
-                         "type":"string",
-                         "value":"bronze"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":274.585562333333,
-                 "y":272.50446
-                }, 
-                {
-                 "height":0,
-                 "id":152,
-                 "name":"Loot Point",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"color",
-                         "type":"string",
-                         "value":"bronze"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":323.252229,
-                 "y":271.837793333333
-                }, 
-                {
-                 "height":0,
-                 "id":153,
-                 "name":"Loot Point",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"color",
-                         "type":"string",
-                         "value":"bronze"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":373.918895666667,
-                 "y":275.171126666667
-                }, 
-                {
-                 "height":0,
-                 "id":154,
-                 "name":"Loot Point",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"color",
-                         "type":"string",
-                         "value":"bronze"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":425.918895666667,
-                 "y":275.171126666667
-                }, 
-                {
-                 "height":0,
-                 "id":155,
-                 "name":"Loot Point",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"color",
-                         "type":"string",
-                         "value":"bronze"
+                         "value":"prism"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
                  "x":225.252229,
-                 "y":377.837793333333
+                 "y":379.666666666667
                 }, 
                 {
                  "height":0,
-                 "id":156,
-                 "name":"Loot Point",
+                 "id":168,
+                 "name":"Gem Point",
                  "point":true,
                  "properties":[
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"bronze"
+                         "value":"diamond"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":273.252229,
-                 "y":377.171126666667
+                 "x":375,
+                 "y":327.171126666667
                 }, 
                 {
                  "height":0,
-                 "id":157,
-                 "name":"Loot Point",
+                 "id":169,
+                 "name":"Gem Point",
                  "point":true,
                  "properties":[
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"bronze"
+                         "value":"prism"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":324.585562333333,
-                 "y":377.837793333333
+                 "x":125,
+                 "y":230.50446
                 }, 
                 {
                  "height":0,
-                 "id":158,
-                 "name":"Loot Point",
+                 "id":170,
+                 "name":"Gem Point",
                  "point":true,
                  "properties":[
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"bronze"
+                         "value":"prism"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":371.918895666667,
-                 "y":373.171126666667
+                 "x":125,
+                 "y":275.837793333333
                 }, 
                 {
                  "height":0,
-                 "id":159,
-                 "name":"Loot Point",
+                 "id":171,
+                 "name":"Gem Point",
                  "point":true,
                  "properties":[
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"bronze"
+                         "value":"diamond"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":424.585562333333,
-                 "y":377.171126666667
+                 "x":275,
+                 "y":275
+                }, 
+                {
+                 "height":0,
+                 "id":172,
+                 "name":"Gem Point",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"diamond"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":275,
+                 "y":222.50446
+                }, 
+                {
+                 "height":0,
+                 "id":173,
+                 "name":"Gem Point",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"diamond"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":375,
+                 "y":230.50446
+                }, 
+                {
+                 "height":0,
+                 "id":174,
+                 "name":"Gem Point",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"diamond"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":375,
+                 "y":275.171126666667
+                }, 
+                {
+                 "height":0,
+                 "id":175,
+                 "name":"Gem Point",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"ruby"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":425,
+                 "y":275
+                }, 
+                {
+                 "height":0,
+                 "id":176,
+                 "name":"Gem Point",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"ruby"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":425,
+                 "y":226.50446
                 }],
          "offsetx":0.747771,
          "offsety":1.49554,
@@ -642,7 +624,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":160,
+ "nextobjectid":177,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2021.01.13",
@@ -11034,7 +11016,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -11457,7 +11439,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -11790,7 +11772,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -11880,7 +11862,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -12213,7 +12195,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -12222,7 +12204,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -12636,7 +12618,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -12645,7 +12627,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -13059,7 +13041,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -13482,7 +13464,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -13905,7 +13887,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -14328,7 +14310,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -14418,7 +14400,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -14751,7 +14733,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
