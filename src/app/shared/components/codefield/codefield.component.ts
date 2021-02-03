@@ -67,6 +67,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   }
 
   get code(): string[] {
+    console.log(this.aceEditor.getValue())
     return this.aceEditor.getValue().split('\n');
   }
 
@@ -200,7 +201,9 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   addLoop(item: number): void {
     const loop = `loop ${item}\n\nend`;
     this.updateEditor(loop);
-    this.aceEditor.navigateUp(2);
+    const row = this.aceEditor.session.getLength() - 2;
+    const col = this.aceEditor.session.getLine(row).length;
+    this.aceEditor.gotoLine(row, col);
   }
 
   reset(): void {

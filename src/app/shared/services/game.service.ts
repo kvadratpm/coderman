@@ -85,6 +85,7 @@ export class GameService extends Phaser.Scene {
   isPut = false;
   isAttack = false;
   position!: any;
+  loops: any = [];
 
   constructor(config: SceneConfig) {
     super({ key: 'main' });
@@ -517,12 +518,20 @@ export class GameService extends Phaser.Scene {
     });
   }
 
-  async startTurn(codeField: CodefieldComponent): Promise<void> {
-    const cmd = codeField.code;
-    for (const elem of cmd) {
+  async turn(commands: string[]): Promise<void> {
+    console.log(commands)
+    for (const elem of commands) {
       if (this.isRestart) {
         this.isRestart = false;
         break;
+      }
+      if (elem.includes('loopN')) {
+        const num = Number(elem.match(/\d+/));
+        const inCmd = this.loops[num];
+        const steps = Number(inCmd[0].match(/\d+/));
+        for (let i = 0; i < steps; i++) {
+          await this.turn(inCmd);
+        }
       }
       if (elem.includes('move')) {
         const steps = Number(elem.match(/\d+/));
@@ -549,16 +558,40 @@ export class GameService extends Phaser.Scene {
       if (elem.includes('Put')) {
         await this.put();
       }
-
     }
-    this.checkIfSuccess(codeField);
+  }
+
+  async startTurn(codeField: CodefieldComponent): Promise<void> {
+    const cmd = codeField.code.filter((elem) => elem !== '');
+    const loopStart: number[] = [];
+    const loopEnd: number[] = [];
+    cmd.forEach((elem, i) => {
+      if (elem.includes('loop')) {
+        loopStart.push(i);
+      }
+      if (elem.includes('end')) {
+        loopEnd.push(i);
+      }
+    });
+    let acc = 0;
+    if (loopStart) {
+      loopStart.forEach((elem, i) => {
+        const start = elem - acc;
+        const end = loopEnd[i] - acc;
+        const loop = cmd.splice(start, end - start + 1, `loopN ${this.loops.length}`);
+        this.loops.push(loop);
+        acc += loop.length - 1;
+      });
+    }
+    await this.turn(cmd).then(() => this.checkIfSuccess(codeField));
   }
 
 
 
   checkIfSuccess(codeField: CodefieldComponent): void {
     const distancePlayertofinish = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.finishX, this.finishY);
-    if (distancePlayertofinish < 20 && this.levelTarget === 0) {
+    console.log(distancePlayertofinish);
+    if (distancePlayertofinish < 20 * this.scaleCoef && this.levelTarget === 0) {
       codeField.openWinPopup();
       if (this.gameSettings[0].value) { this.sound.play('success'); }
     } else {
@@ -569,12 +602,13 @@ export class GameService extends Phaser.Scene {
       setTimeout(() => {
         this.scene.restart();
       }, 3000);
+    }
   }
 
-    restart(); : void {
+  restart(): void {
     this.levelTarget = 0;
     this.currentDirection = 0;
     this.scene.restart();
-  };
+  }
 }
 
