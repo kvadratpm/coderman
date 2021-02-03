@@ -1,13 +1,15 @@
 <div class="wrapper">
-  <app-gamefield></app-gamefield>
-  <div class="start-buttons-wrapper">
-    <div class="start-button" (click)="this.scene.startTurn(codeField)">
-      <button class="material-icons">play_arrow</button>
-      <div class="start__text">Запустить</div>
-    </div>
-    <div class="start-button" (click)="this.scene.restart(); this.codeField.reset()">
-      <button class="material-icons">stop</button>
-      <div class="start__text">Перезапустить</div>
+  <div class="gamefield-wrapper">
+    <app-gamefield></app-gamefield>
+    <div class="start-buttons-wrapper">
+      <div class="start-button" (click)="this.scene.startTurn(codeField)">
+        <button class="material-icons">play_arrow</button>
+        <div class="start__text">Запустить</div>
+      </div>
+      <div class="start-button" (click)="this.scene.restart(); this.codeField.reset()">
+        <button class="material-icons">replay</button>
+        <div class="start__text">Перезапустить</div>
+      </div>
     </div>
   </div>
   <div class="codefield-wrapper">
@@ -23,5 +25,3 @@
     <div class="cssload-tetromino cssload-box4"></div>
   </div>
 </div>
-
-

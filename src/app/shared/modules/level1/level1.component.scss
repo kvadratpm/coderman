@@ -310,7 +310,8 @@
     display: flex;
     position: absolute;
     bottom: 20px;
-    left: 30px;
+    width: 100%;
+    justify-content: space-between;
   }
   button {
     color: #0167e4;
@@ -330,5 +331,10 @@
       font-size: 30px;
       color: white;
     }
+  }
+  .gamefield-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
   }
 }
