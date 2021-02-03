@@ -1,16 +1,15 @@
 {"frames": {
-
-  "wait":
-{
-	"frame": {"x":1,"y":1,"w":50,"h":66},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
-	"sourceSize": {"w":110,"h":110}
-},
+	"wait":
+	{
+		"frame": {"x":1,"y":70,"w":50,"h":66},
+		"rotated": false,
+		"trimmed": true,
+		"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
+		"sourceSize": {"w":110,"h":110}
+	},
 "wait.000":
 {
-	"frame": {"x":1,"y":1,"w":50,"h":66},
+	"frame": {"x":1,"y":70,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -18,7 +17,7 @@
 },
 "wait.001":
 {
-	"frame": {"x":1,"y":1,"w":50,"h":66},
+	"frame": {"x":1,"y":70,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -26,7 +25,7 @@
 },
 "wait.002":
 {
-	"frame": {"x":1,"y":1,"w":50,"h":66},
+	"frame": {"x":1,"y":70,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -34,7 +33,7 @@
 },
 "wait.003":
 {
-	"frame": {"x":1,"y":1,"w":50,"h":66},
+	"frame": {"x":1,"y":70,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -42,7 +41,7 @@
 },
 "wait.004":
 {
-	"frame": {"x":1,"y":1,"w":50,"h":66},
+	"frame": {"x":1,"y":70,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -50,7 +49,7 @@
 },
 "wait.005":
 {
-	"frame": {"x":1,"y":1,"w":50,"h":66},
+	"frame": {"x":1,"y":70,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -58,7 +57,7 @@
 },
 "wait.006":
 {
-	"frame": {"x":1,"y":69,"w":50,"h":66},
+	"frame": {"x":1,"y":70,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -66,7 +65,7 @@
 },
 "wait.007":
 {
-	"frame": {"x":1,"y":69,"w":50,"h":66},
+	"frame": {"x":1,"y":70,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -74,7 +73,7 @@
 },
 "wait.008":
 {
-	"frame": {"x":1,"y":69,"w":50,"h":66},
+	"frame": {"x":1,"y":70,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -82,7 +81,7 @@
 },
 "wait.009":
 {
-	"frame": {"x":1,"y":69,"w":50,"h":66},
+	"frame": {"x":1,"y":70,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -90,7 +89,7 @@
 },
 "wait.010":
 {
-	"frame": {"x":1,"y":69,"w":50,"h":66},
+		"frame": {"x":1,"y":70,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -98,7 +97,7 @@
 },
 "wait.011":
 {
-	"frame": {"x":1,"y":69,"w":50,"h":66},
+		"frame": {"x":1,"y":70,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -106,7 +105,7 @@
 },
 "wait.012":
 {
-	"frame": {"x":1,"y":137,"w":50,"h":66},
+	"frame": {"x":1,"y":70,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -114,7 +113,7 @@
 },
 "wait.013":
 {
-	"frame": {"x":1,"y":137,"w":50,"h":66},
+	"frame": {"x":1,"y":70,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -122,7 +121,7 @@
 },
 "wait.014":
 {
-	"frame": {"x":1,"y":137,"w":50,"h":66},
+	"frame": {"x":1,"y":70,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -130,7 +129,7 @@
 },
 "wait.015":
 {
-	"frame": {"x":1,"y":137,"w":50,"h":66},
+	"frame": {"x":1,"y":274,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -138,7 +137,7 @@
 },
 "wait.016":
 {
-	"frame": {"x":1,"y":137,"w":50,"h":66},
+	"frame": {"x":1,"y":274,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -146,7 +145,7 @@
 },
 "wait.017":
 {
-	"frame": {"x":1,"y":137,"w":50,"h":66},
+	"frame": {"x":1,"y":274,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -154,7 +153,7 @@
 },
 "wait.018":
 {
-	"frame": {"x":1,"y":205,"w":50,"h":66},
+	"frame": {"x":1,"y":274,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
@@ -162,19 +161,59 @@
 },
 "wait.019":
 {
-	"frame": {"x":1,"y":205,"w":50,"h":66},
+	"frame": {"x":1,"y":274,"w":50,"h":66},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":21,"w":50,"h":66},
+	"sourceSize": {"w":110,"h":110}
+},
+"walk":
+{
+	"frame": {"x":1,"y":342,"w":50,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":28,"y":21,"w":50,"h":66},
+	"sourceSize": {"w":110,"h":110}
+},
+"walk.000":
+{
+	"frame": {"x":1,"y":342,"w":50,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":28,"y":21,"w":50,"h":66},
+	"sourceSize": {"w":110,"h":110}
+},
+"walk.001":
+{
+	"frame": {"x":1,"y":1,"w":50,"h":67},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":30,"y":22,"w":50,"h":67},
+	"sourceSize": {"w":110,"h":110}
+},
+"walk.002":
+{
+	"frame": {"x":1,"y":410,"w":49,"h":67},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":29,"y":21,"w":49,"h":67},
+	"sourceSize": {"w":110,"h":110}
+},
+"walk.003":
+{
+	"frame": {"x":1,"y":342,"w":50,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":28,"y":21,"w":50,"h":66},
 	"sourceSize": {"w":110,"h":110}
 }},
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.0",
-  "image": "warrior2.png"	,
-  "format": "RGBA8888",
-	"size": {"w":52,"h":272},
+	"image": "warrior2.png",
+	"format": "RGBA8888",
+	"size": {"w":52,"h":478},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:7d4863abb1206425935831c2a763ba2b:b71b4b26237df31abb5f3bea5f99e969:e520f8282533dd15f89047eb230289bc$"
+	"smartupdate": "$TexturePacker:SmartUpdate:86af339e81683692a244b4f6227ca1e7:6307978dff2daab07806e4a78ad6d683:e520f8282533dd15f89047eb230289bc$"
 }
 }

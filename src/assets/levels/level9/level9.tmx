@@ -8286,7 +8286,7 @@
   <object id="1" name="Spawn Point" x="225" y="525">
    <point/>
   </object>
-  <object id="97" name="Finish Point" x="575" y="525">
+  <object id="97" name="Finish Point" x="323" y="531">
    <point/>
   </object>
   <object id="104" name="Enemy Point" x="175" y="225">
@@ -8301,7 +8301,7 @@
    </properties>
    <point/>
   </object>
-  <object id="106" name="Alies Point" x="175" y="525">
+  <object id="106" name="Alies Point" x="319.667" y="228.333">
    <point/>
   </object>
   <object id="107" name="Enemy Point" x="175" y="425">
