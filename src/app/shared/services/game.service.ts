@@ -78,8 +78,8 @@ export class GameService extends Phaser.Scene {
   finishY!: any;
   lootCoordinate!: any;
   isLoading = true;
-  score!:any;
-scoreText!:any;
+  score!: any;
+  scoreText!: any;
   isMusicOn = false;
   isTaken = false;
   isPut = false;
@@ -333,17 +333,17 @@ scoreText!:any;
     if (aliesPoint) {
       const alies = this.physics.add.sprite(aliesPoint.x! * this.scaleCoef, aliesPoint.y! * this.scaleCoef, 'hero3')
       .setSize(70 * this.scaleCoef, 70 * this.scaleCoef)
-      .setScale(this.scaleCoef * 0.9)
+      .setScale(this.scaleCoef * 0.9);
       const pointer = this.physics.add.image(finishPoint.x! * this.scaleCoef, finishPoint.y! * this.scaleCoef, 'hidden');
-      setTimeout(()=>{
-        alies.play('walk')
-       this.physics.moveToObject(alies, pointer,60);
-      },15000)
+      setTimeout(() => {
+        alies.play('walk');
+        this.physics.moveToObject(alies, pointer, 60);
+      }, 15000);
       this.physics.add.overlap(alies, pointer, () => {
 
         alies.body.reset(finishPoint.x! * this.scaleCoef, (finishPoint.y!) * this.scaleCoef);
-        alies.play('wait')
-         pointer.destroy()
+        alies.play('wait');
+        pointer.destroy();
     }, () => { return; }, this);
     }
 
@@ -381,25 +381,25 @@ scoreText!:any;
     if (enemiesPoints) {
       this.levelTarget += enemiesPoints.length;
       enemiesPoints.forEach((point) => {
-        const enemy = this.physics.add.sprite(100 * this.scaleCoef,100 * this.scaleCoef, `orc${point.properties[0].value}`).play(`stand${point.properties[0].value}`)
+        const enemy = this.physics.add.sprite(100 * this.scaleCoef, 100 * this.scaleCoef, `orc${point.properties[0].value}`).play(`stand${point.properties[0].value}`)
                   .setSize(70 * this.scaleCoef, 70 * this.scaleCoef)
-          //.setX(point.x! * this.scaleCoef)
-          //.setY(point.y! * this.scaleCoef)
+          // .setX(point.x! * this.scaleCoef)
+          // .setY(point.y! * this.scaleCoef)
           .setScale(this.scaleCoef );
-        const pointer = this.physics.add.image(0,0, 'hidden')
+        const pointer = this.physics.add.image(0, 0, 'hidden')
           .setSize(70 * this.scaleCoef, 70 * this.scaleCoef)
           .setX(point.x! * this.scaleCoef)
           .setY(point.y! * this.scaleCoef)
           .setScale(this.scaleCoef );
-          setTimeout(()=>{
-            this.physics.moveToObject(enemy, pointer,60);
-            enemy.play(`run${point.properties[0].value}`)
-          },8000)
-          this.physics.add.overlap(enemy, pointer, () => {
-            enemy.body.stop()
+        setTimeout(() => {
+            this.physics.moveToObject(enemy, pointer, 60);
+            enemy.play(`run${point.properties[0].value}`);
+          }, 8000);
+        this.physics.add.overlap(enemy, pointer, () => {
+            enemy.body.stop();
             enemy.body.reset(point.x! * this.scaleCoef, point.y! * this.scaleCoef);
-            enemy.play(`stand${point.properties[0].value}`)
-            pointer.destroy()
+            enemy.play(`stand${point.properties[0].value}`);
+            pointer.destroy();
         }, () => { return; }, this);
         this.physics.add.overlap(this.player, enemy, () => {
           console.log(enemy.x + enemy.y - this.player.x - this.player.y);
