@@ -83,7 +83,8 @@ export class GameService extends Phaser.Scene {
   isMusicOn = false
   isTaken = false
   isPut = false
-
+  isAttack = false
+  position!: any
 
   constructor(config: SceneConfig) {
     super({ key: 'main' });
@@ -161,12 +162,10 @@ export class GameService extends Phaser.Scene {
     this.physics.add.collider(this.target, world);
     this.player = this.physics.add
       .sprite(spawnPoint.x! * this.scaleCoef, spawnPoint.y! * this.scaleCoef, this.sceneConfig.hero.key, 'back')
-      .setSize(50* this.scaleCoef, 50* this.scaleCoef)
-      .setOffset(25* this.scaleCoef, 25* this.scaleCoef)
-      .setScale(window.screen.width * 0.5 / 650);
+      .setSize(45 * this.scaleCoef, 45 * this.scaleCoef)
+      .setScale(this.scaleCoef);
     this.physics.add.collider(this.player, layer);
     this.physics.add.collider(this.player, world);
-
 
     // ***Анимации героя***
     this.anims.create({
@@ -320,11 +319,11 @@ export class GameService extends Phaser.Scene {
       deliver.setScale(this.scaleCoef);
       this.physics.add.overlap(this.player, deliver, () => {
 
-       if(deliver.x + deliver.y-this.player.x-this.player.y< Math.abs(20) && this.isPut){
-        this.isPut = false
-        this.levelTarget -= 1;
-      }
-    })
+        if (deliver.x + deliver.y - this.player.x - this.player.y < Math.abs(20) && this.isPut) {
+          this.isPut = false
+          this.levelTarget -= 1;
+        }
+      })
     }
 
     if (gemPoints) {
@@ -344,26 +343,36 @@ export class GameService extends Phaser.Scene {
     if (enemiesPoints) {
       this.levelTarget += enemiesPoints.length;
       enemiesPoints.forEach((point) => {
-        const enemy = this.physics.add.sprite(0, 0, `orc${point.properties[0].value}`).play(`stand${point.properties[0].value}`);
-        enemy.setX(point.x! * this.scaleCoef);
-        enemy.setY(point.y! * this.scaleCoef);
-        enemy.setScale(this.scaleCoef * 0.85);
+        const enemy = this.physics.add.sprite(0, 0, `orc${point.properties[0].value}`).play(`stand${point.properties[0].value}`)
+          .setSize(70 * this.scaleCoef, 70 * this.scaleCoef)
+          .setX(point.x! * this.scaleCoef)
+          .setY(point.y! * this.scaleCoef)
+          .setScale(this.scaleCoef );
+
+        this.physics.add.overlap(this.player, enemy, () => {
+          console.log(enemy.x + enemy.y - this.player.x - this.player.y)
+          if ( enemy.x + enemy.y - this.player.x - this.player.y < Math.abs(66) && this.isAttack) {
+            enemy.play(`lay${point.properties[0].value}`)
+            this.isAttack = false
+            this.levelTarget -= 1;
+          }
+        }, () => { return; }, this);
       });
     }
     if (lootPoints) {
       this.levelTarget += lootPoints.length;
       lootPoints.forEach((point) => {
-       const loot = this.physics.add.sprite(0, 0, point.properties[0].value).play(point.properties[0].value);
+        const loot = this.physics.add.sprite(0, 0, point.properties[0].value).play(point.properties[0].value);
         loot.setX(point.x! * this.scaleCoef);
         loot.setY(point.y! * this.scaleCoef);
         loot.setScale(this.scaleCoef * 0.8);
         this.physics.add.overlap(this.player, loot, () => {
-          console.log(loot.x + loot.y-this.player.x-this.player.y)
-         if(loot.x + loot.y-this.player.x-this.player.y< Math.abs(15) && this.isTaken){
-          loot.disableBody(true, true);
-          this.isTaken = false
-          this.levelTarget -= 1;
-        }
+          console.log(loot.x + loot.y - this.player.x - this.player.y)
+          if (loot.x + loot.y - this.player.x - this.player.y < Math.abs(15) && this.isTaken) {
+            loot.disableBody(true, true);
+            this.isTaken = false
+            this.levelTarget -= 1;
+          }
         }, () => { return; }, this);
       });
     }
@@ -405,7 +414,6 @@ export class GameService extends Phaser.Scene {
   }
 
   update(): void {
-
     this.isLoading = false;
     const distancePlayertoTarget = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.SpawnX, this.SpawnY);
     if (this.player.body.speed > 0 && distancePlayertoTarget < 7) {
@@ -471,6 +479,7 @@ export class GameService extends Phaser.Scene {
   async attack(): Promise<void> {
     return new Promise((res) => {
       if (this.gameSettings[0].value) { this.sound.play('fight'); }
+      this.isAttack = true
 
       switch (this.currentDirection) {
         case 0:
@@ -499,8 +508,8 @@ export class GameService extends Phaser.Scene {
       }, 1500);
     });
   }
-  async put(): Promise<void>  {
-        return new Promise((res) => {
+  async put(): Promise<void> {
+    return new Promise((res) => {
       this.isPut = true
       setTimeout(() => {
         res();
@@ -548,9 +557,18 @@ export class GameService extends Phaser.Scene {
 
 
   checkIfSuccess(codeField: CodefieldComponent): void {
-    codeField.openWinPopup();
-
-
+    const distancePlayertofinish = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.finishX, this.finishY);
+    if (distancePlayertofinish < 20 && this.levelTarget === 0) {
+      codeField.openWinPopup();
+      if (this.gameSettings[0].value) { this.sound.play('success'); }
+    } else {
+      codeField.openLosePopup();
+      this.levelTarget = 0;
+      this.currentDirection = 0;
+      if (this.gameSettings[0].value) { this.sound.play('fail'); }
+      setTimeout(() => {
+        this.scene.restart();
+      }, 3000);
   }
 
   restart(): void {

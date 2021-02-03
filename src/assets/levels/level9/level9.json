@@ -3,7 +3,8 @@
     {
      "export":
         {
-         "format":"json"
+         "format":"json",
+         "target":"level9.json"
         }
     },
  "height":13,
@@ -90,7 +91,7 @@
                  "visible":true,
                  "width":0,
                  "x":175,
-                 "y":165
+                 "y":225
                 }, 
                 {
                  "height":0,
@@ -108,7 +109,7 @@
                  "visible":true,
                  "width":0,
                  "x":175,
-                 "y":310
+                 "y":325
                 }, 
                 {
                  "height":0,
@@ -137,8 +138,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":171.239574412712,
-                 "y":417.256257526603
+                 "x":175,
+                 "y":425
                 }, 
                 {
                  "height":0,
@@ -156,7 +157,7 @@
                  "visible":true,
                  "width":0,
                  "x":375,
-                 "y":416.508486459592
+                 "y":425
                 }, 
                 {
                  "height":0,
@@ -174,7 +175,7 @@
                  "visible":true,
                  "width":0,
                  "x":375,
-                 "y":316.307163480011
+                 "y":325
                 }, 
                 {
                  "height":0,
@@ -192,7 +193,7 @@
                  "visible":true,
                  "width":0,
                  "x":375,
-                 "y":163.761865809606
+                 "y":225
                 }],
          "offsetx":0.747771,
          "offsety":1.49554,
@@ -236,7 +237,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -659,7 +660,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -1082,7 +1083,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -1793,7 +1794,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
