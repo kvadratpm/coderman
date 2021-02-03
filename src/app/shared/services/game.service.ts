@@ -593,21 +593,25 @@ export class GameService extends Phaser.Scene {
     console.log(distancePlayertofinish);
     if (distancePlayertofinish < 20 * this.scaleCoef && this.levelTarget === 0) {
       codeField.openWinPopup();
-      if (this.gameSettings[0].value) { this.sound.play('success'); }
+      if (this.gameSettings[0].value) {
+        this.sound.play('success');
+      }
     } else {
       codeField.openLosePopup();
       this.levelTarget = 0;
       this.currentDirection = 0;
-      if (this.gameSettings[0].value) { this.sound.play('fail'); }
+      if (this.gameSettings[0].value) {
+        this.sound.play('fail');
+      }
       setTimeout(() => {
         this.scene.restart();
       }, 3000);
     }
   }
-
-  restart(): void {
+    restart(): void {
     this.levelTarget = 0;
     this.currentDirection = 0;
+    this.loops = [];
     this.scene.restart();
   }
 }
