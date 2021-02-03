@@ -560,21 +560,25 @@ export class GameService extends Phaser.Scene {
     const distancePlayertofinish = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.finishX, this.finishY);
     if (distancePlayertofinish < 20 && this.levelTarget === 0) {
       codeField.openWinPopup();
-      if (this.gameSettings[0].value) { this.sound.play('success'); }
+      if (this.gameSettings[0].value) {
+        this.sound.play('success');
+      }
     } else {
       codeField.openLosePopup();
       this.levelTarget = 0;
       this.currentDirection = 0;
-      if (this.gameSettings[0].value) { this.sound.play('fail'); }
+      if (this.gameSettings[0].value) {
+        this.sound.play('fail');
+      }
       setTimeout(() => {
         this.scene.restart();
       }, 3000);
+    }
   }
-
-    restart(); : void {
+    restart(): void {
     this.levelTarget = 0;
     this.currentDirection = 0;
     this.scene.restart();
-  };
+  }
 }
 

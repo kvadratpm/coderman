@@ -17,7 +17,7 @@ $main-font-size: 25px;
 }
 
 .exit-label {
-  font-family: Roboto, serif;
+  font-family: Roboto, sans-serif;
   color: $active-icon-font;
   font-size: $main-font-size;
   margin-right: 5px;
@@ -115,7 +115,7 @@ $main-font-size: 25px;
 }
 
 .help-wrapper {
-  font-family: Roboto, serif;
+  font-family: Roboto, sans-serif;
   display: flex;
   width: 100%;
   min-width: 300px;
@@ -242,7 +242,7 @@ $main-font-size: 25px;
   z-index: 10000;
 }
 .popup {
-  font-family: Roboto, serif;
+  font-family: Roboto, sans-serif;
   border-radius: 25px;
   position: fixed;
   z-index: 10001;
