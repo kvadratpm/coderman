@@ -25,7 +25,14 @@ export class GamefieldComponent implements OnInit {
         default: 'arcade',
         arcade: {
           gravity: { y: 0 },
-        }
+
+        debug: true,
+        debugShowBody: true,
+        debugShowStaticBody: true,
+        debugShowVelocity: true,
+        debugVelocityColor: 0xffff00,
+        debugBodyColor: 0x0000ff,
+        debugStaticBodyColor: 0xffffff}
       }
     };
   }

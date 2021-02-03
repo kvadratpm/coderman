@@ -57,10 +57,7 @@ export interface SceneConfig {
 
 export class GameService extends Phaser.Scene {
   gameSettings!: any;
-  defaultSettings: any = [
-    { setting: 'music', value: false },
-    { setting: 'sfx', value: true }
-  ];
+  defaultSettings!: any
 
   currentDirection = 0;
   platforms!: any;
@@ -80,6 +77,7 @@ export class GameService extends Phaser.Scene {
   finishY!: any;
   lootCoordinate!: any;
   isLoading = true;
+
   isMusicOn = false;
   isTaken = false;
   isPut = false;
@@ -87,14 +85,20 @@ export class GameService extends Phaser.Scene {
   position!: any;
   loops: any = [];
 
+
   constructor(config: SceneConfig) {
     super({ key: 'main' });
     this.sceneConfig = config;
   }
 
   preload(): void {
+    console.log(this.sceneConfig)
     this.load.image('tiles', 'assets/map/tiles.png');
-
+    this.defaultSettings = [
+      { setting: 'music', value: false },
+      { setting: 'sfx', value: true },
+      {setting:'saved game', value!: this.sceneConfig}
+    ];
     this.load.tilemapTiledJSON(
       this.sceneConfig.tileMap.key,
       `assets/levels/${this.sceneConfig.tileMap.path}`
@@ -315,16 +319,16 @@ export class GameService extends Phaser.Scene {
     }
 
     if (deliverPoint) {
-      this.levelTarget += 1;
+      this.levelTarget += 1
       const deliver = this.physics.add.image(deliverPoint.x! * this.scaleCoef, deliverPoint.y! * this.scaleCoef, 'deliver');
       deliver.setScale(this.scaleCoef);
       this.physics.add.overlap(this.player, deliver, () => {
 
         if (deliver.x + deliver.y - this.player.x - this.player.y < Math.abs(20) && this.isPut) {
-          this.isPut = false;
+          this.isPut = false
           this.levelTarget -= 1;
         }
-      });
+      })
     }
 
     if (gemPoints) {
@@ -351,10 +355,10 @@ export class GameService extends Phaser.Scene {
           .setScale(this.scaleCoef );
 
         this.physics.add.overlap(this.player, enemy, () => {
-          console.log(enemy.x + enemy.y - this.player.x - this.player.y);
+          console.log(enemy.x + enemy.y - this.player.x - this.player.y)
           if ( enemy.x + enemy.y - this.player.x - this.player.y < Math.abs(66) && this.isAttack) {
-            enemy.play(`lay${point.properties[0].value}`);
-            this.isAttack = false;
+            enemy.play(`lay${point.properties[0].value}`)
+            this.isAttack = false
             this.levelTarget -= 1;
           }
         }, () => { return; }, this);
@@ -368,17 +372,17 @@ export class GameService extends Phaser.Scene {
         loot.setY(point.y! * this.scaleCoef);
         loot.setScale(this.scaleCoef * 0.8);
         this.physics.add.overlap(this.player, loot, () => {
-          console.log(loot.x + loot.y - this.player.x - this.player.y);
+          console.log(loot.x + loot.y - this.player.x - this.player.y)
           if (loot.x + loot.y - this.player.x - this.player.y < Math.abs(15) && this.isTaken) {
             loot.disableBody(true, true);
-            this.isTaken = false;
+            this.isTaken = false
             this.levelTarget -= 1;
           }
         }, () => { return; }, this);
       });
     }
 
-
+    ;
 
 
     // **************
@@ -388,7 +392,7 @@ export class GameService extends Phaser.Scene {
       this.gameSettings = this.defaultSettings;
     }
 
-    const settingsButton = new Button(this, 310, 7, '#000', 'button', 'button_pressed', 'Settings', 'navigation', 'settings', 'settings');
+    const settingsButton = new Button(this, 310, 7, '#000', 'button', 'button_pressed', 'Menu', 'navigation', 'settings', 'settings');
 
     const music = this.sound.add('backgroundMusic', {
       mute: false,
@@ -400,11 +404,11 @@ export class GameService extends Phaser.Scene {
 
     if (this.gameSettings[0].value && !this.isMusicOn) {
       music.play();
-      this.isMusicOn = true;
+      this.isMusicOn = true
     } else if (!this.gameSettings[0].value) {
       music.stop();
       this.sound.stopAll();
-      this.isMusicOn = false;
+      this.isMusicOn = false
     }
   }
 
@@ -480,7 +484,7 @@ export class GameService extends Phaser.Scene {
   async attack(): Promise<void> {
     return new Promise((res) => {
       if (this.gameSettings[0].value) { this.sound.play('fight'); }
-      this.isAttack = true;
+      this.isAttack = true
 
       switch (this.currentDirection) {
         case 0:
@@ -503,7 +507,7 @@ export class GameService extends Phaser.Scene {
   }
   async take(): Promise<void> {
     return new Promise((res) => {
-      this.isTaken = true;
+      this.isTaken = true
       setTimeout(() => {
         res();
       }, 1500);
@@ -511,7 +515,7 @@ export class GameService extends Phaser.Scene {
   }
   async put(): Promise<void> {
     return new Promise((res) => {
-      this.isPut = true;
+      this.isPut = true
       setTimeout(() => {
         res();
       }, 1500);
@@ -589,6 +593,7 @@ export class GameService extends Phaser.Scene {
 
 
   checkIfSuccess(codeField: CodefieldComponent): void {
+
     const distancePlayertofinish = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.finishX, this.finishY);
     console.log(distancePlayertofinish);
     if (distancePlayertofinish < 50 && this.levelTarget === 0) {
@@ -596,10 +601,12 @@ export class GameService extends Phaser.Scene {
       if (this.gameSettings[0].value) {
         this.sound.play('success');
       }
+
     } else {
       codeField.openLosePopup();
       this.levelTarget = 0;
       this.currentDirection = 0;
+
       if (this.gameSettings[0].value) {
         this.sound.play('fail');
       }
@@ -609,6 +616,7 @@ export class GameService extends Phaser.Scene {
     }
   }
     restart(): void {
+
     this.levelTarget = 0;
     this.currentDirection = 0;
     this.loops = [];
