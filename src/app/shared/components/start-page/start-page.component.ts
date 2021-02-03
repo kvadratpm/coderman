@@ -19,8 +19,12 @@ export class StartPageComponent implements OnInit {
   }
 
   startGame(): void {
-    const currentLevel =  parseInt(localStorage.getItem('currentLevel') as string, 10);
-    this.router.navigate([`/level${currentLevel}`]);
+    if (localStorage.getItem('lastWinLevel')) {
+      const lastWinLevel =  parseInt(localStorage.getItem('lastWinLevel') as string, 10);
+      this.router.navigate([`/level${lastWinLevel}`]);
+    } else {
+      this.router.navigate([`/level1`]);
+    }
   }
 
 
