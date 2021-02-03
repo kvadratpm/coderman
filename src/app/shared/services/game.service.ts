@@ -356,7 +356,7 @@ export class GameService extends Phaser.Scene {
 
         this.physics.add.overlap(this.player, enemy, () => {
           console.log(enemy.x + enemy.y - this.player.x - this.player.y)
-          if ( enemy.x + enemy.y - this.player.x - this.player.y < Math.abs(66) && this.isAttack) {
+          if ( enemy.x + enemy.y - this.player.x - this.player.y < Math.abs(66* this.scaleCoef) && this.isAttack) {
             enemy.play(`lay${point.properties[0].value}`)
             this.isAttack = false
             this.levelTarget -= 1;
@@ -601,7 +601,7 @@ export class GameService extends Phaser.Scene {
       if (this.gameSettings[0].value) {
         this.sound.play('success');
       }
-
+      this.scene.stop('main')
     } else {
       codeField.openLosePopup();
       this.levelTarget = 0;

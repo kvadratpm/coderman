@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="2021.01.13" orientation="orthogonal" renderorder="right-down" width="13" height="13" tilewidth="50" tileheight="50" infinite="0" nextlayerid="20" nextobjectid="160">
+<map version="1.4" tiledversion="2021.01.13" orientation="orthogonal" renderorder="right-down" width="13" height="13" tilewidth="50" tileheight="50" infinite="0" nextlayerid="20" nextobjectid="177">
  <editorsettings>
-  <export target="../level9/level10.json" format="json"/>
+  <export target="level10.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="tiles" tilewidth="50" tileheight="50" tilecount="1680" columns="48">
   <image source="../../../../../../../../../images/tiles.png" width="2427" height="1752"/>
@@ -5767,7 +5767,7 @@
   </tile>
   <tile id="1176">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="1177">
@@ -6002,7 +6002,7 @@
   </tile>
   <tile id="1224">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="1225">
@@ -6187,7 +6187,7 @@
   </tile>
   <tile id="1262">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="1263">
@@ -6237,7 +6237,7 @@
   </tile>
   <tile id="1272">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="1273">
@@ -6422,12 +6422,12 @@
   </tile>
   <tile id="1310">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="1311">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="1312">
@@ -6657,12 +6657,12 @@
   </tile>
   <tile id="1358">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="1359">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="1360">
@@ -6892,7 +6892,7 @@
   </tile>
   <tile id="1406">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="1407">
@@ -7127,7 +7127,7 @@
   </tile>
   <tile id="1454">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="1455">
@@ -7362,7 +7362,7 @@
   </tile>
   <tile id="1502">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="1503">
@@ -7597,7 +7597,7 @@
   </tile>
   <tile id="1550">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="1551">
@@ -7647,7 +7647,7 @@
   </tile>
   <tile id="1560">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="1561">
@@ -7832,7 +7832,7 @@
   </tile>
   <tile id="1598">
    <properties>
-    <property name="collides" type="bool" value="true"/>
+    <property name="collides" type="bool" value="false"/>
    </properties>
   </tile>
   <tile id="1599">
@@ -8286,192 +8286,186 @@
   <object id="1" name="Spawn Point" x="325" y="525">
    <point/>
   </object>
-  <object id="97" name="Finish Point" x="325" y="75">
+  <object id="97" name="Finish Point" x="525" y="329">
    <point/>
   </object>
-  <object id="111" name="Gem Point" x="123.252" y="121.171">
-   <properties>
-    <property name="color" value="ruby"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="116" name="Gem Point" x="224.586" y="119.838">
-   <properties>
-    <property name="color" value="ruby"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="117" name="Gem Point" x="325.919" y="122.504">
-   <properties>
-    <property name="color" value="ruby"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="118" name="Gem Point" x="427.252" y="123.838">
-   <properties>
-    <property name="color" value="ruby"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="119" name="Gem Point" x="375.252" y="226.504">
-   <properties>
-    <property name="color" value="diamond"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="120" name="Gem Point" x="272.586" y="223.838">
-   <properties>
-    <property name="color" value="diamond"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="121" name="Gem Point" x="175.252" y="225.171">
-   <properties>
-    <property name="color" value="diamond"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="122" name="Gem Point" x="472.586" y="225.171">
-   <properties>
-    <property name="color" value="diamond"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="123" name="Gem Point" x="324.586" y="323.838">
+  <object id="111" name="Gem Point" x="125" y="187.838">
    <properties>
     <property name="color" value="prism"/>
    </properties>
    <point/>
   </object>
-  <object id="124" name="Gem Point" x="421.919" y="322.504">
+  <object id="116" name="Gem Point" x="125" y="136.505">
    <properties>
     <property name="color" value="prism"/>
    </properties>
    <point/>
   </object>
-  <object id="125" name="Gem Point" x="521.919" y="321.171">
+  <object id="118" name="Gem Point" x="425" y="125.667">
+   <properties>
+    <property name="color" value="ruby"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="120" name="Gem Point" x="175.919" y="379.667">
    <properties>
     <property name="color" value="prism"/>
    </properties>
    <point/>
   </object>
-  <object id="126" name="Gem Point" x="225.919" y="322.504">
+  <object id="121" name="Gem Point" x="375" y="173.838">
+   <properties>
+    <property name="color" value="diamond"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="122" name="Gem Point" x="425" y="325">
+   <properties>
+    <property name="color" value="ruby"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="123" name="Gem Point" x="425" y="183.838">
+   <properties>
+    <property name="color" value="ruby"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="124" name="Gem Point" x="375" y="379.667">
+   <properties>
+    <property name="color" value="diamond"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="125" name="Gem Point" x="529.252" y="379.667">
+   <properties>
+    <property name="color" value="ruby"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="126" name="Gem Point" x="327.252" y="379.667">
+   <properties>
+    <property name="color" value="diamond"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="128" name="Gem Point" x="325.919" y="125.667">
+   <properties>
+    <property name="color" value="diamond"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="129" name="Gem Point" x="375" y="125.667">
+   <properties>
+    <property name="color" value="diamond"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="130" name="Gem Point" x="275" y="379.667">
+   <properties>
+    <property name="color" value="diamond"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="160" name="Gem Point" x="275" y="325">
+   <properties>
+    <property name="color" value="diamond"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="161" name="Gem Point" x="125" y="325">
    <properties>
     <property name="color" value="prism"/>
    </properties>
    <point/>
   </object>
-  <object id="127" name="Gem Point" x="169.919" y="423.838">
+  <object id="162" name="Gem Point" x="275" y="125.667">
+   <properties>
+    <property name="color" value="diamond"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="163" name="Gem Point" x="474.586" y="379.667">
    <properties>
     <property name="color" value="ruby"/>
    </properties>
    <point/>
   </object>
-  <object id="128" name="Gem Point" x="277.919" y="425.171">
+  <object id="164" name="Gem Point" x="425" y="379.667">
    <properties>
     <property name="color" value="ruby"/>
    </properties>
    <point/>
   </object>
-  <object id="129" name="Gem Point" x="373.919" y="422.504">
+  <object id="165" name="Gem Point" x="275" y="172.504">
+   <properties>
+    <property name="color" value="diamond"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="166" name="Gem Point" x="125" y="379.667">
+   <properties>
+    <property name="color" value="prism"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="167" name="Gem Point" x="225.252" y="379.667">
+   <properties>
+    <property name="color" value="prism"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="168" name="Gem Point" x="375" y="327.171">
+   <properties>
+    <property name="color" value="diamond"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="169" name="Gem Point" x="125" y="230.504">
+   <properties>
+    <property name="color" value="prism"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="170" name="Gem Point" x="125" y="275.838">
+   <properties>
+    <property name="color" value="prism"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="171" name="Gem Point" x="275" y="275">
+   <properties>
+    <property name="color" value="diamond"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="172" name="Gem Point" x="275" y="222.504">
+   <properties>
+    <property name="color" value="diamond"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="173" name="Gem Point" x="375" y="230.504">
+   <properties>
+    <property name="color" value="diamond"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="174" name="Gem Point" x="375" y="275.171">
+   <properties>
+    <property name="color" value="diamond"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="175" name="Gem Point" x="425" y="275">
    <properties>
     <property name="color" value="ruby"/>
    </properties>
    <point/>
   </object>
-  <object id="130" name="Gem Point" x="476.586" y="425.171">
+  <object id="176" name="Gem Point" x="425" y="226.504">
    <properties>
     <property name="color" value="ruby"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="131" name="Loot Point" x="223.919" y="174.504">
-   <properties>
-    <property name="color" value="bronze"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="146" name="Loot Point" x="273.919" y="173.171">
-   <properties>
-    <property name="color" value="bronze"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="147" name="Loot Point" x="323.252" y="172.504">
-   <properties>
-    <property name="color" value="bronze"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="148" name="Loot Point" x="375.919" y="171.838">
-   <properties>
-    <property name="color" value="bronze"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="149" name="Loot Point" x="422.586" y="175.171">
-   <properties>
-    <property name="color" value="bronze"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="150" name="Loot Point" x="225.919" y="271.838">
-   <properties>
-    <property name="color" value="bronze"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="151" name="Loot Point" x="274.586" y="272.504">
-   <properties>
-    <property name="color" value="bronze"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="152" name="Loot Point" x="323.252" y="271.838">
-   <properties>
-    <property name="color" value="bronze"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="153" name="Loot Point" x="373.919" y="275.171">
-   <properties>
-    <property name="color" value="bronze"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="154" name="Loot Point" x="425.919" y="275.171">
-   <properties>
-    <property name="color" value="bronze"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="155" name="Loot Point" x="225.252" y="377.838">
-   <properties>
-    <property name="color" value="bronze"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="156" name="Loot Point" x="273.252" y="377.171">
-   <properties>
-    <property name="color" value="bronze"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="157" name="Loot Point" x="324.586" y="377.838">
-   <properties>
-    <property name="color" value="bronze"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="158" name="Loot Point" x="371.919" y="373.171">
-   <properties>
-    <property name="color" value="bronze"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="159" name="Loot Point" x="424.586" y="377.171">
-   <properties>
-    <property name="color" value="bronze"/>
    </properties>
    <point/>
   </object>
