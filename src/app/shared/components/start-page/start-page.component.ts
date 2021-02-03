@@ -19,7 +19,7 @@ export class StartPageComponent implements OnInit {
   }
 
   startGame(): void {
-    const currentLevel =  parseInt(localStorage.getItem('currentLevel') as string, 10);
+    const currentLevel = parseInt(localStorage.getItem('currentLevel') as string, 10) ? parseInt(localStorage.getItem('currentLevel') as string, 10) : 1;
     this.router.navigate([`/level${currentLevel}`]);
   }
 
