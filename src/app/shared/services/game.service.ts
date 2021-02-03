@@ -602,6 +602,7 @@ export class GameService extends Phaser.Scene {
         this.sound.play('success');
       }
       this.scene.stop('main')
+      this.scene.remove('main')
     } else {
       codeField.openLosePopup();
       this.levelTarget = 0;
