@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import { Button } from './button.service';
 import { CodefieldComponent } from '../components/codefield/codefield.component';
+import { ScaleTo } from 'excalibur/dist/Actions/Action';
 
 /**
  * С помощью этой конфигурации создаётся новый уровень игры.
@@ -57,7 +58,7 @@ export interface SceneConfig {
 
 export class GameService extends Phaser.Scene {
   gameSettings!: any;
-  defaultSettings!: any
+  defaultSettings!: any;
 
   currentDirection = 0;
   platforms!: any;
@@ -77,7 +78,8 @@ export class GameService extends Phaser.Scene {
   finishY!: any;
   lootCoordinate!: any;
   isLoading = true;
-
+  score!:any;
+scoreText!:any;
   isMusicOn = false;
   isTaken = false;
   isPut = false;
@@ -92,12 +94,12 @@ export class GameService extends Phaser.Scene {
   }
 
   preload(): void {
-    console.log(this.sceneConfig)
+    console.log(this.sceneConfig);
     this.load.image('tiles', 'assets/map/tiles.png');
     this.defaultSettings = [
       { setting: 'music', value: false },
       { setting: 'sfx', value: true },
-      {setting:'saved game', value!: this.sceneConfig}
+      {setting: 'saved game', value!: this.sceneConfig}
     ];
     this.load.tilemapTiledJSON(
       this.sceneConfig.tileMap.key,
@@ -131,6 +133,7 @@ export class GameService extends Phaser.Scene {
     this.load.image('sword', 'assets/armour/sword.png'); // меч
     this.load.image('head', 'assets/armour/head.png'); // шлем
     this.load.image('shield', 'assets/armour/shield.png'); // щит
+    this.load.image('hidden', 'assets/points/hiddenBorder.png'); // невидимый обьект
     this.load.atlas('gems', 'assets/gems/gems1.png', 'assets/gems/gems1.json'); // камни
     this.load.atlas('bronze', 'assets/gems/coin.png', 'assets/gems/coin.json'); // монета
     this.load.image('point', 'assets/points/lighter1.png'); // текущая точка
@@ -140,7 +143,7 @@ export class GameService extends Phaser.Scene {
   }
 
   create(): void {
-    console.log(this.defaultSettings);
+
     const map = this.make.tilemap({ key: 'map', tileWidth: this.cell, tileHeight: this.cell });
     const tileset = map.addTilesetImage('tiles', 'tiles');
     const layer = map.createLayer('Ground', tileset, 0, 0); // id слоя по его названию в тайлсете
@@ -171,7 +174,7 @@ export class GameService extends Phaser.Scene {
       .setScale(this.scaleCoef);
     this.physics.add.collider(this.player, layer);
     this.physics.add.collider(this.player, world);
-
+    this.scoreText = this.add.text(16, 16, 'Remaining actions: ', { fontSize: '32px'});
     // ***Анимации героя***
     this.anims.create({
       key: 'left',
@@ -235,6 +238,10 @@ export class GameService extends Phaser.Scene {
       key: 'lay1',
       frames: this.anims.generateFrameNames('orc1', { prefix: 'lay1.', start: 0, end: 11, zeroPad: 3 })
     });
+   /* this.anims.create({
+      key: 'run1',
+      frames: this.anims.generateFrameNames('orc1', { prefix: 'run1.', start: 0, end: 3, zeroPad: 3 })
+    });*/
     this.anims.create({
       key: 'stand2',
       frames: this.anims.generateFrameNames('orc2', { prefix: 'stand2.', start: 0, end: 15, zeroPad: 3 }),
@@ -242,14 +249,22 @@ export class GameService extends Phaser.Scene {
     });
     this.anims.create({
       key: 'lay2',
-      frames: this.anims.generateFrameNames('orc2', { prefix: 'lay2.', start: 0, end: 14, zeroPad: 3 })
+      frames: this.anims.generateFrameNames('orc2', { prefix: 'lay2.', start: 0, end: 12, zeroPad: 3 })
     });
+     /*   this.anims.create({
+      key: 'run2',
+      frames: this.anims.generateFrameNames('orc2', { prefix: 'run2.', start: 0, end: 3, zeroPad: 3 })
+    });*/
     this.anims.create({
       key: 'wait',
       frames: this.anims.generateFrameNames('hero3', { prefix: 'wait.', start: 0, end: 19, zeroPad: 3 }),
       frameRate: 10, repeat: -1
     });
-
+    this.anims.create({
+      key: 'walk',
+      frames: this.anims.generateFrameNames('hero3', { prefix: 'walk.', start: 0, end: 3, zeroPad: 3 }),
+      frameRate: 10, repeat: -1
+    });
     // *** Анимации камней ****/
     this.anims.create({
       key: 'diamond',
@@ -301,10 +316,6 @@ export class GameService extends Phaser.Scene {
         */
 
     // *** Рендер лута, врагов, камней ***
-    if (aliesPoint) {
-      const alies = this.physics.add.sprite(aliesPoint.x! * this.scaleCoef, aliesPoint.y! * this.scaleCoef, 'hero3').play('wait');
-      alies.setScale(this.scaleCoef * 0.9);
-    }
 
     if (finishPoint) {
       this.levelTarget += 1;
@@ -315,20 +326,41 @@ export class GameService extends Phaser.Scene {
       this.physics.add.overlap(this.player, finish, () => {
         finish.disableBody(true, false);
         this.levelTarget -= 1;
+        this.scoreText.setText('Remaining actions: ' + this.levelTarget);
       }, () => { return; }, this);
     }
 
+    if (aliesPoint) {
+      const alies = this.physics.add.sprite(aliesPoint.x! * this.scaleCoef, aliesPoint.y! * this.scaleCoef, 'hero3')
+      .setSize(70 * this.scaleCoef, 70 * this.scaleCoef)
+      .setScale(this.scaleCoef * 0.9)
+      const pointer = this.physics.add.image(finishPoint.x! * this.scaleCoef, finishPoint.y! * this.scaleCoef, 'hidden');
+      setTimeout(()=>{
+        alies.play('walk')
+       this.physics.moveToObject(alies, pointer,60);
+      },15000)
+      this.physics.add.overlap(alies, pointer, () => {
+
+        alies.body.reset(finishPoint.x! * this.scaleCoef, (finishPoint.y!) * this.scaleCoef);
+        alies.play('wait')
+         pointer.destroy()
+    }, () => { return; }, this);
+    }
+
+
+
     if (deliverPoint) {
-      this.levelTarget += 1
+      this.levelTarget += 1;
       const deliver = this.physics.add.image(deliverPoint.x! * this.scaleCoef, deliverPoint.y! * this.scaleCoef, 'deliver');
       deliver.setScale(this.scaleCoef);
       this.physics.add.overlap(this.player, deliver, () => {
 
         if (deliver.x + deliver.y - this.player.x - this.player.y < Math.abs(20) && this.isPut) {
-          this.isPut = false
+          this.isPut = false;
           this.levelTarget -= 1;
+          this.scoreText.setText('Remaining actions: ' + this.levelTarget);
         }
-      })
+      });
     }
 
     if (gemPoints) {
@@ -341,6 +373,7 @@ export class GameService extends Phaser.Scene {
         this.physics.add.overlap(this.player, coin, () => {
           coin.disableBody(true, true);
           this.levelTarget -= 1;
+          this.scoreText.setText('Remaining actions: ' + this.levelTarget);
         }, () => { return; }, this);
       });
     }
@@ -348,18 +381,33 @@ export class GameService extends Phaser.Scene {
     if (enemiesPoints) {
       this.levelTarget += enemiesPoints.length;
       enemiesPoints.forEach((point) => {
-        const enemy = this.physics.add.sprite(0, 0, `orc${point.properties[0].value}`).play(`stand${point.properties[0].value}`)
+        const enemy = this.physics.add.sprite(100 * this.scaleCoef,100 * this.scaleCoef, `orc${point.properties[0].value}`).play(`stand${point.properties[0].value}`)
+                  .setSize(70 * this.scaleCoef, 70 * this.scaleCoef)
+          //.setX(point.x! * this.scaleCoef)
+          //.setY(point.y! * this.scaleCoef)
+          .setScale(this.scaleCoef );
+        const pointer = this.physics.add.image(0,0, 'hidden')
           .setSize(70 * this.scaleCoef, 70 * this.scaleCoef)
           .setX(point.x! * this.scaleCoef)
           .setY(point.y! * this.scaleCoef)
           .setScale(this.scaleCoef );
-
+          setTimeout(()=>{
+            this.physics.moveToObject(enemy, pointer,60);
+            enemy.play(`run${point.properties[0].value}`)
+          },8000)
+          this.physics.add.overlap(enemy, pointer, () => {
+            enemy.body.stop()
+            enemy.body.reset(point.x! * this.scaleCoef, point.y! * this.scaleCoef);
+            enemy.play(`stand${point.properties[0].value}`)
+            pointer.destroy()
+        }, () => { return; }, this);
         this.physics.add.overlap(this.player, enemy, () => {
-          console.log(enemy.x + enemy.y - this.player.x - this.player.y)
-          if ( enemy.x + enemy.y - this.player.x - this.player.y < Math.abs(66* this.scaleCoef) && this.isAttack) {
-            enemy.play(`lay${point.properties[0].value}`)
-            this.isAttack = false
+          console.log(enemy.x + enemy.y - this.player.x - this.player.y);
+          if ( enemy.x + enemy.y - this.player.x - this.player.y < Math.abs(66 * this.scaleCoef) && this.isAttack) {
+            enemy.play(`lay${point.properties[0].value}`);
+            this.isAttack = false;
             this.levelTarget -= 1;
+            this.scoreText.setText('Remaining actions: ' + this.levelTarget);
           }
         }, () => { return; }, this);
       });
@@ -372,17 +420,16 @@ export class GameService extends Phaser.Scene {
         loot.setY(point.y! * this.scaleCoef);
         loot.setScale(this.scaleCoef * 0.8);
         this.physics.add.overlap(this.player, loot, () => {
-          console.log(loot.x + loot.y - this.player.x - this.player.y)
+          console.log(loot.x + loot.y - this.player.x - this.player.y);
           if (loot.x + loot.y - this.player.x - this.player.y < Math.abs(15) && this.isTaken) {
             loot.disableBody(true, true);
-            this.isTaken = false
+            this.isTaken = false;
             this.levelTarget -= 1;
+            this.scoreText.setText('Remaining actions: ' + this.levelTarget);
           }
         }, () => { return; }, this);
       });
     }
-
-    ;
 
 
     // **************
@@ -404,12 +451,13 @@ export class GameService extends Phaser.Scene {
 
     if (this.gameSettings[0].value && !this.isMusicOn) {
       music.play();
-      this.isMusicOn = true
+      this.isMusicOn = true;
     } else if (!this.gameSettings[0].value) {
       music.stop();
       this.sound.stopAll();
-      this.isMusicOn = false
+      this.isMusicOn = false;
     }
+    this.scoreText.setText('Remaining actions: ' + this.levelTarget);
   }
 
   playButtonSound(): void {
@@ -484,7 +532,7 @@ export class GameService extends Phaser.Scene {
   async attack(): Promise<void> {
     return new Promise((res) => {
       if (this.gameSettings[0].value) { this.sound.play('fight'); }
-      this.isAttack = true
+      this.isAttack = true;
 
       switch (this.currentDirection) {
         case 0:
@@ -507,7 +555,7 @@ export class GameService extends Phaser.Scene {
   }
   async take(): Promise<void> {
     return new Promise((res) => {
-      this.isTaken = true
+      this.isTaken = true;
       setTimeout(() => {
         res();
       }, 1500);
@@ -515,7 +563,7 @@ export class GameService extends Phaser.Scene {
   }
   async put(): Promise<void> {
     return new Promise((res) => {
-      this.isPut = true
+      this.isPut = true;
       setTimeout(() => {
         res();
       }, 1500);
@@ -523,7 +571,7 @@ export class GameService extends Phaser.Scene {
   }
 
   async turn(commands: string[]): Promise<void> {
-    console.log(commands)
+    console.log(commands);
     for (const elem of commands) {
       if (this.isRestart) {
         this.isRestart = false;
@@ -601,8 +649,8 @@ export class GameService extends Phaser.Scene {
       if (this.gameSettings[0].value) {
         this.sound.play('success');
       }
-      this.scene.stop('main')
-      this.scene.remove('main')
+      this.scene.stop('main');
+      this.scene.remove('main');
     } else {
       codeField.openLosePopup();
       this.levelTarget = 0;
