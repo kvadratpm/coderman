@@ -3,7 +3,6 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import * as ace from 'ace-builds';
 import helps from './json/helps.json';
-import {GameService} from '../../services/game.service';
 
 @Component({
   selector: 'app-codefield',

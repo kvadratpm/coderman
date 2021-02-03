@@ -591,7 +591,7 @@ export class GameService extends Phaser.Scene {
   checkIfSuccess(codeField: CodefieldComponent): void {
     const distancePlayertofinish = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.finishX, this.finishY);
     console.log(distancePlayertofinish);
-    if (distancePlayertofinish < 20 * this.scaleCoef && this.levelTarget === 0) {
+    if (distancePlayertofinish < 50 && this.levelTarget === 0) {
       codeField.openWinPopup();
       if (this.gameSettings[0].value) {
         this.sound.play('success');
