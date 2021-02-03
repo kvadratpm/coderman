@@ -5,10 +5,7 @@
 
 .logo {
   display: flex;
-
   align-items: center;
-
-
   h2 {
     font-size: 30pt;
   }
@@ -16,7 +13,6 @@
     font-size: 11pt;
   }
 }
-
 
 .wrapper {
   margin: 0 auto;
@@ -28,7 +24,7 @@
 .git {
   display: flex;
   justify-content: space-between;
-  width: 12vw;
+  width: 15vw;
   align-items: center;
   img {
     width: 33px;
@@ -39,6 +35,18 @@
   img:hover {
     width: 42px;
     height: 42px;
+  }
+  a {
+    font-family: 'Inconsolata', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+  }
+  h2 {
+    font-family: 'Inconsolata', sans-serif;
+    font-size: 1vw;
   }
 }
 
@@ -55,7 +63,6 @@
 }
 
 .rss-a {
-
   display: flex;
   justify-content: center;
   width: 12vw;
