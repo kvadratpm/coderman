@@ -153,6 +153,10 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
     }
     if (isWinSwap) {
       localStorage.setItem('lastWinLevel', String(this.currentLevel));
+      if (this.currentLevel === 10) {
+        this.router.navigate(['']);
+        return;
+      }
       this.changeLevel(item);
       localStorage.setItem('currentLevel', String(this.currentLevel));
       this.router.navigate([`level${item}`]);
@@ -185,9 +189,15 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   openWinPopup(): void {
     this.isPopupActive = true;
     this.isWin = true;
-    this.popupText = 'Отлично! Вы большой молодец, продолжайте в том же духе!';
-    this.popupTopic = `Победа!`;
-    this.popupButtonInnerText = 'Продолжить';
+    if (this.currentLevel === 10) {
+      this.popupText = 'Вы проделали большую работу и подобрались на шаг ближе к реальному программированию. Вам, определенно, стоит продолжать заниматься этим!';
+      this.popupTopic = `Победа!`;
+      this.popupButtonInnerText = 'Вернуться на главную';
+    } else {
+      this.popupText = 'Отлично! Вы большой молодец, продолжайте в том же духе!';
+      this.popupTopic = `Победа!`;
+      this.popupButtonInnerText = 'Продолжить';
+    }
   }
   openWelcomePopup(): void {
     this.isPopupActive = true;
