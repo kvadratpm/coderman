@@ -8283,10 +8283,10 @@
 </data>
  </layer>
  <objectgroup id="2" name="Items" offsetx="0.747771" offsety="1.49554">
-  <object id="1" name="Spawn Point" x="525" y="525">
+  <object id="1" name="Spawn Point" x="470.333" y="525">
    <point/>
   </object>
-  <object id="97" name="Finish Point" x="275" y="325">
+  <object id="97" name="Finish Point" x="321.667" y="534.333">
    <point/>
   </object>
   <object id="102" name="Enemy Point" x="425" y="310">
