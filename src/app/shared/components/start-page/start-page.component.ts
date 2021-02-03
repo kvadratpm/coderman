@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgwWowService } from 'ngx-wow'
 
 @Component({
@@ -8,13 +9,18 @@ import { NgwWowService } from 'ngx-wow'
 })
 export class StartPageComponent implements OnInit {
 
-  constructor(private wowService: NgwWowService) {
+  constructor(private wowService: NgwWowService, private router: Router) {
     this.wowService.init();
    }
 
   ngOnInit(): void {
-    
 
+
+  }
+
+  startGame(): void {
+    const currentLevel =  parseInt(localStorage.getItem('currentLevel') as string, 10);
+    this.router.navigate([`/level${currentLevel}`]);
   }
 
 

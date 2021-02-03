@@ -66,7 +66,7 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   }
 
   get code(): string[] {
-    console.log(this.aceEditor.getValue())
+    console.log(this.aceEditor.getValue());
     return this.aceEditor.getValue().split('\n');
   }
 
