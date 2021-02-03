@@ -91,7 +91,7 @@
                  "visible":true,
                  "width":0,
                  "x":125,
-                 "y":187.837666666667
+                 "y":187.838
                 }, 
                 {
                  "height":0,
@@ -109,7 +109,7 @@
                  "visible":true,
                  "width":0,
                  "x":125,
-                 "y":136.504666666667
+                 "y":136.505
                 }, 
                 {
                  "height":0,
@@ -127,7 +127,7 @@
                  "visible":true,
                  "width":0,
                  "x":425,
-                 "y":125.666666666667
+                 "y":125.667
                 }, 
                 {
                  "height":0,
@@ -144,8 +144,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":175.919333333333,
-                 "y":379.666666666667
+                 "x":175.919,
+                 "y":379.667
                 }, 
                 {
                  "height":0,
@@ -163,7 +163,7 @@
                  "visible":true,
                  "width":0,
                  "x":375,
-                 "y":173.837666666667
+                 "y":173.838
                 }, 
                 {
                  "height":0,
@@ -217,7 +217,7 @@
                  "visible":true,
                  "width":0,
                  "x":375,
-                 "y":379.666666666667
+                 "y":379.667
                 }, 
                 {
                  "height":0,
@@ -234,8 +234,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":529.252333333333,
-                 "y":379.666666666667
+                 "x":529.252,
+                 "y":379.667
                 }, 
                 {
                  "height":0,
@@ -252,8 +252,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":327.252333333333,
-                 "y":379.666666666667
+                 "x":327.252,
+                 "y":379.667
                 }, 
                 {
                  "height":0,
@@ -271,7 +271,7 @@
                  "visible":true,
                  "width":0,
                  "x":325.919,
-                 "y":125.666666666667
+                 "y":125.667
                 }, 
                 {
                  "height":0,
@@ -289,7 +289,7 @@
                  "visible":true,
                  "width":0,
                  "x":375,
-                 "y":125.666666666667
+                 "y":125.667
                 }, 
                 {
                  "height":0,
@@ -307,7 +307,7 @@
                  "visible":true,
                  "width":0,
                  "x":275,
-                 "y":379.666666666667
+                 "y":379.667
                 }, 
                 {
                  "height":0,
@@ -361,7 +361,7 @@
                  "visible":true,
                  "width":0,
                  "x":275,
-                 "y":125.666666666667
+                 "y":125.667
                 }, 
                 {
                  "height":0,
@@ -378,8 +378,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":474.585562333333,
-                 "y":379.666666666667
+                 "x":474.586,
+                 "y":379.667
                 }, 
                 {
                  "height":0,
@@ -397,7 +397,7 @@
                  "visible":true,
                  "width":0,
                  "x":425,
-                 "y":379.666666666667
+                 "y":379.667
                 }, 
                 {
                  "height":0,
@@ -415,7 +415,7 @@
                  "visible":true,
                  "width":0,
                  "x":275,
-                 "y":172.50446
+                 "y":172.504
                 }, 
                 {
                  "height":0,
@@ -433,7 +433,7 @@
                  "visible":true,
                  "width":0,
                  "x":125,
-                 "y":379.666666666667
+                 "y":379.667
                 }, 
                 {
                  "height":0,
@@ -450,8 +450,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":225.252229,
-                 "y":379.666666666667
+                 "x":225.252,
+                 "y":379.667
                 }, 
                 {
                  "height":0,
@@ -469,7 +469,7 @@
                  "visible":true,
                  "width":0,
                  "x":375,
-                 "y":327.171126666667
+                 "y":327.171
                 }, 
                 {
                  "height":0,
@@ -487,7 +487,7 @@
                  "visible":true,
                  "width":0,
                  "x":125,
-                 "y":230.50446
+                 "y":230.504
                 }, 
                 {
                  "height":0,
@@ -505,7 +505,7 @@
                  "visible":true,
                  "width":0,
                  "x":125,
-                 "y":275.837793333333
+                 "y":275.838
                 }, 
                 {
                  "height":0,
@@ -541,7 +541,7 @@
                  "visible":true,
                  "width":0,
                  "x":275,
-                 "y":222.50446
+                 "y":222.504
                 }, 
                 {
                  "height":0,
@@ -559,7 +559,7 @@
                  "visible":true,
                  "width":0,
                  "x":375,
-                 "y":230.50446
+                 "y":230.504
                 }, 
                 {
                  "height":0,
@@ -577,7 +577,7 @@
                  "visible":true,
                  "width":0,
                  "x":375,
-                 "y":275.171126666667
+                 "y":275.171
                 }, 
                 {
                  "height":0,
@@ -613,7 +613,7 @@
                  "visible":true,
                  "width":0,
                  "x":425,
-                 "y":226.50446
+                 "y":226.504
                 }],
          "offsetx":0.747771,
          "offsety":1.49554,
@@ -10071,7 +10071,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -10080,7 +10080,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -10089,7 +10089,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -10098,7 +10098,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -10107,7 +10107,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -10116,7 +10116,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -10125,7 +10125,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -10134,7 +10134,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -10143,7 +10143,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -10152,7 +10152,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -10161,7 +10161,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -10170,7 +10170,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -10179,7 +10179,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -10494,7 +10494,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -10602,7 +10602,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -10917,7 +10917,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -11025,7 +11025,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -11340,7 +11340,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -11448,7 +11448,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -11763,7 +11763,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -11871,7 +11871,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -12186,7 +12186,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -12294,7 +12294,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -12609,7 +12609,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -12717,7 +12717,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -13032,7 +13032,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -13140,7 +13140,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -13455,7 +13455,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -13563,7 +13563,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -13878,7 +13878,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -13986,7 +13986,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -14301,7 +14301,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -14409,7 +14409,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -14724,7 +14724,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -14832,7 +14832,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -15147,7 +15147,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -15156,7 +15156,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -15165,7 +15165,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -15174,7 +15174,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -15183,7 +15183,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -15192,7 +15192,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -15201,7 +15201,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -15210,7 +15210,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -15219,7 +15219,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -15228,7 +15228,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -15237,7 +15237,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -15246,7 +15246,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -15255,7 +15255,7 @@
                         {
                          "name":"collides",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
