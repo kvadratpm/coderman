@@ -1,4 +1,5 @@
 
+
 .code-editor {
   width: 100%;
   height: 100%;
@@ -6,21 +7,21 @@
 }
 
 $active-icon-font: #D2D1D5;
-$main-icon-size: 30px;
-$main-font-size: 25px;
+$main-icon-size: 3rem;
+$main-font-size: 2.5rem;
 .exit-wrapper {
   display: flex;
   align-items: center;
   cursor: pointer;
   outline: none;
-  padding: 0 10px;
+  padding: 0 1rem;
 }
 
 .exit-label {
   font-family: Roboto, sans-serif;
   color: $active-icon-font;
   font-size: $main-font-size;
-  margin-right: 5px;
+  margin-right: 0.5rem;
   cursor: pointer;
 }
 
@@ -31,48 +32,51 @@ $main-font-size: 25px;
 .button {
   transition-duration: 0.1s;
   outline: none;
-  padding: 6px;
+  padding: 0.6rem;
 
   &__controller {
-    padding: 10px 50px;
-    border-radius: 25px;
-    font-size: 25px;
+    padding: 1rem 5rem;
+    border-radius: 2.5rem;
+    font-size: 2.5rem;
     color: #ffffff;
     cursor: pointer;
-    margin: 5px auto 15px 0;
+    margin: 0.5rem auto 1.5rem 0;
+    @media screen and (max-width:1300px) {
+      font-size: 2rem;
+    }
   }
 
   &__action {
-    margin: 5px;
+    margin: 0.5rem;
   }
 
   &__level1 {
     background-color: rgb(21, 216, 226);
-    box-shadow: 0 5px 0 0 rgb(7, 141, 147);
+    box-shadow: 0 0.5rem 0 0 rgb(7, 141, 147);
 
     &:hover {
       background-color: rgb(77, 233, 241);
-      box-shadow: 0 5px 0 0 rgb(54, 164, 170);
+      box-shadow: 0 0.5rem 0 0 rgb(54, 164, 170);
     }
   }
 
   &__level2 {
     background-color: rgb(124, 200, 0);
-    box-shadow: 0 5px 0 0 rgb(89, 143, 0);
+    box-shadow: 0 0.5rem 0 0 rgb(89, 143, 0);
 
     &:hover {
       background-color: rgb(140, 220, 8);
-      box-shadow: 0 5px 0 0 rgb(107, 169, 6);
+      box-shadow: 0 0.5rem 0 0 rgb(107, 169, 6);
     }
   }
 
   &__level3 {
     background-color: rgb(255, 10, 123);
-    box-shadow: 0 5px 0 0 rgb(175, 9, 85);
+    box-shadow: 0 0.5rem 0 0 rgb(175, 9, 85);
 
     &:hover {
       background-color: rgb(255, 51, 145);
-      box-shadow: 0 5px 0 0 rgb(214, 13, 105);
+      box-shadow: 0 0.5rem 0 0 rgb(214, 13, 105);
     }
   }
 }
@@ -87,6 +91,7 @@ $main-font-size: 25px;
 
 .commands-wrapper {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .icon {
@@ -112,16 +117,19 @@ $main-font-size: 25px;
   display: flex;
   align-items: center;
   list-style-type: none;
+  padding: 0;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .help-wrapper {
   font-family: Roboto, sans-serif;
   display: flex;
   width: 100%;
-  min-width: 300px;
-  max-width: 700px;
-  height: 100px;
-  margin: 40px 0;
+  min-width: 30rem;
+  max-width: 70rem;
+  height: 10rem;
+  margin: 4rem 0;
 }
 
 .avatar {
@@ -132,21 +140,22 @@ $main-font-size: 25px;
 
 .help__avatar {
   height: 100%;
-  width: 100px;
+  width: 10rem;
 
-  margin-right: 10px;
+  margin-right: 1rem;
   cursor: pointer;
 }
 
 .help__dialog {
   flex: 1;
   background-color: white;
-  border-radius: 25px;
-  padding: 10px 20px;
+  border-radius: 2.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.6rem;
 }
 
 .header {
-  margin: 20px 0;
+  margin: 2rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -157,9 +166,10 @@ $main-font-size: 25px;
 }
 
 .nav-elem {
-  margin: 0 10px;
-  width: 36px;
-  height: 36px;
+  margin: 1rem;
+  width: 3.6rem;
+  height: 3.6rem;
+  font-size: 1.6rem;
 
   &__outer-circle {
     display: flex;
@@ -187,7 +197,7 @@ $main-font-size: 25px;
   }
 
   &__previous {
-    box-shadow: 0 0 0 2px #A39CC2;
+    box-shadow: 0 0 0 0.2rem #A39CC2;
   }
 
 }
@@ -216,7 +226,7 @@ $main-font-size: 25px;
 }
 
 .win-wrapper {
-  padding: 0 10px;
+  padding: 0 1rem;
 }
 
 .move-wrapper {
@@ -243,7 +253,7 @@ $main-font-size: 25px;
 }
 .popup {
   font-family: Roboto, sans-serif;
-  border-radius: 25px;
+  border-radius: 2.5rem;
   position: fixed;
   z-index: 10001;
   background-color: white;
@@ -252,8 +262,8 @@ $main-font-size: 25px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 700px;
-  height: 400px;
+  width: 70rem;
+  height: 40rem;
   justify-content: space-evenly;
   align-items: center;
   &__content {
@@ -263,27 +273,27 @@ $main-font-size: 25px;
 
   }
   &__avatar {
-    margin: 0 20px;
-    height: 200px;
-    width: 200px;
+    margin: 0 2rem;
+    height: 20rem;
+    width: 20rem;
   }
   &__button {
     margin: 0;
     background-color: rgb(124, 200, 0);
-    box-shadow: 0 5px 0 0 rgb(89, 143, 0);
+    box-shadow: 0 0.5rem 0 0 rgb(89, 143, 0);
     border: none;
     &:hover {
       background-color: rgb(140, 220, 8);
-      box-shadow: 0 5px 0 0 rgb(107, 169, 6);
+      box-shadow: 0 0.5rem 0 0 rgb(107, 169, 6);
     }
   }
   &__text {
-    font-size: 20px;
-    padding: 30px 0;
-    max-width: 445px;
+    font-size: 2rem;
+    padding: 3rem 0;
+    max-width: 44.5rem;
   }
   &__topic {
-    font-size: 40px;
+    font-size: 4rem;
   }
 }
 .actions-wrapper {
