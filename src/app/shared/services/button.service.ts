@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 export class Button extends Phaser.GameObjects.Container {
   targetScene: any;
   currentText: any;
-  savedGame!:any
+  savedGame!: any;
   scene!: any;
 
   constructor(

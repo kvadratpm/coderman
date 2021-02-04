@@ -1,7 +1,6 @@
 import * as Phaser from 'phaser';
 import { Button } from './button.service';
 import { CodefieldComponent } from '../components/codefield/codefield.component';
-import { ScaleTo } from 'excalibur/dist/Actions/Action';
 
 /**
  * С помощью этой конфигурации создаётся новый уровень игры.
@@ -59,7 +58,6 @@ export interface SceneConfig {
 export class GameService extends Phaser.Scene {
   gameSettings!: any;
   defaultSettings!: any;
-
   currentDirection = 0;
   platforms!: any;
   player!: any;
@@ -94,7 +92,6 @@ export class GameService extends Phaser.Scene {
   }
 
   preload(): void {
-    console.log(this.sceneConfig);
     this.load.image('tiles', 'assets/map/tiles.png');
     this.defaultSettings = [
       { setting: 'music', value: false },
@@ -309,12 +306,6 @@ export class GameService extends Phaser.Scene {
     });
     // ****************
 
-    /*
-        const camera = this.cameras.main;
-        camera.startFollow(this.player);
-        camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-        */
-
     // *** Рендер лута, врагов, камней ***
 
     if (finishPoint) {
@@ -382,10 +373,8 @@ export class GameService extends Phaser.Scene {
       this.levelTarget += enemiesPoints.length;
       enemiesPoints.forEach((point) => {
         const enemy = this.physics.add.sprite(100 * this.scaleCoef, 100 * this.scaleCoef, `orc${point.properties[0].value}`).play(`stand${point.properties[0].value}`)
-                  .setSize(70 * this.scaleCoef, 70 * this.scaleCoef)
-          // .setX(point.x! * this.scaleCoef)
-          // .setY(point.y! * this.scaleCoef)
-          .setScale(this.scaleCoef );
+          .setSize(70 * this.scaleCoef, 70 * this.scaleCoef)
+          .setScale(this.scaleCoef);
         const pointer = this.physics.add.image(0, 0, 'hidden')
           .setSize(70 * this.scaleCoef, 70 * this.scaleCoef)
           .setX(point.x! * this.scaleCoef)
@@ -402,7 +391,6 @@ export class GameService extends Phaser.Scene {
             pointer.destroy();
         }, () => { return; }, this);
         this.physics.add.overlap(this.player, enemy, () => {
-          console.log(enemy.x + enemy.y - this.player.x - this.player.y);
           if ( enemy.x + enemy.y - this.player.x - this.player.y < Math.abs(66 * this.scaleCoef) && this.isAttack) {
             enemy.play(`lay${point.properties[0].value}`);
             this.isAttack = false;
@@ -420,7 +408,6 @@ export class GameService extends Phaser.Scene {
         loot.setY(point.y! * this.scaleCoef);
         loot.setScale(this.scaleCoef * 0.8);
         this.physics.add.overlap(this.player, loot, () => {
-          console.log(loot.x + loot.y - this.player.x - this.player.y);
           if (loot.x + loot.y - this.player.x - this.player.y < Math.abs(15) && this.isTaken) {
             loot.disableBody(true, true);
             this.isTaken = false;
@@ -513,7 +500,6 @@ export class GameService extends Phaser.Scene {
   async rotateRight(): Promise<void> {
     return new Promise((res) => {
       this.currentDirection = this.currentDirection === 270 ? 0 : this.currentDirection + 90;
-      console.log('right');
       setTimeout(() => {
         res();
       }, 1500);
@@ -571,7 +557,6 @@ export class GameService extends Phaser.Scene {
   }
 
   async turn(commands: string[]): Promise<void> {
-    console.log(commands);
     for (const elem of commands) {
       if (this.isRestart) {
         this.isRestart = false;
@@ -643,7 +628,6 @@ export class GameService extends Phaser.Scene {
   checkIfSuccess(codeField: CodefieldComponent): void {
 
     const distancePlayertofinish = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.finishX, this.finishY);
-    console.log(distancePlayertofinish);
     if (distancePlayertofinish < 50 && this.levelTarget === 0) {
       codeField.openWinPopup();
       if (this.gameSettings[0].value) {

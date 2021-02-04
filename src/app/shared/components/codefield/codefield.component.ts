@@ -13,14 +13,14 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
 
   @ViewChild('editor') private editor!: ElementRef<HTMLElement>;
 
-  currentLevel = Number(/\d+/.exec(this.router.url)); // TODO: Создать интерфейс, принимаемые значения - keyof Helps
-  currentHelp = 0; // TODO: Создать интерфейс, принимаемые значения - keyof Helps.CurrentLevel
+  currentLevel = Number(/\d+/.exec(this.router.url));
+  currentHelp = 0;
   isCommand = false;
   isRotate = false;
   isAction = false;
   isCycleControl = false;
   aceEditor!: any;
-  helps: { [index: string]: {[index: string]: string} } = helps; // TODO: Создать интерфейс Helps
+  helps: { [index: string]: {[index: string]: string} } = helps;
   @ViewChildren('interactiveLighting') navElements: any;
   isMoveControl = false;
   moveLimit: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -66,7 +66,6 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
   }
 
   get code(): string[] {
-    console.log(this.aceEditor.getValue());
     return this.aceEditor.getValue().split('\n');
   }
 
@@ -91,7 +90,6 @@ export class CodefieldComponent implements OnInit, AfterViewInit {
         this.navElements.forEach((e: any) => {
           const el = e.nativeElement;
           const numberElem = parseInt(el.innerText, 10);
-          console.log(numberElem === this.currentLevel);
           el.classList.toggle('nav-elem__previous', numberElem < this.currentLevel);
           el.classList.toggle('nav-elem__active', numberElem === this.currentLevel);
         });
