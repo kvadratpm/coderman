@@ -235,10 +235,10 @@ export class GameService extends Phaser.Scene {
       key: 'lay1',
       frames: this.anims.generateFrameNames('orc1', { prefix: 'lay1.', start: 0, end: 11, zeroPad: 3 })
     });
-   /* this.anims.create({
+    /* this.anims.create({
       key: 'run1',
       frames: this.anims.generateFrameNames('orc1', { prefix: 'run1.', start: 0, end: 3, zeroPad: 3 })
-    });*/
+    }); */
     this.anims.create({
       key: 'stand2',
       frames: this.anims.generateFrameNames('orc2', { prefix: 'stand2.', start: 0, end: 15, zeroPad: 3 }),
@@ -248,10 +248,10 @@ export class GameService extends Phaser.Scene {
       key: 'lay2',
       frames: this.anims.generateFrameNames('orc2', { prefix: 'lay2.', start: 0, end: 12, zeroPad: 3 })
     });
-     /*   this.anims.create({
+    /* this.anims.create({
       key: 'run2',
       frames: this.anims.generateFrameNames('orc2', { prefix: 'run2.', start: 0, end: 3, zeroPad: 3 })
-    });*/
+    }); */
     this.anims.create({
       key: 'wait',
       frames: this.anims.generateFrameNames('hero3', { prefix: 'wait.', start: 0, end: 19, zeroPad: 3 }),
@@ -376,19 +376,19 @@ export class GameService extends Phaser.Scene {
           .setSize(70 * this.scaleCoef, 70 * this.scaleCoef)
           .setScale(this.scaleCoef);
         const pointer = this.physics.add.image(0, 0, 'hidden')
-          .setSize(70 * this.scaleCoef, 70 * this.scaleCoef)
+          .setSize(0, 0)
           .setX(point.x! * this.scaleCoef)
           .setY(point.y! * this.scaleCoef)
-          .setScale(this.scaleCoef );
-        setTimeout(() => {
-            this.physics.moveToObject(enemy, pointer, 60);
-            enemy.play(`run${point.properties[0].value}`);
-          }, 8000);
+          .setScale(this.scaleCoef);
+        this.physics.moveToObject(enemy, pointer, 160);
+        enemy.play(`run${point.properties[0].value}`);
         this.physics.add.overlap(enemy, pointer, () => {
-            enemy.body.stop();
-            enemy.body.reset(point.x! * this.scaleCoef, point.y! * this.scaleCoef);
-            enemy.play(`stand${point.properties[0].value}`);
-            pointer.destroy();
+            setTimeout(() => {
+              enemy.body.stop();
+              enemy.body.reset(point.x! * this.scaleCoef, point.y! * this.scaleCoef);
+              enemy.play(`stand${point.properties[0].value}`);
+              pointer.destroy();
+            }, 800)
         }, () => { return; }, this);
         this.physics.add.overlap(this.player, enemy, () => {
           if ( enemy.x + enemy.y - this.player.x - this.player.y < Math.abs(66 * this.scaleCoef) && this.isAttack) {
