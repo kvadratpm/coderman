@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgwWowService } from 'ngx-wow'
+import { NgwWowService } from 'ngx-wow';
 
 @Component({
   selector: 'app-start-page',
