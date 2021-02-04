@@ -1,3 +1,9 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a1796c28-420b-44c5-b425-27e532a1e635/deploy-status)](https://app.netlify.com/sites/rsclone-coderman/deploys)
+
+
+# Coderman
+
+
 Приложение Coderman создано для обучения детей программированию. Приложеине создано с использованием Angular, Phaser 3, AceEditor.
 При участии:
 https://github.com/kvadratpm
